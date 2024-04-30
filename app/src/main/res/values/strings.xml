@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Coffee App</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--- Main Activity -->
+    <string name="confirm_exit_dialog">Are you sure you want to exit the app?</string>
+    <string name="exit">Exit</string>
+
+    <!-- Splash -->
+    <string name="text_splash1">Coffee So Good, Your Taste buds will love it</string>
+    <string name="text_splash2">The best grain, the finest roast, the powerful flavor</string>
+    <string name="get_started">Get Started</string>
+
+
+    <!--- Login - Register -->
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="name">Full Name</string>
+    <string name="email">Email Address</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="login_welcome_text">Welcome back! Glad to see you, Again!</string>
+    <string name="register_welcome_text">Hello, Register here to get started</string>
+    <string name="dont_have_an_account">Don\'t have an account?</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="login_failed">Login failed. Please check your credentials and try again.</string>
+    <string name="register_failed">Registration failed. Please try again later.</string>
+    <string name="send_mail">Reset Link was sent to your email</string>
+    <string name="empyt_mail">Email address is empty, so the reset link couldn\'t be sent</string>
+
+
+    <!--- Home -->
+    <string name="home">Home</string>
+    <string name="all">All</string>
+    <string name="americano">Americano</string>
+    <string name="latte">Latte</string>
+    <string name="espresso">Espresso</string>
+    <string name="black_coffee">Black Coffee</string>
+    <string name="cappuccino">Cappuccino</string>
+    <string name="macchiato">Macchiato</string>
+    <string name="home_desc">Find the best coffee for you</string>
+    <string name="packets">Packets</string>
+    <string name="search_text">Find Your Coffee..</string>
+    <string name="with_milk">With Steamed Milk</string>
+    <string name="cream">With Cream</string>
+    <string name="ice">With Ice</string>
+    <string name="chocolate">With Chocolate</string>
+    <string name="white_chocolate">With White Chocolate</string>
+    <string name="vanilla">With Vanilla</string>
+    <string name="caramel">With Caramel</string>
+    <string name="hazelnut">With Hazelnut</string>
+    <string name="gram">gm</string>
+
+
+    <!--- Detail -->
+    <string name="detail">Detail</string>
+    <string name="price_format">$%.2f</string>
+    <string name="medium_roasted">Medium Roasted</string>
+    <string name="rating_counts">6,879</string>
+    <string name="milk">Milk</string>
+    <string name="coffee">Coffee</string>
+    <string name="price">Price</string>
+    <string name="add_to_cart">Add to Cart</string>
+
+
+    <!--- Order -->
+    <string name="my_order">My Order</string>
+    <string name="order_received">Your order has been received</string>
+    <string name="go_to_home_page">Go to Home Page</string>
+
+
+    <!--- Order History -->
+    <string name="order_history">Order History</string>
+    <string name="order_id">Order ID: %1$s</string>
+    <string name="order_date">Order Date: %1$s</string>
+    <string name="product_name">Product Name: %1$s</string>
+
+
+
+    <!-- Cart -->
+    <string name="my_cart">My Cart</string>
+    <string name="product_added_to_cart">Product added to cart</string>
+    <string name="product_already_in_cart">The product is already in your cart</string>
+    <string name="product_removed_from_cart">Product removed from your cart</string>
+    <string name="pay">Pay</string>
+    <string name="empty_cart">Cart is Empty</string>
+    <string name="must_login">You must be logged in to continue</string>
+    <string name="first_price">$0.0</string>
+    <string name="confirm_delete_product">Would you like to delete the product?</string>
+
+
+    <!-- Favorites -->
+    <string name="my_favorites">My Favorites</string>
+    <string name="product_added_to_favorites">Product added to favorites</string>
+    <string name="product_already_in_favorites">The product is already in your favorites</string>
+    <string name="product_removed_from_favorites">Product removed from your favorites</string>
+    <string name="empty_favorites">Favorites is Empty</string>
+    <string name="description">Description</string>
+    <string name="unexpected_error">An unexpected error occurred</string>
+    <string name="description_americano">The Americano is another popular type of coffee drink, and it\'s very easy to make! It\'s just espresso with hot water dripping over it. The name came about during World War II when European baristas added water to their espresso drinks for the American soldiers stationed there. The resulting drink had a smoother, less concentrated flavour than espresso and thus the Americano was born.</string>
+    <string name="description_black_coffee">Black coffee is arguably the most common type of coffee drink out there. Its popularity can be mainly attributed to how easy it is to make this beverage, be it drip, pour-over, French press, or anything else. Black coffee is usually served with no add-ins.</string>
+    <string name="description_cappuccino">Cappuccinos are a classic Italian type of coffee drink made of espresso, steamed milk, and thick foam in equal parts. The name comes from the resemblance to the hoods worn by Capuchin monks. Making cappuccino is relatively easy and can be done at home too if you know how to make espresso.</string>
+    <string name="description_espresso">"Espresso is made by forcing nearly boiling water through finely-ground coffee beans, which results in a concentrated, syrup-like coffee drink. This is the base for many Italian beverages in coffee shops. When compared to regular brewed coffee, espresso is much stronger than the other types of coffee drinks. Espressos are enjoyed in shots where a single shot is one ounce and a long (single and double) shot is two ounces in amount, respectively.</string>
+    <string name="description_latte">"A latte is an espresso with steamed milk and a dollop of milk foam on top. This beverage is more prevalent in America than other coffee drinks like cappuccinos because it contains less foam, making it smoother and gentler for those with sensitive palettes. And if you want to spice up your latte, add some flavouring syrup. To make an iced version of this drink, simply pour espresso and steamed milk over ice cubes.</string>
+    <string name="description_macchiato">"The word \"macchiato\" means spotted, so a macchiato espresso is an espresso with a splash of milk. Most coffee shops will top off this type of coffee drink with some foamed milk instead of just steamed milk for what's known as a traditional macchiato.</string>
+
+
+    <!-- Payment Information-->
+    <string name="payment_information">Payment Information</string>
+    <string name="card_holder_name">Card Holder Name</string>
+    <string name="expiry_date_title">Expiry Date</string>
+    <string name="wallet">Wallet</string>
+    <string name="pay_google">Google Pay</string>
+    <string name="pay_amazon">Amazon Pay</string>
+    <string name="pay_from_credit_card">Pay From Credit Card</string>
+    <string name="pay_from_wallet">Pay From Wallet</string>
+    <string name="pay_from_google">Pay From Google</string>
+    <string name="pay_from_amazon">Pay From Amazon</string>
+    <string name="confirm_delete_credit_card">Are you sure you want to delete your credit card?</string>
+
+
+    <!--- Add Card -->
+    <string name="add_card">Add Card</string>
+    <string name="name_the_card">Name The Card</string>
+    <string name="card_number">Card Number</string>
+    <string name="card_expiration_date">Card Expiration Date</string>
+    <string name="fill_in_all_fields">Fill in All Fields</string>
+
+
+    <!-- Profile -->
+    <string name="profile">Profile</string>
+    <string name="personel_information">Personal Information</string>
+    <string name="notification">Notification</string>
+    <string name="my_score">My Score</string>
+    <string name="help">Help</string>
+    <string name="log_out">Log Out</string>
+    <string name="log_out_dialog">Are you sure you want to log out?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="currency">Currency</string>
+    <string name="languages">Languages</string>
+    <string name="english">English</string>
+    <string name="turkish">Turkish</string>
+    <string name="german">German</string>
+    <string name="french">French</string>
+    <string name="change_password">Change Password</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
+
+
+    <!--- Forgot Password -->
+    <string name="reset_password">Reset Password</string>
+    <string name="reset_password_message">We will send you password reset link on your Email</string>
+    <string name="cancel">Cancel</string>
+    <string name="send">Send</string>
+</resources>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:backgroundTint="@color/background_cart"
+    app:cardCornerRadius="16dp">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_cart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ImageView
+            android:id="@+id/image_cart"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_margin="16dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/cappuccino_pic_2_portrait"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/text_name_coffee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/image_cart"
+            app:layout_constraintTop_toTopOf="@id/image_cart"
+            tools:text="Cappuccino" />
+
+        <TextView
+            android:id="@+id/text_special_ingredient_coffee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/white_transparent"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@id/text_name_coffee"
+            app:layout_constraintTop_toBottomOf="@id/text_name_coffee"
+            tools:text="With Steamed Milk" />
+
+
+        <LinearLayout
+            android:id="@+id/linear_layout_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/background_default_size"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:padding="4dp"
+            app:layout_constraintStart_toStartOf="@id/text_name_coffee"
+            app:layout_constraintTop_toBottomOf="@id/text_special_ingredient_coffee">
+
+            <TextView
+                android:id="@+id/text_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                tools:text="S" />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/text_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/linear_layout_size"
+            app:layout_constraintStart_toEndOf="@id/linear_layout_size"
+            app:layout_constraintTop_toTopOf="@id/linear_layout_size"
+            tools:text="$6.20" />
+
+
+        <ImageView
+            android:id="@+id/image_minus"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:scaleType="center"
+            android:src="@drawable/background_minus"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/text_name_coffee"
+            app:layout_constraintTop_toBottomOf="@id/linear_layout_size" />
+
+        <LinearLayout
+            android:id="@+id/linear_layout_count"
+            android:layout_width="48dp"
+            android:layout_height="24dp"
+            android:background="@drawable/background_selected_size"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@id/image_minus"
+            app:layout_constraintEnd_toStartOf="@id/image_plus"
+            app:layout_constraintStart_toEndOf="@id/image_minus"
+            app:layout_constraintTop_toTopOf="@id/image_minus">
+
+            <TextView
+                android:id="@+id/text_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                tools:text="1" />
+
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/image_plus"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/background_plus"
+            android:clickable="true"
+            android:focusable="true"
+            android:scaleType="center"
+            app:layout_constraintBottom_toBottomOf="@id/image_minus"
+            app:layout_constraintEnd_toEndOf="@id/text_price"
+            app:layout_constraintTop_toTopOf="@id/image_minus" />
+
+
+        <ImageView
+            android:id="@+id/image_delete"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/delete_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/text_name_coffee"
+            app:layout_constraintTop_toTopOf="@id/text_name_coffee" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

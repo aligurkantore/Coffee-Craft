@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_color"
+    tools:context=".ui.fragments.paymentinformation.PaymentInformationFragment">
+
+
+    <ImageView
+        android:id="@+id/delete_credit_cart"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_margin="32dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/delete_image"
+        app:layout_constraintEnd_toEndOf="@id/constraint_credit_card"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_credit_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/background_default_size"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/delete_credit_cart">
+
+        <ImageView
+            android:id="@+id/image_credit_card"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_margin="16dp"
+            android:scaleType="center"
+            android:src="@drawable/image_credit_card"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/image_visa"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_margin="16dp"
+            android:scaleType="center"
+            android:src="@drawable/visa"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/text_number_credit_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@id/image_credit_card"
+            app:layout_constraintTop_toBottomOf="@id/image_credit_card"
+            tools:text="1 9 1 9   8 3 2 4   9 9 2 4   9 4 9 4" />
+
+
+        <TextView
+            android:id="@+id/text_card_holder_name_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="@string/card_holder_name"
+            android:textColor="@color/md_grey_600"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/text_card_holder_name"
+            app:layout_constraintStart_toStartOf="@id/image_credit_card"
+            app:layout_constraintTop_toBottomOf="@id/text_number_credit_card" />
+
+
+        <TextView
+            android:id="@+id/text_card_holder_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/image_credit_card"
+            tools:text="Ali Gürkan Töre" />
+
+        <TextView
+            android:id="@+id/text_expiry_date_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="@string/expiry_date_title"
+            android:textColor="@color/md_grey_600"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/text_expiry_date"
+            app:layout_constraintEnd_toEndOf="@id/image_visa"
+            app:layout_constraintTop_toBottomOf="@id/text_number_credit_card" />
+
+
+        <TextView
+            android:id="@+id/text_expiry_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/image_visa"
+            tools:text="02/30" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_layout_wallet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="32dp"
+        android:background="@drawable/edit_text_background_payment"
+        android:orientation="horizontal"
+        android:padding="6dp"
+        app:layout_constraintEnd_toEndOf="@id/constraint_credit_card"
+        app:layout_constraintStart_toStartOf="@id/constraint_credit_card"
+        app:layout_constraintTop_toBottomOf="@id/constraint_credit_card">
+
+
+        <ImageView
+            android:id="@+id/image_wallet"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="4dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/wallet" />
+
+        <TextView
+            android:id="@+id/text_wallet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:text="@string/wallet"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_layout_google_pay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="32dp"
+        android:background="@drawable/edit_text_background_payment"
+        android:orientation="horizontal"
+        android:padding="4dp"
+        app:layout_constraintEnd_toEndOf="@id/constraint_credit_card"
+        app:layout_constraintStart_toStartOf="@id/constraint_credit_card"
+        app:layout_constraintTop_toBottomOf="@id/linear_layout_wallet">
+
+        <ImageView
+            android:id="@+id/image_google"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="4dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/google_pay" />
+
+        <TextView
+            android:id="@+id/text_google_pay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:text="@string/pay_google"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_layout_amazon_pay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="32dp"
+        android:background="@drawable/edit_text_background_payment"
+        android:orientation="horizontal"
+        android:padding="4dp"
+        app:layout_constraintEnd_toEndOf="@id/constraint_credit_card"
+        app:layout_constraintStart_toStartOf="@id/constraint_credit_card"
+        app:layout_constraintTop_toBottomOf="@id/linear_layout_google_pay">
+
+        <ImageView
+            android:id="@+id/image_amazon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="4dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/amazon" />
+
+        <TextView
+            android:id="@+id/text_amazon_pay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:text="@string/pay_amazon"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_layout_add_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="32dp"
+        android:background="@drawable/edit_text_background_payment"
+        android:orientation="horizontal"
+        android:padding="4dp"
+        app:layout_constraintEnd_toEndOf="@id/constraint_credit_card"
+        app:layout_constraintStart_toStartOf="@id/constraint_credit_card"
+        app:layout_constraintTop_toBottomOf="@id/linear_layout_amazon_pay">
+
+        <ImageView
+            android:id="@+id/image_add_card"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="4dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/add_card" />
+
+        <TextView
+            android:id="@+id/text_add_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:text="@string/add_card"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/text_title_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/price"
+        android:textColor="@color/white_transparent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/text_price"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/text_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="16dp"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="$4.20" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_pay"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/button_add_to_cart"
+        android:text="@string/pay"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/text_price"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/text_price"
+        app:layout_constraintTop_toTopOf="@id/text_title_price" />
+
+    <ImageView
+        android:id="@+id/image_card"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/add_card"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/text_not_logged_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/must_login"
+        android:textColor="@color/is_selected"
+        android:textSize="18sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image_card" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/button_add_to_cart"
+        android:text="@string/login"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/text_not_logged_in"
+        app:layout_constraintStart_toEndOf="@id/text_not_logged_in"
+        app:layout_constraintTop_toBottomOf="@id/text_not_logged_in" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Kaffee-App</string>
+    <string name="hello_blank_fragment">Hallo leeres Fragment</string>
+
+
+    <!--- Main Activity -->
+    <string name="confirm_exit_dialog">Möchten Sie die App wirklich verlassen?</string>
+    <string name="exit">Ausgang</string>
+
+
+    <!-- Splash -->
+    <string name="text_splash1">Kaffee so gut, dass Ihre Geschmacksknospen es lieben werden</string>
+    <string name="text_splash2">Das beste Getreide, der feinste Röstung, der kraftvolle Geschmack</string>
+    <string name="get_started">Loslegen</string>
+
+
+    <!--- Login - Register -->
+    <string name="login">Anmeldung</string>
+    <string name="register">Registrieren</string>
+    <string name="name">Vollständiger Name</string>
+    <string name="email">E-Mail-Adresse</string>
+    <string name="password">Passwort</string>
+    <string name="confirm_password">Passwort bestätigen</string>
+    <string name="forgot_password">Passwort vergessen?</string>
+    <string name="login_welcome_text">Willkommen zurück! Schön, dich wiederzusehen!</string>
+    <string name="register_welcome_text">Hallo, hier registrieren, um loszulegen</string>
+    <string name="dont_have_an_account">Sie haben noch keinen Account?</string>
+    <string name="already_have_an_account">Sie haben bereits einen Account?</string>
+    <string name="login_failed">Anmeldung fehlgeschlagen. Bitte überprüfen Sie Ihre Anmeldeinformationen und versuchen Sie es erneut.</string>
+    <string name="register_failed">Registrierung fehlgeschlagen. Bitte versuchen Sie es später erneut.</string>
+    <string name="send_mail">Reset-Link wurde an Ihre E-Mail gesendet</string>
+    <string name="empyt_mail">Die E-Mail-Adresse ist leer, daher konnte der Zurücksetzungslink nicht gesendet werden</string>
+
+
+    <!--- Home -->
+    <string name="home">Zuhause</string>
+    <string name="all">Alle</string>
+    <string name="americano">Americano</string>
+    <string name="latte">Latte</string>
+    <string name="espresso">Espresso</string>
+    <string name="black_coffee">Schwarzer Kaffee</string>
+    <string name="cappuccino">Cappuccino</string>
+    <string name="macchiato">Macchiato</string>
+    <string name="home_desc">Finden Sie den besten Kaffee für Sie</string>
+    <string name="packets">Päckchen</string>
+    <string name="search_text">Finden Sie Ihren Kaffee..</string>
+    <string name="with_milk">Mit Milchschaum</string>
+    <string name="cream">Mit Sahne</string>
+    <string name="ice">Mit Eis</string>
+    <string name="chocolate">Mit Schokolade</string>
+    <string name="white_chocolate">Mit weißer Schokolade</string>
+    <string name="vanilla">Mit Vanille</string>
+    <string name="caramel">Mit Karamell</string>
+    <string name="hazelnut">Mit Haselnuss</string>
+    <string name="gram">g</string>
+
+
+    <!--- Detail -->
+    <string name="detail">Detail</string>
+    <string name="price_format">%n €</string>
+    <string name="medium_roasted">Mittel geröstet</string>
+    <string name="rating_counts">6.879</string>
+    <string name="milk">Milch</string>
+    <string name="coffee">Kaffee</string>
+    <string name="price">Preis</string>
+    <string name="add_to_cart">In den Warenkorb legen</string>
+
+
+    <!--- Order -->
+    <string name="my_order">Meine Bestellung</string>
+    <string name="order_received">Ihre Bestellung wurde erhalten</string>
+    <string name="go_to_home_page">Gehe zur Startseite</string>
+
+
+    <!--- Order History -->
+    <string name="order_history">Bestellverlauf</string>
+    <string name="order_id">Bestellnummer: %1$s</string>
+    <string name="order_date">Bestelldatum: %1$s</string>
+    <string name="product_name">Produktname: %1$s</string>
+
+
+
+    <!--- Cart -->
+    <string name="my_cart">Mein Warenkorb</string>
+    <string name="product_added_to_cart">Produkt wurde zum Warenkorb hinzugefügt</string>
+    <string name="product_already_in_cart">Das Produkt befindet sich bereits in Ihrem Warenkorb</string>
+    <string name="product_removed_from_cart">Produkt wurde aus Ihrem Warenkorb entfernt</string>
+    <string name="pay">Bezahlen</string>
+    <string name="empty_cart">Der Warenkorb ist leer</string>
+    <string name="must_login">Sie müssen angemeldet sein, um fortzufahren</string>
+    <string name="first_price">0,00 €</string>
+    <string name="confirm_delete_product">Möchten Sie das Produkt löschen?</string>
+
+
+
+    <!--- Favorites -->
+    <string name="my_favorites">Meine Favoriten</string>
+    <string name="product_added_to_favorites">Produkt wurde zu Favoriten hinzugefügt</string>
+    <string name="product_already_in_favorites">Das Produkt befindet sich bereits in Ihren Favoriten</string>
+    <string name="product_removed_from_favorites">Produkt wurde aus Ihren Favoriten entfernt</string>
+    <string name="empty_favorites">Favoriten sind leer</string>
+    <string name="description">Beschreibung</string>
+    <string name="unexpected_error">Ein unerwarteter Fehler ist aufgetreten</string>
+    <string name="description_americano">Der Americano ist eine weitere beliebte Art von Kaffeegetränk und sehr einfach herzustellen! Es handelt sich lediglich um Espresso, über den heißes Wasser getropft wird. Der Name entstand während des Zweiten Weltkriegs, als europäische Baristas Wasser zu ihren Espressos für die dort stationierten amerikanischen Soldaten hinzufügten. Das resultierende Getränk hatte einen weicheren, weniger konzentrierten Geschmack als Espresso und so wurde der Americano geboren.</string>
+    <string name="description_black_coffee">Schwarzer Kaffee ist wahrscheinlich die häufigste Art von Kaffeegetränk. Seine Beliebtheit kann hauptsächlich darauf zurückgeführt werden, wie einfach dieses Getränk zubereitet werden kann, sei es als Filterkaffee, Pour-Over, French Press oder etwas anderes. Schwarzer Kaffee wird normalerweise ohne Zusätze serviert.</string>
+    <string name="description_cappuccino">Cappuccinos sind ein klassisches italienisches Kaffeegetränk aus Espresso, aufgeschäumter Milch und dickem Schaum in gleichen Teilen. Der Name leitet sich von der Ähnlichkeit mit den Kutten der Kapuziner-Mönche ab. Die Zubereitung eines Cappuccinos ist relativ einfach und kann auch zu Hause erfolgen, wenn Sie wissen, wie man Espresso zubereitet.</string>
+    <string name="description_espresso">"Espresso wird hergestellt, indem nahezu kochendes Wasser durch fein gemahlenen Kaffee gepresst wird, was zu einem konzentrierten, sirupartigen Kaffeegetränk führt. Dies ist die Basis für viele italienische Getränke in Cafés. Im Vergleich zu normalem Filterkaffee ist Espresso viel stärker als die anderen Arten von Kaffeegetränken. Espressos werden in Shots genossen, wobei ein Shot eine Unze und ein langer (einzelner und doppelter) Shot zwei Unzen in der Menge ist.</string>
+    <string name="description_latte">"Ein Latte ist ein Espresso mit aufgeschäumter Milch und einem Klecks Milchschaum oben drauf. Dieses Getränk ist in Amerika verbreiteter als andere Kaffeegetränke wie Cappuccinos, weil es weniger Schaum enthält und dadurch für Personen mit empfindlichem Gaumen sanfter und geschmeidiger ist. Und wenn Sie Ihren Latte etwas aufpeppen möchten, fügen Sie etwas Aromasirup hinzu. Um eine eisige Version dieses Getränks herzustellen, gießen Sie einfach Espresso und aufgeschäumte Milch über Eiswürfel.</string>
+    <string name="description_macchiato">"Das Wort \"Macchiato\" bedeutet fleckig, daher ist ein Macchiato-Espresso ein Espresso mit einem Spritzer Milch. Die meisten Cafés werden diese Art von Kaffeegetränk mit etwas aufgeschäumter Milch anstelle von nur aufgeschäumter Milch für das, was als traditioneller Macchiato bekannt ist, abschließen.</string>
+
+
+
+    <!-- Payment Information -->
+    <string name="payment_information">Zahlungsinformationen</string>
+    <string name="card_holder_name">Name des Karteninhabers</string>
+    <string name="expiry_date_title">Ablaufdatum</string>
+    <string name="wallet">Brieftasche</string>
+    <string name="pay_google">Google Pay</string>
+    <string name="pay_amazon">Amazon Pay</string>
+    <string name="pay_from_credit_card">Zahlung per Kreditkarte</string>
+    <string name="pay_from_wallet">Zahlung von der Brieftasche</string>
+    <string name="pay_from_google">Zahlung von Google</string>
+    <string name="pay_from_amazon">Zahlung von Amazon</string>
+    <string name="confirm_delete_credit_card">Sind Sie sicher, dass Sie Ihre Kreditkarte löschen möchten?</string>
+
+
+
+    <!-- Add Card -->
+    <string name="add_card">Karte hinzufügen</string>
+    <string name="name_the_card">Benennen Sie die Karte</string>
+    <string name="card_number">Kartennummer</string>
+    <string name="card_expiration_date">Kartenablaufdatum</string>
+    <string name="fill_in_all_fields">Füllen Sie alle Felder aus</string>
+
+
+
+    <!-- Profile -->
+    <string name="profile">Profil</string>
+    <string name="personel_information">Persönliche Informationen</string>
+    <string name="notification">Benachrichtigung</string>
+    <string name="my_score">Meine Punktzahl</string>
+    <string name="help">Hilfe</string>
+    <string name="log_out">Ausloggen</string>
+    <string name="log_out_dialog">Möchten Sie sich wirklich abmelden?</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nein</string>
+    <string name="currency">Währung</string>
+    <string name="languages">Sprachen</string>
+    <string name="english">Englisch</string>
+    <string name="turkish">Türkisch</string>
+    <string name="german">Deutsch</string>
+    <string name="french">Französisch</string>
+    <string name="change_password">Passwort ändern</string>
+    <string name="old_password">Altes Passwort</string>
+    <string name="new_password">Neues Passwort</string>
+
+
+    <!--- Forgot Password -->
+    <string name="reset_password">Passwort zurücksetzen</string>
+    <string name="reset_password_message">Wir senden Ihnen einen Link zum Zurücksetzen des Passworts an Ihre E-Mail-Adresse</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="send">Senden</string>
+</resources>

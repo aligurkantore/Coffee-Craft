@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_color"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".ui.fragments.addcard.AddCardFragment">
+
+
+    <EditText
+        android:id="@+id/edit_text_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/edit_text_background"
+        android:hint="@string/name_the_card"
+        android:inputType="text"
+        android:padding="12dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/md_grey_500" />
+
+    <EditText
+        android:id="@+id/edit_text_card_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/edit_text_background"
+        android:hint="@string/card_number"
+        android:inputType="number"
+        android:padding="12dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/md_grey_500" />
+
+    <EditText
+        android:id="@+id/edit_text_expiration_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/edit_text_background"
+        android:hint="@string/card_expiration_date"
+        android:inputType="datetime"
+        android:padding="12dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/md_grey_500" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_add_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/button_login"
+        android:text="@string/add_card"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+
+</LinearLayout>

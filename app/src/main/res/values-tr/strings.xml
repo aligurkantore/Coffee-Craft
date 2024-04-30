@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Kahve Uygulaması</string>
+    <string name="hello_blank_fragment">Merhaba boş fragman</string>
+
+    <!--- Main Activity -->
+    <string name="confirm_exit_dialog">Uygulamadan çıkmak istediğinize emin misiniz?</string>
+    <string name="exit">Çıkış</string>
+
+    <!-- Splash -->
+    <string name="text_splash1">Kahve O Kadar Güzel ki, Tat Alma Tomurcuklarınız Bayılacak</string>
+    <string name="text_splash2">En İyi Taneler, En İnce Kavrulmuş, Güçlü Lezzet</string>
+    <string name="get_started">Başlayın</string>
+
+
+    <!--- Login - Register -->
+    <string name="login">Giriş Yap</string>
+    <string name="register">Kayıt Ol</string>
+    <string name="name">Ad Soyad</string>
+    <string name="email">E-posta Adresi</string>
+    <string name="password">Şifre</string>
+    <string name="confirm_password">Tekrar Şifre</string>
+    <string name="forgot_password">Şifrenizi mi Unuttunuz?</string>
+    <string name="login_welcome_text">Tekrar Hoş Geldiniz! Sizi Görmekten Memnuniyet Duyuyoruz!</string>
+    <string name="register_welcome_text">Merhaba, Başlamak İçin Buradan Kaydolun</string>
+    <string name="dont_have_an_account">Hesabınız Yok mu?</string>
+    <string name="already_have_an_account">Zaten Bir Hesabınız Var mı?</string>
+    <string name="login_failed">Giriş Başarısız. Lütfen Kimlik Bilgilerinizi Kontrol Edin ve Tekrar Deneyin.</string>
+    <string name="register_failed">Kayıt Başarısız. Lütfen Daha Sonra Tekrar Deneyin.</string>
+    <string name="send_mail">Şifre sıfırlama bağlantısı e-postanıza gönderildi</string>
+    <string name="empyt_mail">E-posta adresi boş olduğu için şifre sıfırlama bağlantısı gönderilemedi</string>
+
+
+
+    <!--- Home -->
+    <string name="home">Ana Sayfa</string>
+    <string name="all">Tümü</string>
+    <string name="americano">Americano</string>
+    <string name="latte">Latte</string>
+    <string name="espresso">Espresso</string>
+    <string name="black_coffee">Black Coffee</string>
+    <string name="cappuccino">Cappuccino</string>
+    <string name="macchiato">Macchiato</string>
+    <string name="home_desc">Sizin İçin En İyi Kahveyi Bulun</string>
+    <string name="packets">Paketler</string>
+    <string name="search_text">Kahvenizi Bulun..</string>
+    <string name="with_milk">Buharlı Süt İle</string>
+    <string name="cream">Krema İle</string>
+    <string name="ice">Buz İle</string>
+    <string name="chocolate">Çikolata İle</string>
+    <string name="white_chocolate">Beyaz Çikolata İle</string>
+    <string name="vanilla">Vanilya İle</string>
+    <string name="caramel">Karamel İle</string>
+    <string name="hazelnut">Fındık İle</string>
+    <string name="gram">gr</string>
+
+
+
+    <!--- Detail -->
+    <string name="detail">Detay</string>
+    <string name="price_format">$%.2f</string>
+    <string name="medium_roasted">Orta Kavrulmuş</string>
+    <string name="rating_counts">6,879</string>
+    <string name="milk">Süt</string>
+    <string name="coffee">Kahve</string>
+    <string name="price">Fiyat</string>
+    <string name="add_to_cart">Sepete Ekle</string>
+
+
+
+    <!--- Order -->
+    <string name="my_order">Siparişlerim</string>
+    <string name="order_received">Siparişiniz alınmıştır</string>
+    <string name="go_to_home_page">Anasayfaya gidiniz</string>
+
+
+    <!--- Order History -->
+    <string name="order_history">Sipariş Geçmişi</string>
+    <string name="order_id">Sipariş Numarası: %1$s</string>
+    <string name="order_date">Sipariş Tarihi: %1$s</string>
+    <string name="product_name">Ürün Adı: %1$s</string>
+
+    <!-- Cart -->
+    <string name="my_cart">Sepetim</string>
+    <string name="product_added_to_cart">Ürün Sepete Eklendi</string>
+    <string name="product_already_in_cart">Ürün Sepetinizde Bulunmaktadır</string>
+    <string name="product_removed_from_cart">Ürün Sepetinizden Kaldırıldı</string>
+    <string name="pay">Ödemeyi Tamamla</string>
+    <string name="empty_cart">Sepette Ürün Bulunmamaktadır</string>
+    <string name="must_login">Devam Etmek İçin Giriş Yapmalısınız</string>
+    <string name="first_price">$0.0</string>
+    <string name="confirm_delete_product">Ürünü silmek istiyor musunuz?</string>
+
+
+
+
+    <!-- Favorites -->
+    <string name="my_favorites">Favorilerim</string>
+    <string name="product_added_to_favorites">Ürün Favorilere Eklendi</string>
+    <string name="product_already_in_favorites">Ürün Favorilerinizde Bulunmaktadır</string>
+    <string name="product_removed_from_favorites">Ürün Favorilerinizden Kaldırıldı</string>
+    <string name="empty_favorites">Favorilerde Ürün Bulunmamaktadır</string>
+    <string name="description">Açıklama</string>
+    <string name="unexpected_error">Beklenmeyen Bir Hata Oluştu</string>
+    <string name="description_americano">Amerikano, diğer popüler bir kahve içecek türüdür ve yapımı çok kolaydır! Sadece espressonun üzerine sıcak su damlatmak anlamına gelir. Adı, II. Dünya Savaşı sırasında Avrupa\'daki baristaların Amerikan askerleri için su eklemelerinden gelir. Ortaya çıkan içecek, espresso kadar yoğun olmayan daha yumuşak bir tada sahiptir ve bu şekilde Amerikano doğar.</string>
+    <string name="description_black_coffee">Siyah kahve muhtemelen en yaygın kahve içeceği türüdür. Popülerliği, damlatma, dökme, Fransız pres veya başka bir şey gibi bu içeceği yapmanın kolay olmasından kaynaklanabilir. Siyah kahve genellikle eklem içermez.</string>
+    <string name="description_cappuccino">Cappuccino, espressoyu, buharlı sütü ve eşit oranlarda kalın köpüğü içer.</string>
+    <string name="description_espresso">Espresso, neredeyse kaynamış suyu ince çekilmiş kahve çekirdeklerinden geçirerek yapılır ve sonuç olarak konsantre, şurup gibi bir kahve içeceği elde edilir. Bu, kahve dükkanlarında birçok İtalyan içeceğinin temelidir. Normal demlenmiş kahveye göre, espresso diğer kahve içeceklerine göre çok daha güçlüdür. Espressolar, bir vuruşta bir ons ve uzun (tekli ve çiftli) vuruş ise iki ons ağırlığındadır.</string>
+    <string name="description_latte">Latte, espressonun üzerine buharlı süt ve üstüne bir miktar süt köpüğü eklenerek yapılan bir içecektir. Bu içecek, cappuccino gibi fazla köpük içermediği için Amerika\'da daha yaygındır, çünkü bu özelliği hassas damaklara sahip olanlar için daha pürüzsüz ve nazik bir içecek yapar. Latte\'nizi biraz daha ilginç hale getirmek isterseniz, biraz aroma verici şurup ekleyebilirsiniz. Bu içeceğin buzlu versiyonunu yapmak için ise sadece espressoyu ve buharlı sütü buz küplerinin üzerine dökmeniz yeterli.</string>
+    <string name="description_macchiato">Macchiato kelimesi "benekli" anlamına geldiğinden, bir macchiato espressosu, üzerine biraz süt damlatılmış bir espresso içeceğidir. Çoğu kahve dükkanı, bu tür bir kahve içeceğini geleneksel bir macchiato olarak adlandırılan biraz köpüklü süt ile tamamlar.</string>
+
+
+
+    <!-- Payment Information -->
+    <string name="payment_information">Ödeme Bilgileri</string>
+    <string name="card_holder_name">Kart Sahibinin Adı</string>
+    <string name="expiry_date_title">Son Kullanma Tarihi</string>
+    <string name="wallet">Cüzdan</string>
+    <string name="pay_google">Google Pay</string>
+    <string name="pay_amazon">Amazon Pay</string>
+    <string name="pay_from_credit_card">Kredi Kartından Öde</string>
+    <string name="pay_from_wallet">Cüzdandan Öde</string>
+    <string name="pay_from_google">Google Pay ile Öde</string>
+    <string name="pay_from_amazon">Amazon Pay ile Öde</string>
+    <string name="confirm_delete_credit_card">Kredi kartınızı silmek istediğinize emin misiniz?</string>
+
+
+
+    <!--- Add Card -->
+    <string name="add_card">Kart Ekle</string>
+    <string name="name_the_card">Kartı İsimsiz Olarak Kaydet</string>
+    <string name="card_number">Kart Numarası</string>
+    <string name="card_expiration_date">Kart Son Kullanma Tarihi</string>
+    <string name="fill_in_all_fields">Tüm Alanları Doldurun</string>
+
+
+
+    <!-- Profile -->
+    <string name="profile">Profil</string>
+    <string name="personel_information">Kişisel Bilgiler</string>
+    <string name="notification">Bildirim</string>
+    <string name="my_score">Puanım</string>
+    <string name="help">Yardım</string>
+    <string name="log_out">Çıkış Yap</string>
+    <string name="log_out_dialog">Oturumu kapatmak istediğinize emin misiniz?</string>
+    <string name="yes">Evet</string>
+    <string name="no">Hayır</string>
+    <string name="currency">Para Birimi</string>
+    <string name="languages">Diller</string>
+    <string name="english">İngilizce</string>
+    <string name="turkish">Türkçe</string>
+    <string name="german">Almanca</string>
+    <string name="french">Fransızca</string>
+    <string name="change_password">Şifreni Değiştir</string>
+    <string name="old_password">Eski Şifre</string>
+    <string name="new_password">Yeni Şifre</string>
+
+
+
+    <!--- Forgot Password -->
+    <string name="reset_password">Şifre Sıfırlama</string>
+    <string name="reset_password_message">Şifre sıfırlama bağlantısı e-postanıza gönderilecektir</string>
+    <string name="cancel">İptal</string>
+    <string name="send">Gönder</string>
+</resources>

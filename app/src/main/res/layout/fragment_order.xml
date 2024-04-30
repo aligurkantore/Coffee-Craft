@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragments.order.OrderFragment"
+    android:orientation="vertical"
+    android:background="@color/main_color"
+    android:gravity="center">
+
+
+    <ImageView
+        android:id="@+id/image_coffee"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:src="@drawable/coffee"/>
+
+    <TextView
+        android:id="@+id/text_order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/order_received"
+        android:textColor="@color/is_selected"
+        android:layout_marginTop="16dp"
+        android:textSize="24sp"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_go_to_home_page"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/button_add_to_cart"
+        android:text="@string/go_to_home_page"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="22sp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_go_to_order_history"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/button_add_to_cart"
+        android:text="Go to Order History"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="22sp" />
+
+
+</LinearLayout>
