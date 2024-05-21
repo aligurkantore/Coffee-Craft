@@ -93,4 +93,7 @@ dependencies {
 
     implementation ("com.tbuonomo:dotsindicator:4.2")
 
+    //GoogleMap
+    implementation 'com.google.android.gms:play-services-maps:18.2.0'
+
 }

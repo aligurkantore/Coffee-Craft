@@ -1,40 +1,30 @@
 package com.example.coffeeapp.ui.fragments.favorite
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coffeeapp.R
 import com.example.coffeeapp.base.BaseFragment
+import com.example.coffeeapp.base.BaseShared
 import com.example.coffeeapp.databinding.FragmentFavoriteBinding
 import com.example.coffeeapp.helper.FireBaseDataManager
+import com.example.coffeeapp.helper.FireBaseDataManager.userId
 import com.example.coffeeapp.models.coffee.CoffeeResponseModel
 import com.example.coffeeapp.ui.adapters.favorite.FavoriteAdapter
-import com.example.coffeeapp.util.ObjectUtil
 import com.example.coffeeapp.util.Constants
-import com.example.coffeeapp.util.NavigationManager
 import com.example.coffeeapp.util.goneIf
 import com.example.coffeeapp.util.navigateSafe
 import com.example.coffeeapp.util.navigateSafeWithArgs
+import com.example.coffeeapp.util.observeNonNull
 import com.example.coffeeapp.util.visibleIf
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.ktx.Firebase
 
 
 class FavoriteFragment : BaseFragment<FragmentFavoriteBinding, FavoriteViewModel>() {
 
     private lateinit var favoriteAdapter: FavoriteAdapter
-    private val favoriteItems: MutableList<CoffeeResponseModel> = mutableListOf()
-    private val dataBase: FirebaseDatabase by lazy { FirebaseDatabase.getInstance() }
 
     override val viewModelClass: Class<out FavoriteViewModel>
         get() = FavoriteViewModel::class.java
@@ -48,58 +38,34 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding, FavoriteViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (viewModel.isLoggedIn()) {
-            isUserLoggedIn(true)
-            setUpFavoriteAdapter()
-            getFavoritesFromDataBase()
-        } else {
-            isUserLoggedIn(false)
-        }
-        setUpAppBar()
+        viewModel.startAuthStateListener()
+        isUserLoggedIn(viewModel.isLoggedIn())
     }
 
     override fun setUpListeners() {
         binding?.apply {
             buttonLogin.setOnClickListener {
-                NavigationManager.apply {
-                    setCurrentFragmentId(R.id.favoriteFragment)
-                    navigateToLogin(findNavController())
-                }
+                navigateSafe(R.id.action_favoriteFragment_to_loginFragment)
             }
         }
     }
 
     override fun setUpObservers() {
+        viewModel.favoriteItemsLiveData.observeNonNull(viewLifecycleOwner) { list ->
+            if (list.isEmpty()) {
+                checkItemInAdapter(false)
+            } else {
+                checkItemInAdapter(true)
+                setUpFavoriteAdapter(list)
+            }
+        }
     }
 
-    private fun getFavoritesFromDataBase() {
-        val userId = Firebase.auth.currentUser?.uid
-        val userRef: DatabaseReference = dataBase.getReference("users/$userId/favorite")
 
-        userRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val tempList: MutableList<CoffeeResponseModel> = mutableListOf()
-                for (itemSnapshot in snapshot.children) {
-                    val item = itemSnapshot.getValue(CoffeeResponseModel::class.java)
-                    if (item != null) {
-                        tempList.add(item)
-                    }
-                }
-                favoriteItems.clear()
-                favoriteItems.addAll(tempList)
-                favoriteAdapter.notifyDataSetChanged()
-                checkItemInAdapter()
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Log.d("agt", "onCancelled ")
-            }
-        })
-    }
-
-    private fun setUpFavoriteAdapter() {
+    @SuppressLint("NotifyDataSetChanged")
+    private fun setUpFavoriteAdapter(data: List<CoffeeResponseModel>) {
         favoriteAdapter = FavoriteAdapter(
-            favoriteItems,
+            data,
             ::navigateToDetail,
             ::removeFromFavorites
         )
@@ -107,6 +73,7 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding, FavoriteViewModel
             adapter = favoriteAdapter
             layoutManager = LinearLayoutManager(mContext)
         }
+        favoriteAdapter.notifyDataSetChanged()
     }
 
     private fun navigateToDetail(data: CoffeeResponseModel) {
@@ -117,19 +84,20 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding, FavoriteViewModel
     }
 
     private fun removeFromFavorites(data: CoffeeResponseModel) {
-        if (viewModel.isLoggedIn()) FireBaseDataManager.removeFromFavorite(
-            mContext,
-            data.id.toString()
-        )
-        else navigateSafe(R.id.action_favoriteFragment_to_loginFragment)
+        if (viewModel.isLoggedIn()) {
+            FireBaseDataManager.removeFromFavorite(
+                mContext,
+                data.id.toString()
+            )
+            BaseShared.removeKey(mContext, "${userId}/favorite_${data.id}")
+        } else navigateSafe(R.id.action_favoriteFragment_to_loginFragment)
     }
 
-    private fun checkItemInAdapter() {
-        val isEmpty = favoriteItems.isEmpty()
+    private fun checkItemInAdapter(isVisible: Boolean) {
         binding?.apply {
-            recyclerFavorite.visibility = if (isEmpty) View.GONE else View.VISIBLE
-            imageEmptyFavorite.visibility = if (isEmpty) View.VISIBLE else View.GONE
-            textEmptyFavorite.visibility = if (isEmpty) View.VISIBLE else View.GONE
+            recyclerFavorite visibleIf isVisible
+            imageEmptyFavorite goneIf isVisible
+            textEmptyFavorite goneIf isVisible
         }
     }
 
@@ -142,10 +110,9 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding, FavoriteViewModel
         }
     }
 
-    private fun setUpAppBar() {
-        ObjectUtil.updateAppBarTitle(
-            mContext as AppCompatActivity,
-            getString(R.string.my_favorites)
-        )
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewModel.stopAuthStateListener()
     }
+
 }

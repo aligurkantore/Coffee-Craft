@@ -4,7 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
+import android.widget.EditText
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coffeeapp.R
 import com.example.coffeeapp.base.BaseFragment
@@ -15,18 +16,14 @@ import com.example.coffeeapp.models.coffeepacket.CoffeePacketResponseItem
 import com.example.coffeeapp.ui.adapters.home.CategoryAdapter
 import com.example.coffeeapp.ui.adapters.home.CoffeeAdapter
 import com.example.coffeeapp.ui.adapters.home.CoffeePacketAdapter
-import com.example.coffeeapp.util.ObjectUtil
 import com.example.coffeeapp.util.CoffeeUtil
 import com.example.coffeeapp.util.Constants.Companion.DETAIL
-import com.example.coffeeapp.util.gone
+import com.example.coffeeapp.util.Constants.Companion.RECYCLER_VIEW_TYPE
+import com.example.coffeeapp.util.goneIf
 import com.example.coffeeapp.util.navigateSafe
 import com.example.coffeeapp.util.navigateSafeWithArgs
-import com.example.coffeeapp.util.visible
+import com.example.coffeeapp.util.visibleIf
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
@@ -48,10 +45,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //  progressBarUtil.showProgressBar()
-        setUpCategoryAdapter()
-        setUpCoffeeAdapter()
+        setUpAdapters()
         searchCoffee()
-        setUpAppBar()
+        configureSearchView()
     }
 
     override fun setUpListeners() {}
@@ -65,18 +61,22 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
         }
     }
 
+    private fun setUpAdapters() {
+        setUpCategoryAdapter()
+        setUpLocalCoffeesAdapter()
+        setUpCakesAdapter()
+        setUpCoffeeAdapter()
+    }
+
 
     private fun setUpCategoryAdapter() {
         val categoryList = coffeeUtil.getCategoryNameList(mContext)
         categoryAdapter = CategoryAdapter(categoryList) { category ->
-            CoroutineScope(Dispatchers.Main).launch {
-                delay(500)
-                val filteredCoffeeList = when (category) {
-                    in 1..6 -> coffeeUtil.getCoffeeList(mContext).drop((category - 1) * 3).take(3)
-                    else -> coffeeUtil.getCoffeeList(mContext)
-                }
-                coffeeAdapter.updateCoffeeList(filteredCoffeeList)
+            val filteredCoffeeList = when (category) {
+                in 1..6 -> coffeeUtil.getCoffeeList(mContext).drop((category - 1) * 3).take(3)
+                else -> coffeeUtil.getCoffeeList(mContext).dropLast(11)
             }
+            coffeeAdapter.updateCoffeeList(filteredCoffeeList)
 
         }
         binding?.recyclerViewCategory?.apply {
@@ -87,21 +87,69 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
 
     private fun setUpCoffeeAdapter() {
-        coffeeList = coffeeUtil.getCoffeeList(mContext)
+        coffeeList = coffeeUtil.getCoffeeList(mContext).dropLast(11).toMutableList()
         coffeeAdapter =
             CoffeeAdapter(
                 mContext,
-                coffeeList,
+                coffeeList.toMutableList(),
                 ::navigateToDetail,
                 ::addToCartCoffee,
-                ::addToFavoriteCoffee
+                ::addToFavoriteCoffee,
+                "COFFEE_RECYCLERVIEW_TYPE",
+                viewModel.isLoggedIn()
             )
-        CoroutineScope(Dispatchers.Main).launch {
-            delay(500)
-            binding?.recyclerViewCoffee?.apply {
-                adapter = coffeeAdapter
-                layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
-            }
+
+        binding?.recyclerViewCoffee?.apply {
+            adapter = coffeeAdapter
+            layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
+        }
+    }
+
+    private fun setUpLocalCoffeesAdapter() {
+        val coffeeList = coffeeUtil.getCoffeeList(mContext)
+        val startIdStr = "39"
+        val endIdStr = "44"
+
+        val localCoffeeList = coffeeList.filter { it.id!! >= startIdStr && it.id <= endIdStr }
+
+
+        coffeeAdapter = CoffeeAdapter(
+            mContext,
+            localCoffeeList.toMutableList(),
+            ::navigateToDetail,
+            ::addToCartCoffee,
+            ::addToFavoriteCoffee,
+            "COFFEE_LOCAL_RECYCLERVIEW_TYPE",
+            viewModel.isLoggedIn()
+        )
+
+        binding?.recyclerLocalCoffees?.apply {
+            adapter = coffeeAdapter
+            layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
+        }
+    }
+
+    private fun setUpCakesAdapter() {
+        val coffeeList = coffeeUtil.getCoffeeList(mContext)
+        val startIdStr = "45"
+        val endIdStr = "49"
+
+        val cakeList = coffeeList.filter { it.id!! >= startIdStr && it.id <= endIdStr }
+
+
+        coffeeAdapter = CoffeeAdapter(
+            mContext,
+            cakeList.toMutableList(),
+            ::navigateToDetail,
+            ::addToCartCoffee,
+            ::addToFavoriteCoffee,
+            "CAKE_RECYCLERVIEW_TYPE",
+            viewModel.isLoggedIn()
+        )
+
+        binding?.recyclerCakes?.apply {
+            adapter = coffeeAdapter
+            layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
         }
     }
 
@@ -109,14 +157,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     private fun setUpCoffeePacketAdapter(data: List<CoffeePacketResponseItem>) {
         coffeePacketAdapter = CoffeePacketAdapter(
             mContext,
-            data,
-            ::addToCartCoffeePacket,
-            ::addToFavoriteCoffeePacket
+            data
         )
         binding?.recyclerCoffeePacket?.apply {
             adapter = coffeePacketAdapter
-            layoutManager =
-                LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
         }
     }
 
@@ -128,6 +173,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
                 query?.let {
                     val filteredList = searchCoffeeByTitle(it)
                     coffeeAdapter.updateCoffeeList(filteredList)
+                    updateRecyclerViewVisibility(filteredList)
                 }
                 return true
             }
@@ -136,10 +182,24 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
                 newText?.let {
                     val filteredList = searchCoffeeByTitle(it)
                     coffeeAdapter.updateCoffeeList(filteredList)
+                    updateRecyclerViewVisibility(filteredList)
                 }
                 return true
             }
         })
+    }
+
+    private fun configureSearchView() {
+        val searchView = binding?.searchView
+        val searchEditText =
+            searchView?.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
+        searchEditText?.setTextColor(ContextCompat.getColor(requireContext(), R.color.is_selected))
+        searchEditText?.setHintTextColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.is_selected
+            )
+        )
     }
 
 
@@ -151,20 +211,26 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
             }
         }
 
-        if (filteredCoffeeList.isEmpty()) {
-            binding?.apply {
-                recyclerViewCategory.gone()
-                notFoundCoffee.visible()
-            }
-        }
-
         return filteredCoffeeList
     }
 
+    private fun updateRecyclerViewVisibility(filteredList: MutableList<CoffeeResponseModel>) {
+        checkItem(filteredList.isNotEmpty())
+    }
 
-    private fun navigateToDetail(data: CoffeeResponseModel) {
+    private fun checkItem(isVisible: Boolean) {
+        binding?.apply {
+            recyclerViewCoffee visibleIf isVisible
+            recyclerViewCategory visibleIf isVisible
+            notFoundCoffee goneIf isVisible
+        }
+    }
+
+
+    private fun navigateToDetail(data: CoffeeResponseModel, recyclerViewType: String) {
         val bundle = Bundle().apply {
             putSerializable(DETAIL, data)
+            putString(RECYCLER_VIEW_TYPE, recyclerViewType)
         }
         navigateSafeWithArgs(R.id.action_homeFragment_to_detailFragment, bundle)
     }
@@ -176,23 +242,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     }
 
 
-    private fun addToFavoriteCoffee(data: CoffeeResponseModel) {
-        if (viewModel.isLoggedIn()) FireBaseDataManager.addToFavorite(mContext, data)
+    private fun addToFavoriteCoffee(data: CoffeeResponseModel, hasAction: Boolean) {
+        if (hasAction) FireBaseDataManager.toggleFavorite(mContext, data)
         else navigateSafe(R.id.action_homeFragment_to_loginFragment)
-    }
-
-    private fun addToCartCoffeePacket(data: CoffeePacketResponseItem) {
-        if (viewModel.isLoggedIn()) FireBaseDataManager.addToCart(mContext, data)
-        else navigateSafe(R.id.action_homeFragment_to_loginFragment)
-    }
-
-    private fun addToFavoriteCoffeePacket(data: CoffeePacketResponseItem) {
-        if (viewModel.isLoggedIn()) FireBaseDataManager.addToFavorite(mContext, data)
-        else navigateSafe(R.id.action_homeFragment_to_loginFragment)
-    }
-
-
-    private fun setUpAppBar() {
-        ObjectUtil.updateAppBarTitle(mContext as AppCompatActivity, getString(R.string.home))
     }
 }

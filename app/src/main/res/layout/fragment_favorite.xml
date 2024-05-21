@@ -25,7 +25,7 @@
         android:id="@+id/image_empty_favorite"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:src="@drawable/coffee"
+        android:src="@drawable/coffee_favorite"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

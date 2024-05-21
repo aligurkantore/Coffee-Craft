@@ -2,12 +2,7 @@ package com.example.coffeeapp.base
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.example.coffeeapp.models.coffee.CoffeeResponseModel
-import com.example.coffeeapp.util.Constants.Companion.CART_SHARED_PREF
-import com.example.coffeeapp.util.Constants.Companion.KEY_CART_ITEMS
 import com.example.coffeeapp.util.Constants.Companion.PREFS_NAME
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 
 object BaseShared {
 
@@ -52,28 +47,4 @@ object BaseShared {
         return stringValue?.toDoubleOrNull() ?: defaultValue
     }
 
-
-    fun saveCartItems(context: Context, cartItems: List<CoffeeResponseModel>) {
-        val gson = Gson()
-        val json = gson.toJson(cartItems)
-        context.getSharedPreferences(CART_SHARED_PREF, Context.MODE_PRIVATE)
-            .edit()
-            .putString(KEY_CART_ITEMS, json)
-            .apply()
-    }
-
-    fun getCartItems(context: Context): List<CoffeeResponseModel> {
-        val gson = Gson()
-        val json = context.getSharedPreferences(CART_SHARED_PREF, Context.MODE_PRIVATE)
-            .getString(KEY_CART_ITEMS, "")
-        val itemType = object : TypeToken<List<CoffeeResponseModel>>() {}.type
-        return gson.fromJson(json, itemType) ?: listOf()
-    }
-
-    fun clearCartItems(context: Context) {
-        context.getSharedPreferences(CART_SHARED_PREF, Context.MODE_PRIVATE)
-            .edit()
-            .remove(KEY_CART_ITEMS)
-            .apply()
-    }
 }

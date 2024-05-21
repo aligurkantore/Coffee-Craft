@@ -2,16 +2,12 @@ package com.example.coffeeapp.util
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
-import android.view.Gravity
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
@@ -23,8 +19,6 @@ import com.bumptech.glide.Glide
 import com.example.coffeeapp.R
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.firebase.auth.EmailAuthProvider
-import com.google.firebase.auth.FirebaseAuth
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -63,12 +57,12 @@ fun Fragment.setUpBottomSheetDialog(
     dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
     dialog.show()
 
-    val edmail = view.findViewById<EditText>(R.id.edit_text_send_email)
+    val eMail = view.findViewById<EditText>(R.id.edit_text_send_email)
     val buttonSend = view.findViewById<AppCompatButton>(R.id.button_send)
     val buttonCancel = view.findViewById<AppCompatButton>(R.id.button_cancel)
 
     buttonSend.setOnClickListener {
-        val email = edmail.text.toString().trim()
+        val email = eMail.text.toString().trim()
         onSendClick(email)
         dialog.dismiss()
     }
@@ -94,29 +88,7 @@ fun formatDate(date: Date): String {
 }
 
 fun showMessage(context: Context, text: String) {
-    Toast.makeText(context, text, Toast.LENGTH_LONG).show()
-}
-
-fun Context.showCustomClickableToast(message: String) {
-    val inflater = LayoutInflater.from(this)
-    val layout: View = inflater.inflate(R.layout.custom_toast, null)
-
-    val text: TextView = layout.findViewById(R.id.text_toast_message)
-    text.text = message
-
-    with (Toast(this)) {
-        setGravity(Gravity.CENTER_VERTICAL, 0, 0)
-        duration = Toast.LENGTH_LONG
-        view = layout
-        show()
-    }
-/*
-    layout.setOnClickListener {
-        val intent = Intent(this@showCustomClickableToast, destination)
-        startActivity(intent)
-    }
-
- */
+    Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
 }
 
 fun String.containsTurkishCharacters(): Boolean {
@@ -154,4 +126,11 @@ infix fun View.inVisibleIf(b: Boolean) {
 
 infix fun View.goneIf(b: Boolean) {
     if (b) gone() else visible()
+}
+
+fun generateRandomKey(length: Int): String {
+    val charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-"
+    return (1..length)
+        .map { charset.random() }
+        .joinToString("")
 }

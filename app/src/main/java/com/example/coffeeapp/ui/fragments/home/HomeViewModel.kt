@@ -2,7 +2,6 @@ package com.example.coffeeapp.ui.fragments.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
 import com.example.coffeeapp.base.BaseViewModel
 import com.example.coffeeapp.models.coffeepacket.CoffeePacketResponse
 import com.example.coffeeapp.repository.Repository
@@ -15,7 +14,6 @@ class HomeViewModel @Inject constructor(private var repository: Repository) : Ba
     private val _packetLiveData = MutableLiveData<CoffeePacketResponse>()
     val packetLiveData: LiveData<CoffeePacketResponse> = _packetLiveData
 
-    private val savedStateHandle = SavedStateHandle()
 
     init {
         getCoffeePacket()
@@ -27,13 +25,4 @@ class HomeViewModel @Inject constructor(private var repository: Repository) : Ba
         }
     }
 
-    var selectedCategory: Int
-        get() = savedStateHandle[SELECTED_CATEGORY_KEY] ?: 0
-        set(value) {
-            savedStateHandle[SELECTED_CATEGORY_KEY] = value
-        }
-
-    companion object {
-        private const val SELECTED_CATEGORY_KEY = "selected_category"
-    }
 }

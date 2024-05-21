@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:background="@drawable/button_add_to_cart"
-        android:text="Go to Order History"
+        android:text="@string/go_to_order_history"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="22sp" />

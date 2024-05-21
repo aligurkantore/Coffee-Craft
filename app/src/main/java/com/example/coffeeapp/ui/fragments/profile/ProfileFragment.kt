@@ -2,31 +2,32 @@ package com.example.coffeeapp.ui.fragments.profile
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coffeeapp.R
 import com.example.coffeeapp.base.BaseFragment
 import com.example.coffeeapp.base.BaseShared
 import com.example.coffeeapp.databinding.FragmentProfileBinding
+import com.example.coffeeapp.models.coffee.CoffeeResponseModel
 import com.example.coffeeapp.models.profile.LanguageModel
 import com.example.coffeeapp.ui.adapters.profile.LanguageAdapter
 import com.example.coffeeapp.ui.adapters.profile.ProfileCategoryAdapter
 import com.example.coffeeapp.ui.dialogs.CustomDialog
-import com.example.coffeeapp.util.ObjectUtil
 import com.example.coffeeapp.util.CoffeeUtil
-import com.example.coffeeapp.util.Constants.Companion.CATEGORYNAME
+import com.example.coffeeapp.util.Constants.Companion.CATEGORY_NAME
 import com.example.coffeeapp.util.Constants.Companion.DE
+import com.example.coffeeapp.util.Constants.Companion.EMAIL
 import com.example.coffeeapp.util.Constants.Companion.EN
 import com.example.coffeeapp.util.Constants.Companion.FR
 import com.example.coffeeapp.util.Constants.Companion.LANG
 import com.example.coffeeapp.util.Constants.Companion.TR
 import com.example.coffeeapp.util.changeLanguage
+import com.example.coffeeapp.util.goneIf
 import com.example.coffeeapp.util.navigateSafe
+import com.example.coffeeapp.util.visibleIf
 
 class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>() {
 
@@ -34,6 +35,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>()
     private lateinit var profileCategoryAdapter: ProfileCategoryAdapter
     private lateinit var languageAdapter: LanguageAdapter
     private var dialog: Dialog? = null
+    private lateinit var data: CoffeeResponseModel
 
     override val viewModelClass: Class<out ProfileViewModel>
         get() = ProfileViewModel::class.java
@@ -47,14 +49,20 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        data = CoffeeResponseModel()
         coffeeUtil = CoffeeUtil()
         setProfileCategoryAdapter()
-        setUpAppBar()
+        isUserLoggedIn(viewModel.isLoggedIn())
     }
 
     override fun setUpListeners() {
-        binding?.textChangePassword?.setOnClickListener {
-            navigateSafe(R.id.action_profileFragment_to_changePasswordFragment)
+        binding?.apply {
+            textChangePassword.setOnClickListener {
+                navigateSafe(R.id.action_profileFragment_to_changePasswordFragment)
+            }
+            buttonLogin.setOnClickListener {
+                navigateSafe(R.id.action_profileFragment_to_loginFragment)
+            }
         }
     }
 
@@ -65,31 +73,27 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>()
 
         val allCategories = coffeeUtil.getProfileCategoryList(mContext)
         val notLoggedInCustomer =
-            allCategories.filterIndexed { index, _ -> listOf(0, 1, 2, 3, 4).contains(index) }
+            allCategories.filterIndexed { it, _ -> listOf(0, 1, 2, 3, 4, 5).contains(it) }
         val isLoggedIn = viewModel.isLoggedIn()
         val categories = if (isLoggedIn) allCategories else notLoggedInCustomer
         profileCategoryAdapter = ProfileCategoryAdapter(
             categories,
             object : ProfileCategoryAdapter.ItemClickCategoryListener {
                 override fun onClickListener(categoryName: String, position: Int) {
-                    BaseShared.saveString(mContext, CATEGORYNAME, categoryName)
+                    BaseShared.saveString(mContext, CATEGORY_NAME, categoryName)
                     val actionId = when {
-                        position == 0 -> R.id.action_profileFragment_to_orderHistoryFragment
-                        position == 1 -> R.id.action_profileFragment_to_cartFragment
-                        position == 2 -> R.id.action_profileFragment_to_favoriteFragment
-                        position == 3 -> R.id.action_profileFragment_to_paymentInformationFragment
+                        position == 0 -> R.id.action_profileFragment_to_myAddressesFragment
+                        position == 1 -> R.id.action_profileFragment_to_orderHistoryFragment
+                        position == 2 -> R.id.action_profileFragment_to_cartFragment
+                        position == 3 -> R.id.action_profileFragment_to_favoriteFragment
+                        position == 4 -> R.id.action_profileFragment_to_paymentInformationFragment
                         isLoggedIn && position == 8 -> {
                             showLogoutDialog()
                             return
                         }
 
-                        (isLoggedIn && position == 4) || (!isLoggedIn && position == 4) -> {
+                        position == 5 -> {
                             showLanguagePopUp()
-                            return
-                        }
-
-                        (isLoggedIn && position == 5) || (!isLoggedIn && position == 5) -> {
-                            //  showCurrencyPopUp()
                             return
                         }
 
@@ -108,7 +112,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>()
 
     private fun showLanguagePopUp() {
         val languageList = coffeeUtil.getLanguageList(mContext)
-        languageAdapter = LanguageAdapter(languageList) { language ->
+        languageAdapter = LanguageAdapter(mContext, languageList) { language ->
             when (language) {
                 1 -> {
                     LanguageModel(
@@ -138,8 +142,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>()
                     )
                 }
             }.also {
-                mContext.changeLanguage(it.lang)
-                BaseShared.saveString(mContext, LANG, it.lang)
+                it.lang?.let { lang ->
+                    mContext.changeLanguage(lang)
+                    BaseShared.saveString(mContext, LANG, lang)
+                }
             }
             requireActivity().recreate()
         }
@@ -164,6 +170,15 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>()
         dialog?.show()
     }
 
+    private fun isUserLoggedIn(isLogin: Boolean) {
+        binding?.apply {
+            buttonLogin goneIf isLogin
+            cardViewPersonelInformation visibleIf isLogin
+            val email: String? = BaseShared.getString(mContext, EMAIL, "")
+            textUserEmail.text = email
+        }
+    }
+
     private fun showLogoutDialog() {
         CustomDialog(
             mContext,
@@ -173,14 +188,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>()
             getString(R.string.no),
             positiveButtonClickListener = {
                 viewModel.auth.signOut()
+                BaseShared.removeKey(mContext, EMAIL)
                 requireActivity().recreate()
             }
         ).show()
     }
 
-    private fun setUpAppBar() {
-        ObjectUtil.updateAppBarTitle(mContext as AppCompatActivity, getString(R.string.profile))
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

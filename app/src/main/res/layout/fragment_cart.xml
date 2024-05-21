@@ -15,6 +15,7 @@
         android:layout_marginBottom="16dp"
         android:scrollbarThumbVertical="@color/is_selected"
         android:scrollbars="vertical"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@id/text_title_price"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,6 +28,7 @@
         android:layout_height="wrap_content"
         android:text="@string/price"
         android:textColor="@color/white_transparent"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@id/text_price"
         app:layout_constraintEnd_toEndOf="@id/text_price"
         app:layout_constraintStart_toStartOf="@id/text_price" />
@@ -42,6 +44,7 @@
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -57,6 +60,7 @@
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="22sp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@id/text_price"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/text_price" />
@@ -66,12 +70,12 @@
         android:id="@+id/image_empty_cart"
         android:layout_width="60dp"
         android:layout_height="60dp"
+        android:layout_marginBottom="16dp"
         android:src="@drawable/coffee"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/text_empty_cart"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/text_empty_cart"
@@ -82,9 +86,26 @@
         android:textColor="@color/is_selected"
         android:textSize="18sp"
         android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/image_empty_cart" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_start_shopping"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/button_login"
+        android:padding="8dp"
+        android:text="@string/start_shopping"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_empty_cart" />
 
 
     <TextView

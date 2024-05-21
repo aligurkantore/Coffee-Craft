@@ -1,6 +1,5 @@
 package com.example.coffeeapp.ui.adapters.home
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -12,9 +11,7 @@ import com.example.coffeeapp.util.loadImage
 
 class CoffeePacketAdapter(
     private var context: Context,
-    private val coffeePacketList: List<CoffeePacketResponseItem>,
-    private val addToCart : (CoffeePacketResponseItem) -> Unit,
-    private val addToFavorite : (CoffeePacketResponseItem) -> Unit
+    private val coffeePacketList: List<CoffeePacketResponseItem>
 ) : RecyclerView.Adapter<CoffeePacketAdapter.CoffeePacketVH>() {
 
     inner class CoffeePacketVH(val binding: ItemCoffeePacketBinding) :
@@ -30,21 +27,15 @@ class CoffeePacketAdapter(
         return coffeePacketList.size
     }
 
-    @SuppressLint("StringFormatMatches")
     override fun onBindViewHolder(holder: CoffeePacketVH, position: Int) {
         with(holder.binding) {
-            val data = coffeePacketList[position]
-            data.imageUrl?.let { imageCoffeePacket.loadImage(it) }
-            textCoffeePacketName.text = data.name
-            textRegion.text = data.region
-            val weightInGram = data.weight.toString()
+            val coffeePacketList = coffeePacketList[position]
+            coffeePacketList.imageUrl?.let { imageCoffeePacket.loadImage(it) }
+            textCoffeePacketName.text = coffeePacketList.name
+            textRegion.text = coffeePacketList.region
+            val weightInGram = coffeePacketList.weight.toString()
             val formattedWeight = "$weightInGram${context.getString(R.string.gram)}"
             textWeight.text = formattedWeight
-            val formattedPrice = context.getString(R.string.price_format, data.price)
-            textPrice.text = formattedPrice
-
-            buttonAddToCart.setOnClickListener { addToCart.invoke(data) }
-            imageFavorite.setOnClickListener { addToFavorite.invoke(data) }
         }
     }
 }

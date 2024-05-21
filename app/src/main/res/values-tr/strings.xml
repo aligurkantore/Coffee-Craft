@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Kahve Uygulaması</string>
+    <string name="app_name">KahveZanaatı</string>
     <string name="hello_blank_fragment">Merhaba boş fragman</string>
 
     <!--- Main Activity -->
     <string name="confirm_exit_dialog">Uygulamadan çıkmak istediğinize emin misiniz?</string>
     <string name="exit">Çıkış</string>
 
+
     <!-- Splash -->
     <string name="text_splash1">Kahve O Kadar Güzel ki, Tat Alma Tomurcuklarınız Bayılacak</string>
     <string name="text_splash2">En İyi Taneler, En İnce Kavrulmuş, Güçlü Lezzet</string>
     <string name="get_started">Başlayın</string>
+
+
+    <!--Base -->
+    <string name="warning">Uyarı</string>
+    <string name="no_internet">İnternet bağlantınız bulunmamaktadır.</string>
+    <string name="ok">Tamam</string>
 
 
     <!--- Login - Register -->
@@ -53,6 +60,20 @@
     <string name="caramel">Karamel İle</string>
     <string name="hazelnut">Fındık İle</string>
     <string name="gram">gr</string>
+    <string name="english_coffee">İngiliz Kahvesi</string>
+    <string name="colombian_coffee">Kolombiya Kahvesi</string>
+    <string name="italian_coffee">İtalyan Kahvesi</string>
+    <string name="ottoman_coffee">Osmanlı Kahvesi</string>
+    <string name="turkish_coffee">Türk Kahvesi</string>
+    <string name="terebinth_coffee">Menengiç Kahvesi</string>
+    <string name="local_coffees">Yöresel Kahveler</string>
+    <string name="cakes">Kekler</string>
+    <string name="strawberry_cake">Çilekli Pasta</string>
+    <string name="cheesecake">Cheesecake</string>
+    <string name="waffle">Waffle</string>
+    <string name="crepe">Krep</string>
+    <string name="classic_cake">Klasik Kek</string>
+    <string name="not_found">Bulunamadı</string>
 
 
 
@@ -65,6 +86,7 @@
     <string name="coffee">Kahve</string>
     <string name="price">Fiyat</string>
     <string name="add_to_cart">Sepete Ekle</string>
+    <string name="product_coming_soon">Yakında Sizlerle</string>
 
 
 
@@ -72,6 +94,7 @@
     <string name="my_order">Siparişlerim</string>
     <string name="order_received">Siparişiniz alınmıştır</string>
     <string name="go_to_home_page">Anasayfaya gidiniz</string>
+    <string name="go_to_order_history">Sipariş Geçmişine Git</string>
 
 
     <!--- Order History -->
@@ -79,6 +102,11 @@
     <string name="order_id">Sipariş Numarası: %1$s</string>
     <string name="order_date">Sipariş Tarihi: %1$s</string>
     <string name="product_name">Ürün Adı: %1$s</string>
+    <string name="price_order_history">Fiyat: %1$s</string>
+    <string name="quantity">Miktar: %1$s</string>
+    <string name="total_price">Toplam Fiyat:  %.2f</string>
+    <string name="empty_order_history">Sipariş Geçmişiniz bulunmamaktadır.</string>
+
 
     <!-- Cart -->
     <string name="my_cart">Sepetim</string>
@@ -90,6 +118,7 @@
     <string name="must_login">Devam Etmek İçin Giriş Yapmalısınız</string>
     <string name="first_price">$0.0</string>
     <string name="confirm_delete_product">Ürünü silmek istiyor musunuz?</string>
+    <string name="start_shopping">Alışverişe Başla</string>
 
 
 
@@ -108,6 +137,19 @@
     <string name="description_espresso">Espresso, neredeyse kaynamış suyu ince çekilmiş kahve çekirdeklerinden geçirerek yapılır ve sonuç olarak konsantre, şurup gibi bir kahve içeceği elde edilir. Bu, kahve dükkanlarında birçok İtalyan içeceğinin temelidir. Normal demlenmiş kahveye göre, espresso diğer kahve içeceklerine göre çok daha güçlüdür. Espressolar, bir vuruşta bir ons ve uzun (tekli ve çiftli) vuruş ise iki ons ağırlığındadır.</string>
     <string name="description_latte">Latte, espressonun üzerine buharlı süt ve üstüne bir miktar süt köpüğü eklenerek yapılan bir içecektir. Bu içecek, cappuccino gibi fazla köpük içermediği için Amerika\'da daha yaygındır, çünkü bu özelliği hassas damaklara sahip olanlar için daha pürüzsüz ve nazik bir içecek yapar. Latte\'nizi biraz daha ilginç hale getirmek isterseniz, biraz aroma verici şurup ekleyebilirsiniz. Bu içeceğin buzlu versiyonunu yapmak için ise sadece espressoyu ve buharlı sütü buz küplerinin üzerine dökmeniz yeterli.</string>
     <string name="description_macchiato">Macchiato kelimesi "benekli" anlamına geldiğinden, bir macchiato espressosu, üzerine biraz süt damlatılmış bir espresso içeceğidir. Çoğu kahve dükkanı, bu tür bir kahve içeceğini geleneksel bir macchiato olarak adlandırılan biraz köpüklü süt ile tamamlar.</string>
+    <string name="english_coffee_description">İngiltere\'nin klasik ve rafine bir karışımı. Ülkenin mistik atmosferini yansıtan İngiliz kahvesi, her fincanında anlam arayışını sunar.</string>
+    <string name="colombian_coffee_description">Kolombiya\'dan zengin ve pürüzsüz kahve. Ülkenin verimli topraklarından gelen bu kahve, özenle yetiştirilen çekirdeklerin benzersiz tadını sunar ve kahve tutkunlarını memnun etmek için özenle işlenir.</string>
+    <string name="italian_coffee_description">İtalya\'dan cesur ve aromatik kahve. Ülkenin tutkulu damak tadını yansıtan bu kahve, sağlam çekirdeklerden elde edilir ve yoğun aromasıyla dikkat çeker, İtalyan kahve kültürünün sembolüdür.</string>
+    <string name="ottoman_coffee_description">Osmanlı İmparatorluğu\'nun zengin tarihinden ilham alan egzotik bir kahve. Tarihin büyüsünü bir fincanda sunan Osmanlı kahvesi, özel işleme yöntemleriyle dikkat çeker ve eşsiz bir deneyim sunar.</string>
+    <string name="turkish_coffee_description">Türkiye\'nin köpüklü ve güçlü aromasıyla bilinen kahvesi. Özel bir pişirme tekniğiyle hazırlanan bu kahve, Türk kahve kültürünü benzersiz sunumuyla yansıtır.</string>
+    <string name="terebinth_coffee_description">Terebentinle zenginleştirilmiş eşsiz ve kokulu bir kahve. Doğanın benzersiz aromalarını bir araya getiren bu kahve, özel bir tat deneyimi sunar.</string>
+    <string name="description_strawberry_cake">Taze çileklerle süslenmiş ve krema ile doldurulmuş lezzetli bir kek. Çilek sevenler için mükemmel bir tatlı!</string>
+    <string name="description_crepe">Tatlı veya tuzlu iç dolgularla servis edilen hafif ve lezzetli bir krep. Fransız mutfağının klasiklerinden biri!</string>
+    <string name="description_waffle">Farklı garnitürlerle, taze meyveler, şurup veya dondurma gibi, servis edilen gevrek ancak kabarık bir waffle. Dirençsiz bir tatlı keyfi!</string>
+    <string name="description_classic_cake">Çikolata veya vanilya soslu klasik bir vanilya kek. Herhangi bir fırsat için basit ama lezzetli bir tatlı!</string>
+    <string name="description_cheesecake">Ezilmiş bisküvit tabanı üzerine krem peynirinden yapılmış, zengin ve kremsi bir tatlı. Peynir tatlıları sevenlerin favorisi!</string>
+
+
 
 
 
@@ -154,6 +196,22 @@
     <string name="change_password">Şifreni Değiştir</string>
     <string name="old_password">Eski Şifre</string>
     <string name="new_password">Yeni Şifre</string>
+    <string name="created_by">Ali Gürkan TÖRE Tarafından Oluşturuldu</string>
+
+
+    <!--- My Addresses -->
+    <string name="my_addresses">Adreslerim</string>
+    <string name="add_new_address">Yeni Adres Ekle</string>
+    <string name="no_address_record">Henüz bir adres kaydı oluşturmadınız</string>
+    <string name="continue_with_address">Adresle Devam Et</string>
+
+
+
+    <!--- Add Address -->
+    <string name="contact_information">İletişim Bilgileri</string>
+    <string name="address_information">Adres Bilgileri</string>
+    <string name="receiver_phone_number">Alıcı Telefon Numarası</string>
+    <string name="add_to_address_book">Adres Defterime Ekle</string>
 
 
 
@@ -162,4 +220,8 @@
     <string name="reset_password_message">Şifre sıfırlama bağlantısı e-postanıza gönderilecektir</string>
     <string name="cancel">İptal</string>
     <string name="send">Gönder</string>
+    <string name="please_fill_all_fields">Lütfen tüm alanları doldurun</string>
+    <string name="passwords_do_not_match">Yeni şifreler eşleşmiyor</string>
+    <string name="password_changed_successfully">Şifre başarıyla değiştirildi</string>
+    <string name="password_change_failed">Şifre değiştirme başarısız</string>
 </resources>

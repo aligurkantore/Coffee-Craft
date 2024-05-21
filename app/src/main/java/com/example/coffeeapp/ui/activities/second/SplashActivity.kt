@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import com.example.coffeeapp.base.BaseShared
 import com.example.coffeeapp.databinding.ActivitySplashBinding
 import com.example.coffeeapp.ui.activities.main.MainActivity
@@ -30,19 +29,20 @@ class SplashActivity : AppCompatActivity() {
         setUpAnimation()
     }
 
-    private fun setUpBinding(){
+    private fun setUpBinding() {
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
     }
 
-    private fun setUpAnimation(){
+    private fun setUpAnimation() {
         CoroutineScope(Dispatchers.Main).launch {
-            delay(1000)
-            binding.textSplash1.visible()
-            binding.textSplash2.visible()
-
-            delay(3000)
-            binding.buttonStarted.visible()
+            binding.apply {
+                delay(1000)
+                textSplash1.visible()
+                textSplash2.visible()
+                delay(3000)
+                buttonStarted.visible()
+            }
         }
 
         binding.buttonStarted.setOnClickListener {

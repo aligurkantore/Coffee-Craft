@@ -5,20 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.fragment.findNavController
 import com.example.coffeeapp.R
 import com.example.coffeeapp.base.BaseFragment
 import com.example.coffeeapp.base.BaseShared
 import com.example.coffeeapp.databinding.FragmentPaymentInformationBinding
+import com.example.coffeeapp.helper.FireBaseDataManager
 import com.example.coffeeapp.ui.dialogs.CustomDialog
-import com.example.coffeeapp.util.ObjectUtil
-import com.example.coffeeapp.util.Constants.Companion.CARDNAME
-import com.example.coffeeapp.util.Constants.Companion.CARDNUMBER
-import com.example.coffeeapp.util.Constants.Companion.CARDEXPIRATIONDATE
-import com.example.coffeeapp.util.NavigationManager
 import com.example.coffeeapp.util.goneIf
 import com.example.coffeeapp.util.navigateSafe
+import com.example.coffeeapp.util.observeNonNull
 import com.example.coffeeapp.util.visible
 import com.example.coffeeapp.util.visibleIf
 
@@ -38,9 +33,9 @@ class PaymentInformationFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        backPressed()
-        setUpAppBar()
+       // backPressed()
         isUserLoggedIn(viewModel.isLoggedIn())
+        updateCreditCardVisibility(viewModel.getCreditCard().equals(true)) // tekrar incele
     }
 
     override fun setUpListeners() {
@@ -54,7 +49,6 @@ class PaymentInformationFragment :
 
             clickListeners.forEach { (view, textResId) ->
                 view.setOnClickListener {
-
                     val scale = 1.1f
                     view.animate().scaleX(scale).scaleY(scale).setDuration(200).start()
 
@@ -63,8 +57,10 @@ class PaymentInformationFragment :
                     }
                     textTitlePrice.visible()
                     textPrice.visible()
-                    buttonPay.visible()
-                    buttonPay.text = mContext.getString(textResId)
+                    buttonPay.apply {
+                        visible()
+                        text = mContext.getString(textResId)
+                    }
                 }
             }
 
@@ -77,21 +73,31 @@ class PaymentInformationFragment :
             }
 
             buttonLogin.setOnClickListener {
-                NavigationManager.apply {
-                    setCurrentFragmentId(R.id.paymentInformationFragment)
-                    navigateToLogin(findNavController())
-                }
+                navigateSafe(R.id.action_paymentInformationFragment_to_loginFragment)
             }
 
             buttonPay.setOnClickListener {
+                FireBaseDataManager.moveCartToOrderHistory(mContext)
                 navigateSafe(R.id.action_paymentInformationFragment_to_orderFragment)
             }
-            showSavedCardInfo()
             showTotalPrice()
         }
     }
 
     override fun setUpObservers() {
+        viewModel.creditCardLiveData.observeNonNull(viewLifecycleOwner) { creditCard ->
+            if (creditCard?.userName?.isNotEmpty() == true) {
+                binding?.apply {
+                    textCardHolderName.text = creditCard.userName
+                    textNumberCreditCard.text = creditCard.cardNumber
+                    textExpiryDate.text = creditCard.cardExpiration
+                }
+                updateCreditCardVisibility(true)
+            } else {
+                updateCreditCardVisibility(false)
+            }
+
+        }
     }
 
     private fun updateCreditCardVisibility(visible: Boolean) {
@@ -101,29 +107,9 @@ class PaymentInformationFragment :
         }
     }
 
-    private fun showSavedCardInfo() {
-        val saveCardName = BaseShared.getString(mContext, CARDNAME, "")
-        val saveCardNumber = BaseShared.getString(mContext, CARDNUMBER, "")
-        val saveCardExpirationDate = BaseShared.getString(mContext, CARDEXPIRATIONDATE, "")
-
-        if (saveCardName?.isNotEmpty() == true && saveCardNumber?.isNotEmpty() == true &&
-            saveCardExpirationDate?.isNotEmpty() == true
-        ) {
-            binding?.apply {
-                textCardHolderName.text = saveCardName
-                textNumberCreditCard.text = saveCardNumber
-                textExpiryDate.text = saveCardExpirationDate
-            }
-            updateCreditCardVisibility(true)
-        } else {
-            updateCreditCardVisibility(false)
-        }
-    }
 
     private fun deleteCreditCard() {
-        BaseShared.removeKey(mContext, CARDNAME)
-        BaseShared.removeKey(mContext, CARDNUMBER)
-        BaseShared.removeKey(mContext, CARDEXPIRATIONDATE)
+        FireBaseDataManager.deleteCreditCardData()
         updateCreditCardVisibility(false)
     }
 
@@ -158,12 +144,6 @@ class PaymentInformationFragment :
         ).show()
     }
 
-    private fun setUpAppBar() {
-        ObjectUtil.updateAppBarTitle(
-            mContext as AppCompatActivity,
-            getString(R.string.payment_information)
-        )
-    }
 
     private fun backPressed() {
         val callback = object : OnBackPressedCallback(true) {

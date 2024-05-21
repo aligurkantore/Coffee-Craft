@@ -2,12 +2,16 @@ package com.example.coffeeapp.base
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
+import com.example.coffeeapp.R
+import com.example.coffeeapp.helper.NetWorkUtils
+import com.example.coffeeapp.ui.dialogs.CustomDialog
 
 abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
 
@@ -23,13 +27,14 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
         get() = _binding
 
     protected abstract val viewModelClass: Class<out VM>
+    lateinit var netWorkUtils: NetWorkUtils
+    //  lateinit var progressBarUtil: ProgressBarUtil
 
     protected val viewModel: VM by lazy {
         ViewModelProvider(this)[viewModelClass]
     }
 
     abstract fun getBinding(inflater: LayoutInflater, container: ViewGroup?): VB
-
 
 
     abstract fun setUpListeners()
@@ -47,18 +52,34 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        netWorkUtils = NetWorkUtils()
+        //  progressBarUtil = ProgressBarUtil(mContext, view as ViewGroup)
         setUpListeners()
         setUpObservers()
-    }
-/*
-    private fun navigateToDestination(data: CoffeeResponseModel, actionId: Int) {
-        val bundle = Bundle().apply {
-            putSerializable(Constants.DETAIL, data)
-        }
-        navigateSafeWithArgs(actionId, bundle)
-    }
 
- */
+        if (netWorkUtils.isInternetAvailable(mContext)) {
+            Log.d("agt", "There is an Internet connection ")
+        } else {
+            Log.d("agt", "No Internet connection ")
+            showNoInternetDialog()
+        }
+    }
+    private fun showNoInternetDialog() {
+        val dialog = CustomDialog(
+            mContext,
+            getString(R.string.warning),
+            getString(R.string.no_internet),
+            getString(R.string.ok),
+            showNegativeButton = false,
+            positiveButtonClickListener = {
+                activity?.finishAffinity()
+            }
+        )
+        dialog.apply {
+            setCanceledOnTouchOutside(false)
+            show()
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

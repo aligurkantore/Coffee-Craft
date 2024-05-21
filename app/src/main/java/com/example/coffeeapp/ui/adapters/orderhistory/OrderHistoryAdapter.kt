@@ -3,22 +3,26 @@ package com.example.coffeeapp.ui.adapters.orderhistory
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coffeeapp.R
 import com.example.coffeeapp.databinding.ItemOrderHistoryBinding
-import com.example.coffeeapp.models.coffee.CoffeeResponseModel
-import com.example.coffeeapp.util.ObjectUtil
+import com.example.coffeeapp.models.order.OrderModel
 import com.example.coffeeapp.util.formatDate
+import com.example.coffeeapp.util.generateRandomKey
+import com.google.firebase.auth.FirebaseAuth
 import java.util.Date
 
 class OrderHistoryAdapter(
     private var context: Context,
-    private var orderHistoryList: List<CoffeeResponseModel>,
-    private var deleteListener: (CoffeeResponseModel) -> Unit
+    private var orderHistoryList: List<OrderModel>,
+    private var deleteListener: (OrderModel) -> Unit,
 ) : RecyclerView.Adapter<OrderHistoryAdapter.OrderHistoryVH>() {
 
     inner class OrderHistoryVH(val binding: ItemOrderHistoryBinding) :
         RecyclerView.ViewHolder(binding.root)
+
+    val userId = FirebaseAuth.getInstance().currentUser?.uid
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderHistoryVH {
         val view =
@@ -32,19 +36,20 @@ class OrderHistoryAdapter(
 
     override fun onBindViewHolder(holder: OrderHistoryVH, position: Int) {
         with(holder.binding) {
-            val data = orderHistoryList[position]
-            val orderIdText = context.getString(R.string.order_id, ObjectUtil.generateOrderId())
-            val currentDate = Date()
-            val formattedDate = formatDate(currentDate)
-            val orderDateText = context.getString(R.string.order_date, formattedDate)
-            val productNameText = context.getString(R.string.product_name, data.name)
+            val orderHistory = orderHistoryList[position]
+            val formattedDate = formatDate(Date(orderHistory.orderDate))
 
-            data.image_link_portrait?.let { imageCoffee.setImageResource(it) }
-            textOrderId.text = orderIdText
-            textOrderDate.text = orderDateText
-            textCoffeeName.text = productNameText
+            textOrderId.text = context.getString(R.string.order_id, generateRandomKey(8))
+            textOrderDate.text = context.getString(R.string.order_date, formattedDate)
 
-            imageDelete.setOnClickListener { deleteListener.invoke(data) }
+            textOrderTotal.text = context.getString(R.string.total_price, orderHistory.totalPrice)
+            val orderDetailsAdapter = OrderHistoryDetailAdapter(context, orderHistory.coffeeList)
+            recyclerViewOrderHistoryItem.apply {
+                adapter = orderDetailsAdapter
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            }
+
+            imageDelete.setOnClickListener { deleteListener.invoke(orderHistory) }
 
         }
     }

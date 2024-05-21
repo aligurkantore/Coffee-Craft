@@ -5,13 +5,13 @@ import android.os.Bundle
 import android.view.View
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.coffeeapp.R
 import com.example.coffeeapp.databinding.ActivityMainBinding
 import com.example.coffeeapp.ui.dialogs.CustomDialog
-import com.example.coffeeapp.ui.fragments.cart.CartFragment
-import com.example.coffeeapp.ui.fragments.favorite.FavoriteFragment
 import com.example.coffeeapp.ui.fragments.home.HomeFragment
 import com.example.coffeeapp.ui.fragments.profile.ProfileFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUpNavigation() {
-        navController = navHostFragment.navController
+        navController = navHostFragment.findNavController()
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             binding.bottomNavigationView.visibility = when (destination.id) {
@@ -56,13 +56,16 @@ class MainActivity : AppCompatActivity() {
                 true
             }
         }
+        setupActionBarWithNavController(navController)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
     override fun onBackPressed() {
         when (navHostFragment.childFragmentManager.fragments.firstOrNull()) {
             is HomeFragment -> showExitDialog()
-            is CartFragment -> showExitDialog()
-            is FavoriteFragment -> showExitDialog()
             is ProfileFragment -> showExitDialog()
             else -> super.onBackPressed()
         }

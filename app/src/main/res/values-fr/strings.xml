@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Application Café</string>
+    <string name="app_name">ArtisanatCafé</string>
     <string name="hello_blank_fragment">Bonjour fragment vide</string>
 
 
@@ -13,6 +13,12 @@
     <string name="text_splash1">Café si bon que vos papilles gustatives l\'adoreront</string>
     <string name="text_splash2">La meilleure qualité de grains, la torréfaction la plus fine, le goût puissant</string>
     <string name="get_started">Commencer</string>
+
+
+    <!--Base -->
+    <string name="warning">Attention</string>
+    <string name="no_internet">Vous n\'avez pas de connexion Internet.</string>
+    <string name="ok">OK</string>
 
 
     <!--- Login - Register -->
@@ -54,23 +60,39 @@
     <string name="caramel">Avec du caramel</string>
     <string name="hazelnut">Avec de la noisette</string>
     <string name="gram">g</string>
+    <string name="english_coffee">Café Anglais</string>
+    <string name="colombian_coffee">Café Colombien</string>
+    <string name="italian_coffee">Café Italien</string>
+    <string name="ottoman_coffee">Café Ottoman</string>
+    <string name="turkish_coffee">Café Turc</string>
+    <string name="terebinth_coffee">Café au Terébenth</string>
+    <string name="local_coffees">Cafés Locaux</string>
+    <string name="cakes">Gâteaux</string>
+    <string name="strawberry_cake">Gâteau aux Fraises</string>
+    <string name="cheesecake">Cheesecake</string>
+    <string name="waffle">Gaufre</string>
+    <string name="crepe">Crêpe</string>
+    <string name="classic_cake">Gâteau Classique</string>
+    <string name="not_found">Non trouvé</string>
 
 
     <!--- Detail -->
     <string name="detail">Détail</string>
-    <string name="price_format">%n €</string>
+    <string name="price_format">$%.2f</string>
     <string name="medium_roasted">Moyennement torréfié</string>
     <string name="rating_counts">6 879</string>
     <string name="milk">Lait</string>
     <string name="coffee">Café</string>
     <string name="price">Prix</string>
     <string name="add_to_cart">Ajouter au panier</string>
+    <string name="product_coming_soon">Bientôt Disponible</string>
 
 
     <!--- Order -->
     <string name="my_order">Ma Commande</string>
     <string name="order_received">Votre commande a été reçue</string>
     <string name="go_to_home_page">Aller sur la page d\'accueil</string>
+    <string name="go_to_order_history">Aller à l\'historique des commandes</string>
 
 
     <!--- Order History -->
@@ -78,7 +100,10 @@
     <string name="order_id">Sipariş Numarası: %1$s</string>
     <string name="order_date">Sipariş Tarihi: %1$s</string>
     <string name="product_name">Ürün Adı: %1$s</string>
-
+    <string name="price_order_history">Prix: %1$s</string>
+    <string name="quantity">Quantité: %1$s</string>
+    <string name="total_price">Prix total: %.2f</string>
+    <string name="empty_order_history">Votre historique de commandes est vide.</string>
 
 
     <!--- Cart -->
@@ -91,6 +116,7 @@
     <string name="must_login">Vous devez être connecté pour continuer</string>
     <string name="first_price">0,00 €</string>
     <string name="confirm_delete_product">Souhaitez-vous supprimer le produit?</string>
+    <string name="start_shopping">Commencer les achats</string>
 
 
 
@@ -108,6 +134,18 @@
     <string name="description_espresso">"L'Espresso est réalisé en faisant passer de l'eau presque bouillante à travers du café finement moulu, ce qui donne une boisson au café concentrée et sirupeuse. C'est la base de nombreuses boissons italiennes dans les cafés. Comparé au café filtre classique, l'espresso est beaucoup plus fort que les autres types de boissons au café. Les espressos sont appréciés en "shots" où un "shot" est une once et un "shot" long (simple et double) est de deux onces en quantité, respectivement.</string>
     <string name="description_latte">"Un latte est un espresso avec du lait vapeur et une bouffée de mousse de lait sur le dessus. Cette boisson est plus répandue en Amérique que d'autres boissons au café comme les cappuccinos car elle contient moins de mousse, la rendant plus douce et plus légère pour ceux ayant un palais sensible. Et si vous voulez donner un coup de fouet à votre latte, ajoutez un sirop aromatisé. Pour en faire une version glacée de cette boisson, versez simplement de l'espresso et du lait vapeur sur des glaçons.</string>
     <string name="description_macchiato">"Le mot "macchiato" signifie tacheté, donc un macchiato espresso est un espresso avec un soupçon de lait. La plupart des cafés terminent ce type de boisson au café avec un peu de mousse de lait au lieu de simplement du lait vapeur pour ce qui est appelé un macchiato traditionnel.</string>
+    <string name="english_coffee_description">Un mélange classique et raffiné d\'Angleterre qui reflète l\'atmosphère mystique du pays. Le café anglais est obtenu en mélangeant soigneusement des grains classiques et offre une quête de sens dans chaque tasse.</string>
+    <string name="colombian_coffee_description">Café riche et doux de Colombie, provenant des sols fertiles du pays. Ce café offre le goût unique de grains soigneusement cultivés et est produit grâce à des techniques de traitement raffinées pour ravir les amateurs de café.</string>
+    <string name="italian_coffee_description">Café audacieux et aromatique d\'Italie, reflétant le palais passionné du pays. Ce café, obtenu à partir de grains robustes, se distingue par son arôme intense et est un symbole de la culture du café italienne.</string>
+    <string name="ottoman_coffee_description">Un café exotique inspiré de la riche histoire de l\'Empire ottoman, offrant la magie de l\'histoire dans une tasse. Le café ottoman se distingue par des méthodes de traitement spéciales et offre une expérience unique.</string>
+    <string name="turkish_coffee_description">Café turc, connu pour son arôme mousseux et fort, est la boisson traditionnelle de la Turquie. Préparé avec une technique de cuisson spéciale, ce café reflète la culture du café turc avec sa présentation unique.</string>
+    <string name="terebinth_coffee_description">Un café unique et parfumé infusé avec du térébenthine, enrichissant les saveurs de la nature. Ce café, combinant les arômes uniques de la nature, offre une expérience gustative spéciale.</string>
+    <string name="description_strawberry_cake">Un délicieux gâteau orné de fraises fraîches et rempli de crème. Dessert parfait pour les amateurs de fraises, offrant un mélange délicieux de saveurs!</string>
+    <string name="description_crepe">Une crêpe légère et savoureuse servie avec des garnitures sucrées ou salées. Un classique de la cuisine française, offrant une expérience culinaire délicieuse!</string>
+    <string name="description_waffle">Une gaufre croustillante mais moelleuse servie chaude avec différents toppings comme des fruits frais, du sirop ou de la glace. Un régal sucré irrésistible, parfait pour se faire plaisir!</string>
+    <string name="description_classic_cake">Un classique gâteau à la vanille avec un glaçage au chocolat ou à la vanille. Un dessert simple mais délicieux pour toutes les occasions, offrant un délicieux goût de nostalgie!</string>
+    <string name="description_cheesecake">Un dessert riche et crémeux fait avec du fromage à la crème sur une base de biscuit émietté. Un favori parmi les amateurs de desserts au fromage, offrant une explosion de saveurs crémeuses!</string>
+
 
 
 
@@ -152,7 +190,22 @@
     <string name="change_password">Changer le mot de passe</string>
     <string name="old_password">Ancien mot de passe</string>
     <string name="new_password">Nouveau mot de passe</string>
+    <string name="created_by">Créé par Ali Gürkan TÖRE</string>
 
+
+    <!--- My Addresses -->
+    <string name="my_addresses">Mes Adresses</string>
+    <string name="add_new_address">Ajouter une nouvelle adresse</string>
+    <string name="no_address_record">Vous n\'avez pas encore créé d\'enregistrement d\'adresse</string>
+    <string name="continue_with_address">Continuer avec l\'adresse</string>
+
+
+
+    <!--- Add Address -->
+    <string name="contact_information">Informations de contact</string>
+    <string name="address_information">Informations d\'adresse</string>
+    <string name="receiver_phone_number">Numéro de téléphone du destinataire</string>
+    <string name="add_to_address_book">Ajouter au carnet d\'adresses</string>
 
 
     <!--- Forgot Password -->
@@ -160,4 +213,9 @@
     <string name="reset_password_message">Nous vous enverrons un lien de réinitialisation de mot de passe sur votre adresse e-mail</string>
     <string name="cancel">Annuler</string>
     <string name="send">Envoyer</string>
+    <string name="please_fill_all_fields">Veuillez remplir tous les champs</string>
+    <string name="passwords_do_not_match">Les nouveaux mots de passe ne correspondent pas</string>
+    <string name="password_changed_successfully">Mot de passe changé avec succès</string>
+    <string name="password_change_failed">Échec du changement de mot de passe</string>
+
 </resources>

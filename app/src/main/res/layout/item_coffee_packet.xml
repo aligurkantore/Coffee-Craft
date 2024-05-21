@@ -6,7 +6,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    android:backgroundTint="#262B33"
+    android:backgroundTint="@color/background_cart"
     app:cardCornerRadius="16dp"
     app:cardElevation="4dp">
 
@@ -25,17 +25,6 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/americano_pic_1_portrait" />
 
-        <ImageView
-            android:id="@+id/image_favorite"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="4dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:src="@drawable/heart"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/text_coffee_packet_name"
@@ -70,30 +59,18 @@
             app:layout_constraintTop_toBottomOf="@+id/text_region"
             tools:text="500 kg" />
 
-
         <TextView
-            android:id="@+id/text_price"
+            android:id="@+id/text_product_coming_soon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/product_coming_soon"
             android:textColor="@color/white"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@id/image_coffee_packet"
-            app:layout_constraintTop_toBottomOf="@id/text_weight"
-            tools:text="$ 4.20" />
-
-
-        <ImageView
-            android:id="@+id/button_add_to_cart"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/background_plus"
-            android:clickable="true"
-            android:focusable="true"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/text_weight"
             app:layout_constraintTop_toBottomOf="@id/text_weight" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
 

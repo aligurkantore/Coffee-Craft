@@ -22,7 +22,7 @@
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="#123456" />
+            tools:text="123456" />
 
         <ImageView
             android:id="@+id/image_delete"
@@ -60,17 +60,6 @@
             app:layout_constraintTop_toBottomOf="@+id/view_top"
             tools:text="Order Date: January 1, 2023" />
 
-        <TextView
-            android:id="@+id/text_order_details"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_order_date"
-            tools:text="Order Details:" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_order_details"
@@ -81,7 +70,15 @@
             app:cardCornerRadius="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_order_details">
+            app:layout_constraintTop_toBottomOf="@+id/text_order_date">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_order_history_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/item_order_history_detail"
+                tools:itemCount="4"/>
+            <!---
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -116,21 +113,25 @@
                         android:id="@+id/text_coffee_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Price: $9.99"
                         android:textColor="@color/white"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        tools:text="Price: $9.99" />
 
                     <TextView
                         android:id="@+id/text_coffee_quantity"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Quantity: 2"
                         android:textColor="@color/white"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        tools:text="Quantity: 2" />
 
                 </LinearLayout>
 
             </LinearLayout>
+
+            -->
 
         </androidx.cardview.widget.CardView>
 

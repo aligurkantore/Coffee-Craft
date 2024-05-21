@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Kaffee-App</string>
+    <string name="app_name">Kaffeehandwerk</string>
     <string name="hello_blank_fragment">Hallo leeres Fragment</string>
 
 
@@ -13,6 +13,12 @@
     <string name="text_splash1">Kaffee so gut, dass Ihre Geschmacksknospen es lieben werden</string>
     <string name="text_splash2">Das beste Getreide, der feinste Röstung, der kraftvolle Geschmack</string>
     <string name="get_started">Loslegen</string>
+
+
+    <!--Base -->
+    <string name="warning">Warnung</string>
+    <string name="no_internet">Sie haben keine Internetverbindung.</string>
+    <string name="ok">OK</string>
 
 
     <!--- Login - Register -->
@@ -54,23 +60,39 @@
     <string name="caramel">Mit Karamell</string>
     <string name="hazelnut">Mit Haselnuss</string>
     <string name="gram">g</string>
+    <string name="english_coffee">Englischer Kaffee</string>
+    <string name="colombian_coffee">Kolumbianischer Kaffee</string>
+    <string name="italian_coffee">Italienischer Kaffee</string>
+    <string name="ottoman_coffee">Osmanischer Kaffee</string>
+    <string name="turkish_coffee">Türkischer Kaffee</string>
+    <string name="terebinth_coffee">Terpentin Kaffee</string>
+    <string name="local_coffees">Regionale Kaffees</string>
+    <string name="cakes">Kuchen</string>
+    <string name="strawberry_cake">Erdbeerkuchen</string>
+    <string name="cheesecake">Käsekuchen</string>
+    <string name="waffle">Waffel</string>
+    <string name="crepe">Pfannkuchen</string>
+    <string name="classic_cake">Klassischer Kuchen</string>
+    <string name="not_found">Nicht gefunden</string>
 
 
     <!--- Detail -->
     <string name="detail">Detail</string>
-    <string name="price_format">%n €</string>
+    <string name="price_format">$%.2f</string>
     <string name="medium_roasted">Mittel geröstet</string>
     <string name="rating_counts">6.879</string>
     <string name="milk">Milch</string>
     <string name="coffee">Kaffee</string>
     <string name="price">Preis</string>
     <string name="add_to_cart">In den Warenkorb legen</string>
+    <string name="product_coming_soon">Bald bei Ihnen</string>
 
 
     <!--- Order -->
     <string name="my_order">Meine Bestellung</string>
     <string name="order_received">Ihre Bestellung wurde erhalten</string>
     <string name="go_to_home_page">Gehe zur Startseite</string>
+    <string name="go_to_order_history">Zur Bestellhistorie gehen</string>
 
 
     <!--- Order History -->
@@ -78,7 +100,10 @@
     <string name="order_id">Bestellnummer: %1$s</string>
     <string name="order_date">Bestelldatum: %1$s</string>
     <string name="product_name">Produktname: %1$s</string>
-
+    <string name="price_order_history">Preis: %1$s</string>
+    <string name="quantity">Menge: %1$s</string>
+    <string name="total_price">Gesamtpreis: %.2f</string>
+    <string name="empty_order_history">Ihre Bestellhistorie ist leer.</string>
 
 
     <!--- Cart -->
@@ -91,7 +116,7 @@
     <string name="must_login">Sie müssen angemeldet sein, um fortzufahren</string>
     <string name="first_price">0,00 €</string>
     <string name="confirm_delete_product">Möchten Sie das Produkt löschen?</string>
-
+    <string name="start_shopping">Mit dem Einkauf beginnen</string>
 
 
     <!--- Favorites -->
@@ -108,6 +133,18 @@
     <string name="description_espresso">"Espresso wird hergestellt, indem nahezu kochendes Wasser durch fein gemahlenen Kaffee gepresst wird, was zu einem konzentrierten, sirupartigen Kaffeegetränk führt. Dies ist die Basis für viele italienische Getränke in Cafés. Im Vergleich zu normalem Filterkaffee ist Espresso viel stärker als die anderen Arten von Kaffeegetränken. Espressos werden in Shots genossen, wobei ein Shot eine Unze und ein langer (einzelner und doppelter) Shot zwei Unzen in der Menge ist.</string>
     <string name="description_latte">"Ein Latte ist ein Espresso mit aufgeschäumter Milch und einem Klecks Milchschaum oben drauf. Dieses Getränk ist in Amerika verbreiteter als andere Kaffeegetränke wie Cappuccinos, weil es weniger Schaum enthält und dadurch für Personen mit empfindlichem Gaumen sanfter und geschmeidiger ist. Und wenn Sie Ihren Latte etwas aufpeppen möchten, fügen Sie etwas Aromasirup hinzu. Um eine eisige Version dieses Getränks herzustellen, gießen Sie einfach Espresso und aufgeschäumte Milch über Eiswürfel.</string>
     <string name="description_macchiato">"Das Wort \"Macchiato\" bedeutet fleckig, daher ist ein Macchiato-Espresso ein Espresso mit einem Spritzer Milch. Die meisten Cafés werden diese Art von Kaffeegetränk mit etwas aufgeschäumter Milch anstelle von nur aufgeschäumter Milch für das, was als traditioneller Macchiato bekannt ist, abschließen.</string>
+    <string name="english_coffee_description">Ein klassischer und raffinierter Blend aus England, der die mystische Atmosphäre des Landes widerspiegelt. Englischer Kaffee wird durch sorgfältiges Mischen klassischer Bohnen gewonnen und bietet in jeder Tasse eine Suche nach Bedeutung.</string>
+    <string name="colombian_coffee_description">Reicher und sanfter Kaffee aus Kolumbien, der aus den fruchtbaren Böden des Landes stammt. Dieser Kaffee bietet den einzigartigen Geschmack sorgfältig angebauter Bohnen und wird durch raffinierte Verarbeitungstechniken hergestellt, um Kaffeeliebhaber zu erfreuen.</string>
+    <string name="italian_coffee_description">Kräftiger und aromatischer Kaffee aus Italien, der den leidenschaftlichen Gaumen des Landes widerspiegelt. Dieser Kaffee, der aus robusten Bohnen gewonnen wird, zeichnet sich durch sein intensives Aroma aus und ist ein Symbol der italienischen Kaffeekultur.</string>
+    <string name="ottoman_coffee_description">Ein exotischer Kaffee, inspiriert von der reichen Geschichte des Osmanischen Reiches, der die Magie der Geschichte in einer Tasse bietet. Der Osmanische Kaffee zeichnet sich durch spezielle Verarbeitungsmethoden aus und bietet ein einzigartiges Erlebnis.</string>
+    <string name="turkish_coffee_description">Türkischer Kaffee, bekannt für sein schaumiges und starkes Aroma, ist das traditionelle Getränk der Türkei. Zubereitet mit einer speziellen Kochtechnik, spiegelt dieser Kaffee die türkische Kaffeekultur mit seiner einzigartigen Präsentation wider.</string>
+    <string name="terebinth_coffee_description">Ein einzigartiger und duftender Kaffee, der mit Terpentin angereichert ist und die Aromen der Natur bereichert. Dieser Kaffee kombiniert die einzigartigen Aromen der Natur und bietet ein besonderes Geschmackserlebnis.</string>
+    <string name="description_strawberry_cake">Ein köstlicher Kuchen, der mit frischen Erdbeeren verziert ist und mit Sahne gefüllt ist. Perfektes Dessert für Erdbeerliebhaber, das eine herrliche Mischung aus Aromen bietet!</string>
+    <string name="description_crepe">Ein leichter und leckerer Pfannkuchen mit süßen oder herzhaften Füllungen. Ein Klassiker der französischen Küche, der ein köstliches kulinarisches Erlebnis bietet!</string>
+    <string name="description_waffle">Ein knuspriger, aber flauschiger Waffel, der warm mit verschiedenen Belägen wie frischen Früchten, Sirup oder Eis serviert wird. Ein unwiderstehlich süßer Genuss, perfekt für die Verwöhnung!</string>
+    <string name="description_classic_cake">Ein klassischer Vanillekuchen mit Schokoladen- oder Vanille-Glasur. Ein einfaches, aber köstliches Dessert für jeden Anlass, das einen herrlichen Hauch von Nostalgie bietet!</string>
+    <string name="description_cheesecake">Ein reichhaltiges und cremiges Dessert aus Frischkäse auf einem zerbröselten Keksboden. Ein Favorit unter Käse-Dessertliebhabern, der ein köstliches und verwöhnendes Erlebnis bietet!</string>
+
 
 
 
@@ -125,14 +162,12 @@
     <string name="confirm_delete_credit_card">Sind Sie sicher, dass Sie Ihre Kreditkarte löschen möchten?</string>
 
 
-
     <!-- Add Card -->
     <string name="add_card">Karte hinzufügen</string>
     <string name="name_the_card">Benennen Sie die Karte</string>
     <string name="card_number">Kartennummer</string>
     <string name="card_expiration_date">Kartenablaufdatum</string>
     <string name="fill_in_all_fields">Füllen Sie alle Felder aus</string>
-
 
 
     <!-- Profile -->
@@ -154,6 +189,23 @@
     <string name="change_password">Passwort ändern</string>
     <string name="old_password">Altes Passwort</string>
     <string name="new_password">Neues Passwort</string>
+    <string name="created_by">Erstellt von Ali Gürkan TÖRE</string>
+
+
+    <!--- My Addresses -->
+    <string name="my_addresses">Meine Adressen</string>
+    <string name="add_new_address">Neue Adresse hinzufügen</string>
+    <string name="no_address_record">Sie haben noch keine Adressaufzeichnung erstellt</string>
+    <string name="continue_with_address">Weiter mit Adresse</string>
+
+
+
+
+    <!--- Add Address -->
+    <string name="contact_information">Kontaktinformationen</string>
+    <string name="address_information">Adressinformationen</string>
+    <string name="receiver_phone_number">Empfänger Telefonnummer</string>
+    <string name="add_to_address_book">Zum Adressbuch hinzufügen</string>
 
 
     <!--- Forgot Password -->
@@ -161,4 +213,9 @@
     <string name="reset_password_message">Wir senden Ihnen einen Link zum Zurücksetzen des Passworts an Ihre E-Mail-Adresse</string>
     <string name="cancel">Abbrechen</string>
     <string name="send">Senden</string>
+    <string name="please_fill_all_fields">Bitte füllen Sie alle Felder aus</string>
+    <string name="passwords_do_not_match">Die neuen Passwörter stimmen nicht überein</string>
+    <string name="password_changed_successfully">Passwort erfolgreich geändert</string>
+    <string name="password_change_failed">Passwortänderung fehlgeschlagen</string>
+
 </resources>

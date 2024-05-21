@@ -28,14 +28,14 @@ class ProfileCategoryAdapter(
 
     override fun onBindViewHolder(holder: ProfileCategoryVH, position: Int) {
         with(holder.binding) {
-            val data = categoryList[position]
-            data.categoryImage?.let { imageCategory.setImageResource(it) }
-            textViewCategoryName.text = data.categoryName
+            val profileCategoryList = categoryList[position]
+            profileCategoryList.categoryImage?.let { imageCategory.setImageResource(it) }
+            textViewCategoryName.text = profileCategoryList.categoryName
 
             linearProfileCategory.setOnClickListener {
                 selectedCategory = holder.adapterPosition
                 selectedCategory?.let { selectedPosition ->
-                    data.categoryName?.let { categoryName ->
+                    profileCategoryList.categoryName?.let { categoryName ->
                         clickCategory.onClickListener(
                             categoryName,
                             selectedPosition

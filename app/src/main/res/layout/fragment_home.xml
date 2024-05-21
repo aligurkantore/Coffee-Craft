@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="12dp"
             android:background="@drawable/search_view_background"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="@color/background_cart"
             app:iconifiedByDefault="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -53,10 +53,12 @@
             android:id="@+id/not_found_coffee"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Not Found"
-            android:textColor="@color/white"
-            android:textSize="18sp"
+            android:text="@string/not_found"
+            android:textColor="@color/is_selected"
+            android:textSize="26sp"
             android:visibility="gone"
+            android:gravity="center"
+            android:layout_margin="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/search_view" />
 
@@ -71,6 +73,54 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/recycler_view_category" />
 
+
+        <TextView
+            android:id="@+id/text_local_coffees"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/local_coffees"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recycler_view_coffee" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_local_coffees"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/text_cakes"
+            app:layout_constraintTop_toBottomOf="@id/text_local_coffees" />
+
+        <TextView
+            android:id="@+id/text_cakes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/cakes"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recycler_local_coffees" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_cakes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_cakes" />
+
         <TextView
             android:id="@+id/text_packets"
             android:layout_width="wrap_content"
@@ -81,7 +131,7 @@
             android:textColor="@color/white"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/recycler_view_coffee" />
+            app:layout_constraintTop_toBottomOf="@id/recycler_cakes" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_coffee_packet"

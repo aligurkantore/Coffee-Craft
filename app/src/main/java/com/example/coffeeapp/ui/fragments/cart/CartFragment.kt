@@ -1,12 +1,9 @@
 package com.example.coffeeapp.ui.fragments.cart
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coffeeapp.R
 import com.example.coffeeapp.base.BaseFragment
@@ -16,27 +13,18 @@ import com.example.coffeeapp.helper.FireBaseDataManager
 import com.example.coffeeapp.models.coffee.CoffeeResponseModel
 import com.example.coffeeapp.ui.adapters.cart.CartAdapter
 import com.example.coffeeapp.ui.dialogs.CustomDialog
-import com.example.coffeeapp.util.ObjectUtil
 import com.example.coffeeapp.util.Constants.Companion.DETAIL
-import com.example.coffeeapp.util.NavigationManager
 import com.example.coffeeapp.util.goneIf
 import com.example.coffeeapp.util.navigateSafe
 import com.example.coffeeapp.util.navigateSafeWithArgs
+import com.example.coffeeapp.util.observeNonNull
 import com.example.coffeeapp.util.visibleIf
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.ktx.Firebase
 
 
 class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel>() {
 
     private lateinit var cartAdapter: CartAdapter
-    private val cartItems: MutableList<CoffeeResponseModel> = mutableListOf()
-    private val dataBase: FirebaseDatabase by lazy { FirebaseDatabase.getInstance() }
+    private var cartItems: MutableList<CoffeeResponseModel> = mutableListOf()
 
     override val viewModelClass: Class<out CartViewModel>
         get() = CartViewModel::class.java
@@ -47,71 +35,58 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (viewModel.isLoggedIn()) {
-            isUserLoggedIn(true)
-            setUpCartAdapter()
-            getProductsFromDataBase()
-            removeItemsInCart()
-        } else {
-            isUserLoggedIn(false)
-        }
-        setUpAppBar()
+        viewModel.startAuthStateListener()
+        isUserLoggedIn(viewModel.isLoggedIn())
     }
 
     override fun setUpListeners() {
         binding?.apply {
             buttonPayCart.setOnClickListener {
-                navigateSafe(R.id.action_cartFragment_to_paymentInformationFragment)
+                navigateSafe(R.id.action_cartFragment_to_myAddressesFragment)
+            }
+            buttonStartShopping.setOnClickListener {
+                navigateSafe(R.id.action_cartFragment_to_homeFragment)
             }
 
             buttonLogin.setOnClickListener {
-                NavigationManager.apply {
-                    setCurrentFragmentId(R.id.cartFragment)
-                    navigateToLogin(findNavController())
-                }
+                navigateSafe(R.id.action_cartFragment_to_loginFragment)
             }
         }
     }
 
     override fun setUpObservers() {
-    }
-
-    private fun getProductsFromDataBase() {
-        val userId = Firebase.auth.currentUser?.uid
-        val userRef: DatabaseReference = dataBase.getReference("users/$userId/cart")
-
-        userRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val tempList: MutableList<CoffeeResponseModel> = mutableListOf()
-                for (itemSnapshot in snapshot.children) {
-                    val item = itemSnapshot.getValue(CoffeeResponseModel::class.java)
-                    if (item != null) {
-                        tempList.add(item)
-                    }
-                }
+        viewModel.cartItemsLiveData.observeNonNull(viewLifecycleOwner) { list ->
+            if (list.isEmpty()) {
+                checkItemsInAdapter(false)
+            } else {
+                checkItemsInAdapter(true)
+                setUpCartAdapter(list)
                 cartItems.clear()
-                cartItems.addAll(tempList)
-                BaseShared.saveCartItems(mContext, cartItems)
-             //   Log.d("agt", "removeItemsInCart: $cartItems")
-                updateTotalPrice()
-                checkItemsInAdapter()
-                cartAdapter.notifyDataSetChanged()
-            }
+                cartItems.addAll(list)
 
-            override fun onCancelled(error: DatabaseError) {
-                Log.d("agt", "onCancelled ")
+                val totalPrice = cartItems.sumByDouble {
+                    val count = BaseShared.getInt(mContext, "${viewModel.userId}/count_${it.id}", 1)
+                    (it.price)?.times(count) ?: 0.0
+                }
+                val formattedPrice =
+                    mContext.getString(R.string.price_format, totalPrice)
+                binding?.textPrice?.text = formattedPrice
+                BaseShared.saveString(mContext, "totalPrice", totalPrice.toString())
             }
-        })
+        }
     }
 
-    private fun setUpCartAdapter() {
+
+    private fun setUpCartAdapter(data: List<CoffeeResponseModel>) {
         cartAdapter = CartAdapter(
             mContext,
-            cartItems,
+            data.toMutableList(),
             ::navigateToDetail,
             object : CartAdapter.TotalPriceListener {
                 override fun onTotalPriceUpdated(totalPrice: String, count: Int) {
-                    binding?.textPrice?.text = totalPrice
+                    val formattedPrice =
+                        mContext.getString(R.string.price_format, totalPrice.toDouble())
+                    binding?.textPrice?.text = formattedPrice
                 }
             },
             ::showDeleteItemCart
@@ -122,15 +97,6 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel>() {
         }
     }
 
-    private fun updateTotalPrice() {
-        val totalPrice = cartItems.sumByDouble {
-            val count = BaseShared.getInt(mContext, "count_${it.id}", 1)
-            //  val price1 = BaseShared.getString(mContext, "size_${it.id}", "")
-            (it.prices?.first()?.price)?.times(count) ?: 0.0
-        }
-        binding?.textPrice?.text = totalPrice.toString()
-        BaseShared.saveString(mContext, "totalPrice", totalPrice.toString())
-    }
 
     private fun navigateToDetail(data: CoffeeResponseModel) {
         val bundle = Bundle().apply {
@@ -144,15 +110,15 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel>() {
     }
 
 
-    private fun checkItemsInAdapter() {
-        val isEmpty = cartItems.isEmpty()
+    private fun checkItemsInAdapter(isVisible: Boolean) {
         binding?.apply {
-            recyclerCart.visibility = if (isEmpty) View.GONE else View.VISIBLE
-            textTitlePrice.visibility = if (isEmpty) View.GONE else View.VISIBLE
-            textPrice.visibility = if (isEmpty) View.GONE else View.VISIBLE
-            buttonPayCart.visibility = if (isEmpty) View.GONE else View.VISIBLE
-            imageEmptyCart.visibility = if (isEmpty) View.VISIBLE else View.GONE
-            textEmptyCart.visibility = if (isEmpty) View.VISIBLE else View.GONE
+            recyclerCart visibleIf isVisible
+            textTitlePrice visibleIf isVisible
+            textPrice visibleIf isVisible
+            buttonPayCart visibleIf isVisible
+            imageEmptyCart goneIf isVisible
+            textEmptyCart goneIf isVisible
+            buttonStartShopping goneIf isVisible
         }
     }
 
@@ -180,18 +146,9 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel>() {
         ).show()
     }
 
-    private fun removeItemsInCart() {
-        val successOrder = BaseShared.getString(mContext, "successOrder", "")
-        if (successOrder == "successOrder") {
-            FireBaseDataManager.removeAllFromCart(mContext)
-            BaseShared.removeKey(mContext, "successOrder")
-        } else {
-          //  Log.d("agt", "removeItemsInCart: There was a problem with the order")
-        }
-    }
-
-    private fun setUpAppBar() {
-        ObjectUtil.updateAppBarTitle(mContext as AppCompatActivity, getString(R.string.my_cart))
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewModel.stopAuthStateListener()
     }
 
 }

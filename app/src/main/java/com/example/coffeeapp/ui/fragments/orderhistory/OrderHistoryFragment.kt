@@ -1,19 +1,18 @@
 package com.example.coffeeapp.ui.fragments.orderhistory
 
-import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coffeeapp.R
 import com.example.coffeeapp.base.BaseFragment
-import com.example.coffeeapp.base.BaseShared
 import com.example.coffeeapp.databinding.FragmentOrderHistoryBinding
-import com.example.coffeeapp.models.coffee.CoffeeResponseModel
+import com.example.coffeeapp.helper.FireBaseDataManager
+import com.example.coffeeapp.models.order.OrderModel
 import com.example.coffeeapp.ui.adapters.orderhistory.OrderHistoryAdapter
-import com.example.coffeeapp.util.ObjectUtil
+import com.example.coffeeapp.util.gone
+import com.example.coffeeapp.util.navigateSafe
+import com.example.coffeeapp.util.observeNonNull
+import com.example.coffeeapp.util.visible
 
 class OrderHistoryFragment : BaseFragment<FragmentOrderHistoryBinding, OrderHistoryViewModel>() {
 
@@ -29,41 +28,39 @@ class OrderHistoryFragment : BaseFragment<FragmentOrderHistoryBinding, OrderHist
         return FragmentOrderHistoryBinding.inflate(inflater)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setUpAppBar()
-        setUpOrderHistoryAdapter()
-    }
 
     override fun setUpListeners() {
+        binding?.buttonGoToHomePage?.setOnClickListener {
+            navigateSafe(R.id.action_orderHistoryFragment_to_homeFragment)
+        }
     }
 
     override fun setUpObservers() {
+        viewModel.orderHistoryLiveData.observeNonNull(viewLifecycleOwner) { orderHistory ->
+            if (!orderHistory.isNullOrEmpty()) {
+                setUpOrderHistoryAdapter(orderHistory)
+                binding?.textEmptyOrderHistory?.gone()
+            } else {
+                binding?.textEmptyOrderHistory?.visible()
+            }
+        }
     }
 
-    private fun setUpOrderHistoryAdapter() {
-        val orderHistoryData = BaseShared.getCartItems(mContext)
-        Log.d("agt", "setUpListeners: $orderHistoryData")
+    private fun setUpOrderHistoryAdapter(data: List<OrderModel>) {
         orderHistoryAdapter = OrderHistoryAdapter(
             mContext,
-            orderHistoryData,
+            data,
             ::deleteItemInAdapter
         )
         binding?.recyclerOrderHistory?.apply {
             adapter = orderHistoryAdapter
-            layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false)
         }
+        orderHistoryAdapter.notifyDataSetChanged()
     }
 
-    private fun deleteItemInAdapter(data: CoffeeResponseModel){
-        BaseShared.clearCartItems(mContext)
-    }
-
-    private fun setUpAppBar() {
-        ObjectUtil.updateAppBarTitle(
-            mContext as AppCompatActivity,
-            getString(R.string.order_history)
-        )
+    private fun deleteItemInAdapter(data: OrderModel) {
+        FireBaseDataManager.removeFromOrderHistory(mContext,data.orderId)
     }
 
 }

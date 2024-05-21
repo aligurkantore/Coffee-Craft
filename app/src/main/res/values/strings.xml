@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Coffee App</string>
+    <string name="app_name">CoffeeCraft</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!--- Main Activity -->
@@ -11,6 +11,12 @@
     <string name="text_splash1">Coffee So Good, Your Taste buds will love it</string>
     <string name="text_splash2">The best grain, the finest roast, the powerful flavor</string>
     <string name="get_started">Get Started</string>
+
+
+    <!--Base -->
+    <string name="warning">Warning</string>
+    <string name="no_internet">You don\'t have an internet connection.</string>
+    <string name="ok">OK</string>
 
 
     <!--- Login - Register -->
@@ -52,6 +58,19 @@
     <string name="caramel">With Caramel</string>
     <string name="hazelnut">With Hazelnut</string>
     <string name="gram">gm</string>
+    <string name="english_coffee">English Coffee</string>
+    <string name="colombian_coffee">Colombian Coffee</string>
+    <string name="italian_coffee">Italian Coffee</string>
+    <string name="ottoman_coffee">Ottoman Coffee</string>
+    <string name="turkish_coffee">Turkish Coffee</string>
+    <string name="terebinth_coffee">Terebinth Coffee</string>
+    <string name="local_coffees">Local Coffees</string>
+    <string name="strawberry_cake">Strawberry Cake</string>
+    <string name="cheesecake">Cheesecake</string>
+    <string name="waffle">Waffle</string>
+    <string name="crepe">Crepe</string>
+    <string name="classic_cake">Classic Cake</string>
+    <string name="not_found">Not Found</string>
 
 
     <!--- Detail -->
@@ -63,12 +82,15 @@
     <string name="coffee">Coffee</string>
     <string name="price">Price</string>
     <string name="add_to_cart">Add to Cart</string>
+    <string name="product_coming_soon">Coming Soon</string>
+    <string name="cakes">Cakes</string>
 
 
     <!--- Order -->
     <string name="my_order">My Order</string>
     <string name="order_received">Your order has been received</string>
     <string name="go_to_home_page">Go to Home Page</string>
+    <string name="go_to_order_history">Go to Order History</string>
 
 
     <!--- Order History -->
@@ -76,7 +98,10 @@
     <string name="order_id">Order ID: %1$s</string>
     <string name="order_date">Order Date: %1$s</string>
     <string name="product_name">Product Name: %1$s</string>
-
+    <string name="price_order_history">Price: %1$s</string>
+    <string name="quantity">Quantity: %1$s</string>
+    <string name="total_price">Total Price: %.2f</string>
+    <string name="empty_order_history">Your order history is empty.</string>
 
 
     <!-- Cart -->
@@ -89,6 +114,7 @@
     <string name="must_login">You must be logged in to continue</string>
     <string name="first_price">$0.0</string>
     <string name="confirm_delete_product">Would you like to delete the product?</string>
+    <string name="start_shopping">Start Shopping</string>
 
 
     <!-- Favorites -->
@@ -105,6 +131,17 @@
     <string name="description_espresso">"Espresso is made by forcing nearly boiling water through finely-ground coffee beans, which results in a concentrated, syrup-like coffee drink. This is the base for many Italian beverages in coffee shops. When compared to regular brewed coffee, espresso is much stronger than the other types of coffee drinks. Espressos are enjoyed in shots where a single shot is one ounce and a long (single and double) shot is two ounces in amount, respectively.</string>
     <string name="description_latte">"A latte is an espresso with steamed milk and a dollop of milk foam on top. This beverage is more prevalent in America than other coffee drinks like cappuccinos because it contains less foam, making it smoother and gentler for those with sensitive palettes. And if you want to spice up your latte, add some flavouring syrup. To make an iced version of this drink, simply pour espresso and steamed milk over ice cubes.</string>
     <string name="description_macchiato">"The word \"macchiato\" means spotted, so a macchiato espresso is an espresso with a splash of milk. Most coffee shops will top off this type of coffee drink with some foamed milk instead of just steamed milk for what's known as a traditional macchiato.</string>
+    <string name="english_coffee_description">A classic and refined blend from England that reflects the mystical atmosphere of the country. English coffee is obtained by carefully blending classic beans and offers a search for meaning in every cup.</string>
+    <string name="colombian_coffee_description">Rich and smooth coffee from Colombia, coming from the fertile soils of the country. This coffee offers the unique taste of carefully cultivated beans and is produced through refined processing techniques to delight coffee enthusiasts.</string>
+    <string name="italian_coffee_description">Bold and aromatic coffee from Italy, reflecting the passionate palate of the country. This coffee, obtained from robust beans, stands out with its intense aroma and is a symbol of Italian coffee culture.</string>
+    <string name="ottoman_coffee_description">An exotic coffee inspired by the rich history of the Ottoman Empire, offering the magic of history in a cup. Ottoman coffee stands out through special processing methods and provides a unique experience.</string>
+    <string name="turkish_coffee_description">Turkish coffee, known for its foamy and strong aroma, is the traditional beverage of Turkey. Prepared with a special cooking technique, this coffee reflects Turkish coffee culture with its unique presentation.</string>
+    <string name="terebinth_coffee_description">A unique and fragrant coffee infused with terebinth, enriching the flavors of nature. This coffee, combining the unique aromas of nature, offers a special taste experience.</string>
+    <string name="description_strawberry_cake">A delicious cake adorned with fresh strawberries and filled with cream. Perfect dessert for strawberry lovers, offering a delightful blend of flavors!</string>
+    <string name="description_crepe">A light and tasty crepe served with sweet or savory fillings. A classic of French cuisine, providing a delightful culinary experience!</string>
+    <string name="description_waffle">A crispy yet fluffy waffle served warm with various toppings like fresh fruits, syrup, or ice cream. An irresistible sweet treat, perfect for indulgence!</string>
+    <string name="description_classic_cake">A classic vanilla cake with chocolate or vanilla frosting. A simple yet delicious dessert for any occasion, offering a delightful taste of nostalgia!</string>
+    <string name="description_cheesecake">A rich and creamy dessert made with cream cheese on a crumbled biscuit base. A favorite among cheese dessert lovers, providing a delightful and indulgent experience!</string>
 
 
     <!-- Payment Information-->
@@ -148,6 +185,21 @@
     <string name="change_password">Change Password</string>
     <string name="old_password">Old Password</string>
     <string name="new_password">New Password</string>
+    <string name="created_by">Created By Ali Gürkan TÖRE</string>
+
+
+    <!--- My Addresses -->
+    <string name="my_addresses">My Addresses</string>
+    <string name="add_new_address">Add New Address</string>
+    <string name="no_address_record">You haven\'t created an address record yet</string>
+    <string name="continue_with_address">Continue with Address</string>
+
+
+    <!--- Add Address -->
+    <string name="contact_information">Contact Information</string>
+    <string name="address_information">Address Information</string>
+    <string name="receiver_phone_number">Recipient Phone Number</string>
+    <string name="add_to_address_book">Add to Address Book</string>
 
 
     <!--- Forgot Password -->
@@ -155,4 +207,9 @@
     <string name="reset_password_message">We will send you password reset link on your Email</string>
     <string name="cancel">Cancel</string>
     <string name="send">Send</string>
+    <string name="please_fill_all_fields">Please fill in all fields</string>
+    <string name="passwords_do_not_match">New passwords do not match</string>
+    <string name="password_changed_successfully">Password changed successfully</string>
+    <string name="password_change_failed">Password change failed</string>
+
 </resources>

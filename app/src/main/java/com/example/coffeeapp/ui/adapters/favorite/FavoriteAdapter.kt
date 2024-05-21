@@ -25,16 +25,16 @@ class FavoriteAdapter(
 
     override fun onBindViewHolder(holder: FavoriteVH, position: Int) {
         with(holder.binding) {
-            val favoriteData = favoriteList[position]
-            favoriteData.image_link_portrait?.let { imageCoffee.setImageResource(it) }
-            textNameCoffee.text = favoriteData.name
-            textSpecialIngredientCoffee.text = favoriteData.special_ingredient
-            textAverageRating.text = favoriteData.average_rating.toString()
-            textRatingsCount.text = favoriteData.ratings_count
-            textDescription.text = favoriteData.description
+            val favoriteList = favoriteList[position]
+            favoriteList.image_link_portrait?.let { imageCoffee.setImageResource(it) }
+            textNameCoffee.text = favoriteList.name
+            textSpecialIngredientCoffee.text = favoriteList.special_ingredient
+            textAverageRating.text = favoriteList.average_rating.toString()
+            textRatingsCount.text = favoriteList.ratings_count
+            textDescription.text = favoriteList.description
 
-            constraintFavorite.setOnClickListener { navigateToDetail.invoke(favoriteData) }
-            imageFavorite.setOnClickListener { removeFromFavorites.invoke(favoriteData) }
+            constraintFavorite.setOnClickListener { navigateToDetail.invoke(favoriteList) }
+            imageFavorite.setOnClickListener { removeFromFavorites.invoke(favoriteList) }
         }
     }
 }

@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import com.example.coffeeapp.R
 import com.example.coffeeapp.base.BaseFragment
+import com.example.coffeeapp.base.BaseShared
 import com.example.coffeeapp.databinding.FragmentRegisterBinding
 import com.example.coffeeapp.models.login.Register
-import com.example.coffeeapp.util.ObjectUtil
+import com.example.coffeeapp.util.Constants.Companion.EMAIL
 import com.example.coffeeapp.util.navigateSafe
 import com.example.coffeeapp.util.observeNonNull
 import com.example.coffeeapp.util.showMessage
@@ -31,7 +31,6 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterViewModel
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupPasswordVisibilityToggle()
-        setUpAppBar()
     }
 
     override fun setUpListeners() {
@@ -40,9 +39,10 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterViewModel
                 val name = editTextName.text.toString().trim()
                 val email = editTextEmail.text.toString().trim()
                 val password = editTextPassword.text.toString()
-                val confirmPassword = editTextPassword.text.toString()
+                val confirmPassword = editTextConfirmPassword.text.toString()
                 val register = Register(name, email, password, confirmPassword)
                 viewModel.registerUser(register)
+                BaseShared.saveString(mContext, EMAIL, email)
             }
 
             textViewContinueWithLogin.setOnClickListener {
@@ -53,8 +53,8 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterViewModel
 
     override fun setUpObservers() {
         viewModel.apply {
-            register.observeNonNull(viewLifecycleOwner) {
-                if (it) navigateSafe(R.id.action_registerFragment_to_homeFragment)
+            register.observeNonNull(viewLifecycleOwner) { success ->
+                if (success) navigateSafe(R.id.action_registerFragment_to_homeFragment)
                 else showMessage(mContext, getString(R.string.register_failed))
             }
         }
@@ -69,11 +69,6 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterViewModel
                 setOnClickListener { togglePasswordVisibility() }
             }
         }
-    }
-
-
-    private fun setUpAppBar() {
-        ObjectUtil.updateAppBarTitle(mContext as AppCompatActivity, getString(R.string.register))
     }
 
 }

@@ -20,16 +20,18 @@ class RegisterViewModel : BaseViewModel() {
             val confirmValid = confirm_password?.isNotEmpty() == true
             val passwordMatch = password == confirm_password
             val emailValidForRegistration = email?.let { !it.containsTurkishCharacters() } ?: true
+
             if (nameValid && emailValid && passwordValid && confirmValid && passwordMatch && emailValidForRegistration) {
-                if (password != null) {
-                    if (email != null) {
-                        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
-                            _register.value = it.isSuccessful
-                        }
+                if (password != null  && email != null) {
+                    auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+                        _register.value = task.isSuccessful
                     }
                 }
-            } else _register.value = false
+            } else {
+                _register.value = false
+            }
         }
     }
+
 
 }

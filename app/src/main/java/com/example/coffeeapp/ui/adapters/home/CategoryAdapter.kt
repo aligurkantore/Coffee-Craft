@@ -10,7 +10,7 @@ import com.example.coffeeapp.models.category.Category
 
 class CategoryAdapter(
     private val categoryList: List<Category>,
-    private val clickCategory: (Int) -> Unit
+    private val clickCategory: (Int) -> Unit,
 ) : RecyclerView.Adapter<CategoryAdapter.CategoryVH>() {
 
     private var selectedItemPosition: Int = 0
@@ -32,8 +32,8 @@ class CategoryAdapter(
         position: Int,
     ) {
         with(holder.binding) {
-            val category = categoryList[position]
-            textViewCategoryName.text = category.categoryName
+            val categoryList = categoryList[position]
+            textViewCategoryName.text = categoryList.categoryName
             val isSelected = position == selectedItemPosition
             textViewCategoryName.setTextColor(
                 ContextCompat.getColor(
@@ -54,10 +54,5 @@ class CategoryAdapter(
 
     override fun getItemCount(): Int {
         return categoryList.size
-    }
-
-    fun setSelectedItemPosition(position: Int) {
-        selectedItemPosition = position
-        notifyItemChanged(selectedItemPosition)
     }
 }

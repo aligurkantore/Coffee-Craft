@@ -1,8 +1,6 @@
 package com.example.coffeeapp.ui.adapters.cart
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -11,19 +9,19 @@ import com.example.coffeeapp.base.BaseShared
 import com.example.coffeeapp.databinding.ItemCartBinding
 import com.example.coffeeapp.helper.FireBaseDataManager
 import com.example.coffeeapp.models.coffee.CoffeeResponseModel
-import com.example.coffeeapp.util.Constants.Companion.L
-import com.example.coffeeapp.util.Constants.Companion.M
-import com.example.coffeeapp.util.Constants.Companion.S
+import com.google.firebase.auth.FirebaseAuth
 
 class CartAdapter(
     private val context: Context,
     private var cartList: MutableList<CoffeeResponseModel>,
     private var navigateToDetail: (CoffeeResponseModel) -> Unit,
     private var totalPriceListener: TotalPriceListener,
-    private var deleteListener: (CoffeeResponseModel) -> Unit
+    private var deleteListener: (CoffeeResponseModel) -> Unit,
 ) : RecyclerView.Adapter<CartAdapter.CartVH>() {
 
     inner class CartVH(val binding: ItemCartBinding) : RecyclerView.ViewHolder(binding.root)
+
+    val userId = FirebaseAuth.getInstance().currentUser?.uid
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartVH {
         val view = ItemCartBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -34,61 +32,51 @@ class CartAdapter(
         return cartList.size
     }
 
-    @SuppressLint("StringFormatMatches")
     override fun onBindViewHolder(holder: CartVH, position: Int) {
         with(holder.binding) {
-            val cartData = cartList[position]
-            cartData.image_link_portrait?.let { imageCart.setImageResource(it) }
-            textNameCoffee.text = cartData.name
-            textSpecialIngredientCoffee.text = cartData.special_ingredient
-
-            val selectedSize = BaseShared.getString(context, "size_${cartData.id}", "")
-            val price = when (selectedSize) {
-                S -> cartData.prices?.firstOrNull { it.size == S }?.price ?: 0.0
-                M -> cartData.prices?.firstOrNull { it.size == M }?.price ?: 0.0
-                L -> cartData.prices?.firstOrNull { it.size == L }?.price ?: 0.0
-                else -> 0.0
-            }
-            val formattedPrice = context.getString(R.string.price_format, price)
+            val cartList = cartList[position]
+            cartList.image_link_portrait?.let { imageCart.setImageResource(it) }
+            textNameCoffee.text = cartList.name
+            textSpecialIngredientCoffee.text = cartList.special_ingredient
+            val formattedPrice =
+                context.getString(R.string.price_format, cartList.price)
             textPrice.text = formattedPrice
-            textSize.text = selectedSize
-
 
             val previousCount =
-                BaseShared.getInt(context, "count_${cartData.id}", 0)
-            if (previousCount <= 0) cartData.count = 1
-            else cartData.count = previousCount
+                BaseShared.getInt(context, "${userId}/count_${cartList.id}", 0)
+            if (previousCount <= 0) cartList.count = 1
+            else cartList.count = previousCount
 
-            textCount.text = cartData.count.toString()
+            textCount.text = cartList.count.toString()
 
             imageMinus.setOnClickListener {
-                if (cartData.count > 0) {
-                    cartData.count--
-                    textCount.text = cartData.count.toString()
-                    if (cartData.count == 0) {
-                        val id = cartData.id
+                if (cartList.count > 0) {
+                    cartList.count--
+                    textCount.text = cartList.count.toString()
+                    if (cartList.count == 0) {
+                        val id = cartList.id
                         FireBaseDataManager.removeFromCart(context, id.toString())
-                        cartList.remove(cartData)
+                        this@CartAdapter.cartList.remove(cartList)
                         notifyItemRemoved(holder.adapterPosition)
                     }
                 }
-                BaseShared.saveInt(context, "count_${cartData.id}", cartData.count)
-                totalPriceListener.onTotalPriceUpdated(calculateTotalPrice(), cartData.count)
+                BaseShared.saveInt(context, "${userId}/count_${cartList.id}", cartList.count)
+                totalPriceListener.onTotalPriceUpdated(calculateTotalPrice(), cartList.count)
             }
             imagePlus.setOnClickListener {
-                cartData.count++
-                textCount.text = cartData.count.toString()
-                BaseShared.saveInt(context, "count_${cartData.id}", cartData.count)
-                totalPriceListener.onTotalPriceUpdated(calculateTotalPrice(), cartData.count)
+                cartList.count++
+                textCount.text = cartList.count.toString()
+                BaseShared.saveInt(context, "${userId}/count_${cartList.id}", cartList.count)
+                totalPriceListener.onTotalPriceUpdated(calculateTotalPrice(), cartList.count)
             }
 
-            constraintCart.setOnClickListener { navigateToDetail.invoke(cartData) }
-            imageDelete.setOnClickListener { deleteListener.invoke(cartData)  }
+            constraintCart.setOnClickListener { navigateToDetail.invoke(cartList) }
+            imageDelete.setOnClickListener { deleteListener.invoke(cartList) }
         }
     }
 
     private fun calculateTotalPrice(): String {
-        return cartList.sumByDouble { (it.prices?.first()?.price ?: 0.0) * it.count }.toString()
+        return cartList.sumByDouble { (it.price ?: 0.0) * it.count }.toString()
     }
 
 

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_color"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".ui.fragments.addaddress.AddAddressFragment">
+
+
+    <TextView
+        android:id="@+id/text_contact_information"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/contact_information"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/edit_text_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/edit_text_background"
+        android:drawablePadding="8dp"
+        android:hint="@string/name"
+        android:inputType="text"
+        android:padding="12dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/md_grey_500" />
+
+    <EditText
+        android:id="@+id/edit_text_number_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/edit_text_background"
+        android:drawablePadding="8dp"
+        android:hint="@string/receiver_phone_number"
+        android:inputType="number"
+        android:padding="12dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/md_grey_500"
+        tools:ignore="TextFields" />
+
+    <TextView
+        android:id="@+id/text_address_information"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/address_information"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/edit_text_address_information"
+        android:layout_width="match_parent"
+        android:layout_height="96dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/edit_text_background"
+        android:drawablePadding="8dp"
+        android:gravity="start"
+        android:hint="@string/address_information"
+        android:inputType="textMultiLine"
+        android:lines="3"
+        android:maxLines="3"
+        android:minLines="3"
+        android:padding="12dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/md_grey_500" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_add_to_address_book"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/button_login"
+        android:text="@string/add_to_address_book"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="-1dp"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        tools:layout_editor_absoluteY="114dp" />
+
+
+</LinearLayout>
