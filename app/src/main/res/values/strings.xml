@@ -200,6 +200,7 @@
     <string name="address_information">Address Information</string>
     <string name="receiver_phone_number">Recipient Phone Number</string>
     <string name="add_to_address_book">Add to Address Book</string>
+    <string name="your_location">Your Location</string>
 
 
     <!--- Forgot Password -->

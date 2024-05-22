@@ -15,6 +15,7 @@ import com.example.coffeeapp.helper.FireBaseDataManager.userId
 import com.example.coffeeapp.models.coffee.CoffeeResponseModel
 import com.example.coffeeapp.ui.adapters.favorite.FavoriteAdapter
 import com.example.coffeeapp.util.Constants
+import com.example.coffeeapp.util.ProgressBarUtil
 import com.example.coffeeapp.util.goneIf
 import com.example.coffeeapp.util.navigateSafe
 import com.example.coffeeapp.util.navigateSafeWithArgs
@@ -25,6 +26,7 @@ import com.example.coffeeapp.util.visibleIf
 class FavoriteFragment : BaseFragment<FragmentFavoriteBinding, FavoriteViewModel>() {
 
     private lateinit var favoriteAdapter: FavoriteAdapter
+    private lateinit var progressBarUtil: ProgressBarUtil
 
     override val viewModelClass: Class<out FavoriteViewModel>
         get() = FavoriteViewModel::class.java
@@ -38,8 +40,12 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding, FavoriteViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        progressBarUtil = ProgressBarUtil(mContext, binding?.root as ViewGroup)
         viewModel.startAuthStateListener()
         isUserLoggedIn(viewModel.isLoggedIn())
+        checkItemInAdapter(false)
+
+        progressBarUtil.showProgressBar()
     }
 
     override fun setUpListeners() {
@@ -53,10 +59,13 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding, FavoriteViewModel
     override fun setUpObservers() {
         viewModel.favoriteItemsLiveData.observeNonNull(viewLifecycleOwner) { list ->
             if (list.isEmpty()) {
+                progressBarUtil.hideProgressBar()
                 checkItemInAdapter(false)
             } else {
                 checkItemInAdapter(true)
                 setUpFavoriteAdapter(list)
+
+                progressBarUtil.hideProgressBar()
             }
         }
     }

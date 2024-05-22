@@ -1,6 +1,8 @@
 package com.example.coffeeapp.ui.fragments.addaddress
 
+import android.location.Geocoder
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +19,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import java.util.Locale
 
 
 class AddAddressFragment : BaseFragment<FragmentAddAddressBinding, AddAddressViewModel>(),
@@ -49,10 +52,11 @@ class AddAddressFragment : BaseFragment<FragmentAddAddressBinding, AddAddressVie
                 val addressInformation = editTextAddressInformation.text.toString()
 
                 val address = AddAddress("", name, phoneNumber, addressInformation)
+
                 if (name.isNotEmpty() && phoneNumber.isNotEmpty() && addressInformation.isNotEmpty()) {
                     FireBaseDataManager.addAddress(address)
                     navigateSafe(R.id.action_addAddressFragment_to_myAddressesFragment)
-                } else showMessage(mContext, getString(R.string.unexpected_error))
+                } else showMessage(mContext, getString(R.string.please_fill_all_fields))
 
             }
         }
@@ -61,13 +65,26 @@ class AddAddressFragment : BaseFragment<FragmentAddAddressBinding, AddAddressVie
     override fun setUpObservers() {}
 
     override fun onMapReady(googleMap: GoogleMap) {
-        /*
         mMap = googleMap
-        val exampleLocation = LatLng(-34.0, 151.0)
-        mMap.addMarker(MarkerOptions().position(exampleLocation).title("Example Location"))
+        val exampleLocation = LatLng(37.5892, 36.9371)
+        mMap.addMarker(
+            MarkerOptions().position(exampleLocation).title(getString(R.string.your_location))
+        )
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(exampleLocation, 10f))
 
-         */
-        showMessage(mContext,"Google Map")
+        mMap.setOnMapClickListener { latLng ->
+            val latitude = latLng.latitude
+            val longitude = latLng.longitude
+            val geocoder = Geocoder(requireContext(), Locale.getDefault())
+            val addresses = geocoder.getFromLocation(latitude, longitude, 1)
+
+            if (addresses?.isNotEmpty() == true) {
+                val address = addresses[0]
+                val addressText = address.getAddressLine(0)
+                binding?.editTextAddressInformation?.setText(addressText)
+            } else {
+                Log.d("agt", "Address not found")
+            }
+        }
     }
 }

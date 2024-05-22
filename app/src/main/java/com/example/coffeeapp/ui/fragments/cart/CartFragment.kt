@@ -14,6 +14,7 @@ import com.example.coffeeapp.models.coffee.CoffeeResponseModel
 import com.example.coffeeapp.ui.adapters.cart.CartAdapter
 import com.example.coffeeapp.ui.dialogs.CustomDialog
 import com.example.coffeeapp.util.Constants.Companion.DETAIL
+import com.example.coffeeapp.util.ProgressBarUtil
 import com.example.coffeeapp.util.goneIf
 import com.example.coffeeapp.util.navigateSafe
 import com.example.coffeeapp.util.navigateSafeWithArgs
@@ -25,6 +26,7 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel>() {
 
     private lateinit var cartAdapter: CartAdapter
     private var cartItems: MutableList<CoffeeResponseModel> = mutableListOf()
+    private lateinit var progressBarUtil: ProgressBarUtil
 
     override val viewModelClass: Class<out CartViewModel>
         get() = CartViewModel::class.java
@@ -35,8 +37,12 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        progressBarUtil = ProgressBarUtil(mContext, binding?.root as ViewGroup)
         viewModel.startAuthStateListener()
         isUserLoggedIn(viewModel.isLoggedIn())
+        checkItemsInAdapter(false)
+
+        progressBarUtil.showProgressBar()
     }
 
     override fun setUpListeners() {
@@ -57,6 +63,7 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel>() {
     override fun setUpObservers() {
         viewModel.cartItemsLiveData.observeNonNull(viewLifecycleOwner) { list ->
             if (list.isEmpty()) {
+                progressBarUtil.hideProgressBar()
                 checkItemsInAdapter(false)
             } else {
                 checkItemsInAdapter(true)
@@ -72,6 +79,8 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel>() {
                     mContext.getString(R.string.price_format, totalPrice)
                 binding?.textPrice?.text = formattedPrice
                 BaseShared.saveString(mContext, "totalPrice", totalPrice.toString())
+
+                progressBarUtil.hideProgressBar()
             }
         }
     }

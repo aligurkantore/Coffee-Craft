@@ -206,6 +206,7 @@
     <string name="address_information">Adressinformationen</string>
     <string name="receiver_phone_number">Empfänger Telefonnummer</string>
     <string name="add_to_address_book">Zum Adressbuch hinzufügen</string>
+    <string name="your_location">Ihr Standort</string>
 
 
     <!--- Forgot Password -->

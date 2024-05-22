@@ -11,6 +11,8 @@ import com.example.coffeeapp.base.BaseShared
 import com.example.coffeeapp.databinding.FragmentPaymentInformationBinding
 import com.example.coffeeapp.helper.FireBaseDataManager
 import com.example.coffeeapp.ui.dialogs.CustomDialog
+import com.example.coffeeapp.util.ProgressBarUtil
+import com.example.coffeeapp.util.gone
 import com.example.coffeeapp.util.goneIf
 import com.example.coffeeapp.util.navigateSafe
 import com.example.coffeeapp.util.observeNonNull
@@ -20,6 +22,9 @@ import com.example.coffeeapp.util.visibleIf
 
 class PaymentInformationFragment :
     BaseFragment<FragmentPaymentInformationBinding, PaymentInformationViewModel>() {
+
+    private lateinit var progressBarUtil: ProgressBarUtil
+    private val clickStateMap = mutableMapOf<View, Boolean>()
 
     override val viewModelClass: Class<out PaymentInformationViewModel>
         get() = PaymentInformationViewModel::class.java
@@ -33,9 +38,12 @@ class PaymentInformationFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-       // backPressed()
+        progressBarUtil = ProgressBarUtil(mContext, binding?.root as ViewGroup)
+        // backPressed()
         isUserLoggedIn(viewModel.isLoggedIn())
-        updateCreditCardVisibility(viewModel.getCreditCard().equals(true)) // tekrar incele
+        updateCreditCardVisibility(viewModel.getCreditCard().equals(true))
+
+        progressBarUtil.showProgressBar()
     }
 
     override fun setUpListeners() {
@@ -48,18 +56,29 @@ class PaymentInformationFragment :
             )
 
             clickListeners.forEach { (view, textResId) ->
+                clickStateMap[view] = false
+
                 view.setOnClickListener {
-                    val scale = 1.1f
+                    val isSelected = clickStateMap[view] ?: false
+                    val scale = if (isSelected) 1f else 1.1f
                     view.animate().scaleX(scale).scaleY(scale).setDuration(200).start()
+                    clickStateMap[view] = !isSelected
 
                     clickListeners.keys.filter { it != view }.forEach {
                         it.animate().scaleX(1f).scaleY(1f).setDuration(200).start()
+                        clickStateMap[it] = false
                     }
-                    textTitlePrice.visible()
-                    textPrice.visible()
-                    buttonPay.apply {
-                        visible()
-                        text = mContext.getString(textResId)
+                    if (!isSelected) {
+                        textTitlePrice.visible()
+                        textPrice.visible()
+                        buttonPay.apply {
+                            visible()
+                            text = mContext.getString(textResId)
+                        }
+                    } else {
+                        textTitlePrice.gone()
+                        textPrice.gone()
+                        buttonPay.gone()
                     }
                 }
             }
@@ -96,6 +115,8 @@ class PaymentInformationFragment :
             } else {
                 updateCreditCardVisibility(false)
             }
+
+            progressBarUtil.hideProgressBar()
 
         }
     }

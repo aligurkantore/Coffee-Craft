@@ -83,12 +83,13 @@
         android:textSize="20sp"
         android:textStyle="bold" />
 
-    <com.google.android.gms.maps.MapView
+    <fragment
         android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="16dp"
         tools:layout_editor_absoluteX="-1dp"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
         tools:layout_editor_absoluteY="114dp" />
 
 

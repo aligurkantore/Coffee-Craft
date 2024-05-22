@@ -19,7 +19,7 @@ class ProgressBarUtil(private val context: Context, private val layout: ViewGrou
     private fun setProgressBar() {
         progressBar = ProgressBar(context)
         progressBar?.indeterminateTintList =
-            ColorStateList.valueOf(ContextCompat.getColor(context, R.color.white))
+            ColorStateList.valueOf(ContextCompat.getColor(context, R.color.is_selected))
 
         val params = ConstraintLayout.LayoutParams(
             ConstraintLayout.LayoutParams.WRAP_CONTENT,
