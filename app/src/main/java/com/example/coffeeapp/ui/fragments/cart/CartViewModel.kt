@@ -17,6 +17,8 @@ class CartViewModel : BaseViewModel() {
     private lateinit var userRef: DatabaseReference
     private var authStateListener: FirebaseAuth.AuthStateListener
 
+    val authStateLiveData = MutableLiveData<Boolean>()
+
     private val _cartItemsLiveData = MutableLiveData<List<CoffeeResponseModel>>()
     val cartItemsLiveData: LiveData<List<CoffeeResponseModel>> = _cartItemsLiveData
 
@@ -27,17 +29,14 @@ class CartViewModel : BaseViewModel() {
             user?.let {
                 userRef = database.getReference("users/${it.uid}/cart")
                 getCartItems()
+                authStateLiveData.postValue(true)
+            } ?: run {
+                _cartItemsLiveData.postValue(emptyList())
+                authStateLiveData.postValue(false)
             }
         }
     }
 
-    fun startAuthStateListener() {
-        auth.addAuthStateListener(authStateListener)
-    }
-
-    fun stopAuthStateListener() {
-        auth.removeAuthStateListener(authStateListener)
-    }
 
     private fun getCartItems() {
         userRef.addValueEventListener(object : ValueEventListener {
@@ -51,10 +50,17 @@ class CartViewModel : BaseViewModel() {
 
             }
 
-
             override fun onCancelled(error: DatabaseError) {
                 Log.d("agt", "onCancelled: cartViewModel")
             }
         })
+    }
+
+    fun startAuthStateListener() {
+        auth.addAuthStateListener(authStateListener)
+    }
+
+    fun stopAuthStateListener() {
+        auth.removeAuthStateListener(authStateListener)
     }
 }

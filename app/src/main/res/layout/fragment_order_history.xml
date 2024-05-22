@@ -14,11 +14,23 @@
         android:layout_marginBottom="16dp"
         android:scrollbarThumbVertical="@color/is_selected"
         android:scrollbars="vertical"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@id/button_go_to_home_page"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/item_order_history" />
+
+    <ImageView
+        android:id="@+id/image_empty_order_history"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/order_history_list"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/text_empty_order_history"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/text_empty_order_history"
@@ -44,9 +56,41 @@
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="22sp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+
+
+
+    <TextView
+        android:id="@+id/text_not_logged_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/must_login"
+        android:textColor="@color/is_selected"
+        android:textSize="18sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image_empty_order_history" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/button_add_to_cart"
+        android:text="@string/login"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/text_not_logged_in"
+        app:layout_constraintStart_toEndOf="@id/text_not_logged_in"
+        app:layout_constraintTop_toBottomOf="@id/text_not_logged_in" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

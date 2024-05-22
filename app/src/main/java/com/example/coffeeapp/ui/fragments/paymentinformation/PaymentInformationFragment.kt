@@ -43,7 +43,6 @@ class PaymentInformationFragment :
         isUserLoggedIn(viewModel.isLoggedIn())
         updateCreditCardVisibility(viewModel.getCreditCard().equals(true))
 
-        progressBarUtil.showProgressBar()
     }
 
     override fun setUpListeners() {
@@ -116,7 +115,6 @@ class PaymentInformationFragment :
                 updateCreditCardVisibility(false)
             }
 
-            progressBarUtil.hideProgressBar()
 
         }
     }

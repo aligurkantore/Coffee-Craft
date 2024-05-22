@@ -14,11 +14,14 @@ import com.google.firebase.database.ValueEventListener
 
 class FavoriteViewModel : BaseViewModel() {
 
+    private lateinit var userRef: DatabaseReference
+    private var authStateListener: FirebaseAuth.AuthStateListener
+
+    val authStateLiveData = MutableLiveData<Boolean>()
+
     private val _favoriteItemsLiveData = MutableLiveData<List<CoffeeResponseModel>>()
     val favoriteItemsLiveData: LiveData<List<CoffeeResponseModel>> = _favoriteItemsLiveData
 
-    private lateinit var userRef: DatabaseReference
-    private var authStateListener: FirebaseAuth.AuthStateListener
 
     init {
         authStateListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
@@ -26,16 +29,12 @@ class FavoriteViewModel : BaseViewModel() {
             user?.let {
                 userRef = database.getReference("users/${it.uid}/favorite")
                 getFavoriteItems()
+                authStateLiveData.postValue(true)
+            } ?: run {
+                _favoriteItemsLiveData.postValue(emptyList())
+                authStateLiveData.postValue(false)
             }
         }
-    }
-
-    fun startAuthStateListener() {
-        auth.addAuthStateListener(authStateListener)
-    }
-
-    fun stopAuthStateListener() {
-        auth.removeAuthStateListener(authStateListener)
     }
 
     private fun getFavoriteItems() {
@@ -53,5 +52,13 @@ class FavoriteViewModel : BaseViewModel() {
                 Log.d("agt", "onCancelled: favoriteViewModel")
             }
         })
+    }
+
+    fun startAuthStateListener() {
+        auth.addAuthStateListener(authStateListener)
+    }
+
+    fun stopAuthStateListener() {
+        auth.removeAuthStateListener(authStateListener)
     }
 }

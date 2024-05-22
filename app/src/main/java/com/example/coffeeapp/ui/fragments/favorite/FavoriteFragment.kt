@@ -25,7 +25,7 @@ import com.example.coffeeapp.util.visibleIf
 
 class FavoriteFragment : BaseFragment<FragmentFavoriteBinding, FavoriteViewModel>() {
 
-    private lateinit var favoriteAdapter: FavoriteAdapter
+    private var favoriteAdapter: FavoriteAdapter? = null
     private lateinit var progressBarUtil: ProgressBarUtil
 
     override val viewModelClass: Class<out FavoriteViewModel>
@@ -43,9 +43,9 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding, FavoriteViewModel
         progressBarUtil = ProgressBarUtil(mContext, binding?.root as ViewGroup)
         viewModel.startAuthStateListener()
         isUserLoggedIn(viewModel.isLoggedIn())
-        checkItemInAdapter(false)
+        setUIView(false)
 
-        progressBarUtil.showProgressBar()
+        //  progressBarUtil.showProgressBar()
     }
 
     override fun setUpListeners() {
@@ -57,17 +57,29 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding, FavoriteViewModel
     }
 
     override fun setUpObservers() {
-        viewModel.favoriteItemsLiveData.observeNonNull(viewLifecycleOwner) { list ->
-            if (list.isEmpty()) {
-                progressBarUtil.hideProgressBar()
-                checkItemInAdapter(false)
-            } else {
-                checkItemInAdapter(true)
-                setUpFavoriteAdapter(list)
+        viewModel.apply {
+            favoriteItemsLiveData.observeNonNull(viewLifecycleOwner) { list ->
+                if (viewModel.isLoggedIn()) {
+                    if (list.isEmpty()) {
+                        progressBarUtil.hideProgressBar()
+                        setUIView(false)
+                    } else {
+                        setUIView(true)
+                        setUpFavoriteAdapter(list)
 
-                progressBarUtil.hideProgressBar()
+                        //   progressBarUtil.hideProgressBar()
+                    }
+                } else clearFavorite()
+
+            }
+            authStateLiveData.observeNonNull(viewLifecycleOwner) { isLoggedIn ->
+                isUserLoggedIn(isLoggedIn)
+                if (!isLoggedIn) {
+                    clearFavorite()
+                }
             }
         }
+
     }
 
 
@@ -82,7 +94,6 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding, FavoriteViewModel
             adapter = favoriteAdapter
             layoutManager = LinearLayoutManager(mContext)
         }
-        favoriteAdapter.notifyDataSetChanged()
     }
 
     private fun navigateToDetail(data: CoffeeResponseModel) {
@@ -102,7 +113,7 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding, FavoriteViewModel
         } else navigateSafe(R.id.action_favoriteFragment_to_loginFragment)
     }
 
-    private fun checkItemInAdapter(isVisible: Boolean) {
+    private fun setUIView(isVisible: Boolean) {
         binding?.apply {
             recyclerFavorite visibleIf isVisible
             imageEmptyFavorite goneIf isVisible
@@ -112,11 +123,14 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding, FavoriteViewModel
 
     private fun isUserLoggedIn(isLogin: Boolean) {
         binding?.apply {
-            imageEmptyFavorite goneIf isLogin
             textNotLoggedIn goneIf isLogin
             buttonLogin goneIf isLogin
-            recyclerFavorite visibleIf isLogin
         }
+    }
+
+    private fun clearFavorite() {
+        favoriteAdapter?.notifyDataSetChanged()
+        setUIView(false)
     }
 
     override fun onDestroyView() {

@@ -1,6 +1,7 @@
 package com.example.coffeeapp.ui.fragments.cart
 
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,7 +25,7 @@ import com.example.coffeeapp.util.visibleIf
 
 class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel>() {
 
-    private lateinit var cartAdapter: CartAdapter
+    private var cartAdapter: CartAdapter? = null
     private var cartItems: MutableList<CoffeeResponseModel> = mutableListOf()
     private lateinit var progressBarUtil: ProgressBarUtil
 
@@ -40,9 +41,9 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel>() {
         progressBarUtil = ProgressBarUtil(mContext, binding?.root as ViewGroup)
         viewModel.startAuthStateListener()
         isUserLoggedIn(viewModel.isLoggedIn())
-        checkItemsInAdapter(false)
+        setUIView(false)
 
-        progressBarUtil.showProgressBar()
+        //  progressBarUtil.showProgressBar()
     }
 
     override fun setUpListeners() {
@@ -61,27 +62,41 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel>() {
     }
 
     override fun setUpObservers() {
-        viewModel.cartItemsLiveData.observeNonNull(viewLifecycleOwner) { list ->
-            if (list.isEmpty()) {
-                progressBarUtil.hideProgressBar()
-                checkItemsInAdapter(false)
-            } else {
-                checkItemsInAdapter(true)
-                setUpCartAdapter(list)
-                cartItems.clear()
-                cartItems.addAll(list)
+        viewModel.apply {
+            cartItemsLiveData.observeNonNull(viewLifecycleOwner) { list ->
+                if (viewModel.isLoggedIn()) {
+                    if (list.isEmpty()) {
+                        progressBarUtil.hideProgressBar()
+                        setUIView(false)
+                    } else {
+                        setUIView(true)
+                        setUpCartAdapter(list)
+                        cartItems.clear()
+                        cartItems.addAll(list)
 
-                val totalPrice = cartItems.sumByDouble {
-                    val count = BaseShared.getInt(mContext, "${viewModel.userId}/count_${it.id}", 1)
-                    (it.price)?.times(count) ?: 0.0
-                }
-                val formattedPrice =
-                    mContext.getString(R.string.price_format, totalPrice)
-                binding?.textPrice?.text = formattedPrice
-                BaseShared.saveString(mContext, "totalPrice", totalPrice.toString())
+                        val totalPrice = cartItems.sumByDouble {
+                            val count =
+                                BaseShared.getInt(mContext, "${viewModel.userId}/count_${it.id}", 1)
+                            (it.price)?.times(count) ?: 0.0
+                        }
+                        val formattedPrice =
+                            mContext.getString(R.string.price_format, totalPrice)
+                        binding?.textPrice?.text = formattedPrice
+                        BaseShared.saveString(mContext, "totalPrice", totalPrice.toString())
 
-                progressBarUtil.hideProgressBar()
+                        //   progressBarUtil.hideProgressBar()
+                    }
+                } else clearCart()
+
+                cartAdapter?.notifyDataSetChanged()
             }
+            authStateLiveData.observeNonNull(viewLifecycleOwner) { isLoggedIn ->
+                isUserLoggedIn(isLoggedIn)
+                if (!isLoggedIn) {
+                    clearCart()
+                }
+            }
+
         }
     }
 
@@ -119,7 +134,7 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel>() {
     }
 
 
-    private fun checkItemsInAdapter(isVisible: Boolean) {
+    private fun setUIView(isVisible: Boolean) {
         binding?.apply {
             recyclerCart visibleIf isVisible
             textTitlePrice visibleIf isVisible
@@ -154,6 +169,14 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel>() {
             }
         ).show()
     }
+
+    private fun clearCart() {
+        cartItems.clear()
+        cartAdapter?.notifyDataSetChanged()
+        setUIView(false)
+    }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()
