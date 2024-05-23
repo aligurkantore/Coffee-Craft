@@ -5,7 +5,10 @@ import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
+import android.view.MotionEvent
 import android.view.View
+import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
@@ -85,6 +88,31 @@ fun Context.changeLanguage(languageCode: String): Boolean {
 fun formatDate(date: Date): String {
     val sdf = SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault())
     return sdf.format(date)
+}
+
+fun Fragment.setupKeyboardHidingOnTouch(view: View) {
+    if (view !is EditText) {
+        view.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                hideKeyboard()
+                view.performClick()
+            }
+            false
+        }
+    }
+
+    if (view is ViewGroup) {
+        for (i in 0 until view.childCount) {
+            val innerView: View = view.getChildAt(i)
+            setupKeyboardHidingOnTouch(innerView)
+        }
+    }
+}
+
+fun Fragment.hideKeyboard() {
+    val inputMethodManager =
+        requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    inputMethodManager.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
 }
 
 fun showMessage(context: Context, text: String) {

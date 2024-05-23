@@ -102,7 +102,7 @@
     <string name="product_name">Ürün Adı: %1$s</string>
     <string name="price_order_history">Prix: %1$s</string>
     <string name="quantity">Quantité: %1$s</string>
-    <string name="total_price">Prix total: %.2f</string>
+    <string name="total_price">Prix total: %1$s</string>
     <string name="empty_order_history">Votre historique de commandes est vide.</string>
 
 

@@ -45,7 +45,7 @@ class AddAddressFragment : BaseFragment<FragmentAddAddressBinding, AddAddressVie
     }
 
     override fun setUpListeners() {
-        binding?.apply {
+        viewBindingScope {
             buttonAddToAddressBook.setOnClickListener {
                 val name = editTextName.text.toString()
                 val phoneNumber = editTextNumberPhone.text.toString()

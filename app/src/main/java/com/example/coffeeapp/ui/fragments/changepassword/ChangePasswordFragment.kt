@@ -31,7 +31,7 @@ class ChangePasswordFragment :
     }
 
     override fun setUpListeners() {
-        binding?.apply {
+        viewBindingScope {
             buttonChangePassword.setOnClickListener {
                 val oldPassword = editTextOldPassword.text.toString()
                 val newPassword = editTextNewPassword.text.toString()
@@ -60,7 +60,7 @@ class ChangePasswordFragment :
     }
 
     private fun setupPasswordVisibilityToggle() {
-        binding?.apply {
+        viewBindingScope {
             editTextOldPassword.apply {
                 setOnClickListener { togglePasswordVisibility() }
             }

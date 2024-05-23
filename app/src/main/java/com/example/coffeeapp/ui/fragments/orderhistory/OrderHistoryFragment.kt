@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coffeeapp.R
 import com.example.coffeeapp.base.BaseFragment
@@ -12,10 +11,10 @@ import com.example.coffeeapp.databinding.FragmentOrderHistoryBinding
 import com.example.coffeeapp.helper.FireBaseDataManager
 import com.example.coffeeapp.models.order.OrderModel
 import com.example.coffeeapp.ui.adapters.orderhistory.OrderHistoryAdapter
+import com.example.coffeeapp.util.gone
 import com.example.coffeeapp.util.goneIf
 import com.example.coffeeapp.util.navigateSafe
 import com.example.coffeeapp.util.observeNonNull
-import com.example.coffeeapp.util.showMessage
 import com.example.coffeeapp.util.visibleIf
 
 class OrderHistoryFragment : BaseFragment<FragmentOrderHistoryBinding, OrderHistoryViewModel>() {
@@ -46,12 +45,16 @@ class OrderHistoryFragment : BaseFragment<FragmentOrderHistoryBinding, OrderHist
 
     override fun setUpObservers() {
         viewModel.orderHistoryLiveData.observeNonNull(viewLifecycleOwner) { orderHistory ->
-            if (!orderHistory.isNullOrEmpty()) {
-                setUpOrderHistoryAdapter(orderHistory)
-                setUIView(true)
-            } else {
-                setUIView(false)
-            }
+            if (viewModel.isLoggedIn()) {
+                if (!orderHistory.isNullOrEmpty()) {
+                    setUpOrderHistoryAdapter(orderHistory)
+                    setUIView(true)
+                } else {
+                    setUIView(false)
+                    binding?.baseEmptyView?.buttonAction?.gone()
+                }
+            } else isUserLoggedIn(false)
+
         }
     }
 
@@ -69,23 +72,36 @@ class OrderHistoryFragment : BaseFragment<FragmentOrderHistoryBinding, OrderHist
     }
 
     private fun deleteItemInAdapter(data: OrderModel) {
-        FireBaseDataManager.removeFromOrderHistory(mContext,data.orderId)
+        FireBaseDataManager.removeFromOrderHistory(mContext, data.orderId)
     }
 
-    private fun setUIView(isVisible: Boolean){
-        binding?.apply {
+    private fun setUIView(isVisible: Boolean) {
+        viewBindingScope {
             recyclerOrderHistory visibleIf isVisible
-            imageEmptyOrderHistory goneIf isVisible
-            textEmptyOrderHistory goneIf isVisible
+            baseEmptyView.apply {
+                imageEmpty.setImageResource(R.drawable.order_history_list)
+                textEmpty.text = getString(R.string.empty_order_history)
+
+            }.also {
+                it.constraintBaseEmpty goneIf isVisible
+            }
         }
     }
 
-    private fun isUserLoggedIn(isLogin: Boolean){
-        binding?.apply {
+    private fun isUserLoggedIn(isLogin: Boolean) {
+        viewBindingScope {
             recyclerOrderHistory visibleIf isLogin
-            textNotLoggedIn goneIf isLogin
-            buttonLogin goneIf isLogin
             buttonGoToHomePage visibleIf isLogin
+            baseEmptyView.apply {
+                imageEmpty.setImageResource(R.drawable.order_history_list)
+                textEmpty.text = getString(R.string.must_login)
+                buttonAction.text = getString(R.string.login)
+            }.also {
+                it.constraintBaseEmpty goneIf isLogin
+                it.buttonAction.setOnClickListener {
+                    navigateSafe(R.id.action_orderHistoryFragment_to_loginFragment)
+                }
+            }
         }
     }
 

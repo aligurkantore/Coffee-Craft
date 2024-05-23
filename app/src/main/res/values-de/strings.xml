@@ -102,7 +102,7 @@
     <string name="product_name">Produktname: %1$s</string>
     <string name="price_order_history">Preis: %1$s</string>
     <string name="quantity">Menge: %1$s</string>
-    <string name="total_price">Gesamtpreis: %.2f</string>
+    <string name="total_price">Gesamtpreis: %1$s</string>
     <string name="empty_order_history">Ihre Bestellhistorie ist leer.</string>
 
 

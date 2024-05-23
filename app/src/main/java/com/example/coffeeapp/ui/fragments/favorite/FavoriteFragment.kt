@@ -1,6 +1,5 @@
 package com.example.coffeeapp.ui.fragments.favorite
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +14,7 @@ import com.example.coffeeapp.helper.FireBaseDataManager.userId
 import com.example.coffeeapp.models.coffee.CoffeeResponseModel
 import com.example.coffeeapp.ui.adapters.favorite.FavoriteAdapter
 import com.example.coffeeapp.util.Constants
-import com.example.coffeeapp.util.ProgressBarUtil
+import com.example.coffeeapp.util.gone
 import com.example.coffeeapp.util.goneIf
 import com.example.coffeeapp.util.navigateSafe
 import com.example.coffeeapp.util.navigateSafeWithArgs
@@ -26,7 +25,6 @@ import com.example.coffeeapp.util.visibleIf
 class FavoriteFragment : BaseFragment<FragmentFavoriteBinding, FavoriteViewModel>() {
 
     private var favoriteAdapter: FavoriteAdapter? = null
-    private lateinit var progressBarUtil: ProgressBarUtil
 
     override val viewModelClass: Class<out FavoriteViewModel>
         get() = FavoriteViewModel::class.java
@@ -40,42 +38,30 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding, FavoriteViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        progressBarUtil = ProgressBarUtil(mContext, binding?.root as ViewGroup)
         viewModel.startAuthStateListener()
         isUserLoggedIn(viewModel.isLoggedIn())
-        setUIView(false)
-
-        //  progressBarUtil.showProgressBar()
     }
 
-    override fun setUpListeners() {
-        binding?.apply {
-            buttonLogin.setOnClickListener {
-                navigateSafe(R.id.action_favoriteFragment_to_loginFragment)
-            }
-        }
-    }
+    override fun setUpListeners() {}
 
     override fun setUpObservers() {
-        viewModel.apply {
+        viewModelScope {
             favoriteItemsLiveData.observeNonNull(viewLifecycleOwner) { list ->
                 if (viewModel.isLoggedIn()) {
                     if (list.isEmpty()) {
-                        progressBarUtil.hideProgressBar()
                         setUIView(false)
+                        binding?.baseEmptyView?.buttonAction?.gone()
                     } else {
                         setUIView(true)
                         setUpFavoriteAdapter(list)
-
-                        //   progressBarUtil.hideProgressBar()
                     }
                 } else clearFavorite()
 
             }
             authStateLiveData.observeNonNull(viewLifecycleOwner) { isLoggedIn ->
-                isUserLoggedIn(isLoggedIn)
                 if (!isLoggedIn) {
                     clearFavorite()
+                    isUserLoggedIn(false)
                 }
             }
         }
@@ -83,7 +69,6 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding, FavoriteViewModel
     }
 
 
-    @SuppressLint("NotifyDataSetChanged")
     private fun setUpFavoriteAdapter(data: List<CoffeeResponseModel>) {
         favoriteAdapter = FavoriteAdapter(
             data,
@@ -114,17 +99,33 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding, FavoriteViewModel
     }
 
     private fun setUIView(isVisible: Boolean) {
-        binding?.apply {
+        viewBindingScope {
             recyclerFavorite visibleIf isVisible
-            imageEmptyFavorite goneIf isVisible
-            textEmptyFavorite goneIf isVisible
+            baseEmptyView.apply {
+                imageEmpty.setImageResource(R.drawable.coffee_favorite)
+                textEmpty.text = getString(R.string.empty_favorites)
+
+            }.also {
+                it.constraintBaseEmpty goneIf isVisible
+            }
         }
     }
 
     private fun isUserLoggedIn(isLogin: Boolean) {
-        binding?.apply {
-            textNotLoggedIn goneIf isLogin
-            buttonLogin goneIf isLogin
+        viewBindingScope {
+            recyclerFavorite visibleIf isLogin
+            baseEmptyView.apply {
+                imageEmpty.setImageResource(R.drawable.coffee_favorite)
+                textEmpty.text = getString(R.string.must_login)
+                buttonAction.text = getString(R.string.login)
+            }.also {
+                it.apply {
+                    constraintBaseEmpty goneIf isLogin
+                    buttonAction.setOnClickListener {
+                        navigateSafe(R.id.action_favoriteFragment_to_loginFragment)
+                    }
+                }
+            }
         }
     }
 

@@ -56,7 +56,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>()
     }
 
     override fun setUpListeners() {
-        binding?.apply {
+        viewBindingScope {
             textChangePassword.setOnClickListener {
                 navigateSafe(R.id.action_profileFragment_to_changePasswordFragment)
             }
@@ -171,7 +171,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>()
     }
 
     private fun isUserLoggedIn(isLogin: Boolean) {
-        binding?.apply {
+        viewBindingScope {
             buttonLogin goneIf isLogin
             cardViewPersonelInformation visibleIf isLogin
             val email: String? = BaseShared.getString(mContext, EMAIL, "")

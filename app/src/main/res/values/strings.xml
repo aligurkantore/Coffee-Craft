@@ -100,7 +100,7 @@
     <string name="product_name">Product Name: %1$s</string>
     <string name="price_order_history">Price: %1$s</string>
     <string name="quantity">Quantity: %1$s</string>
-    <string name="total_price">Total Price: %.2f</string>
+    <string name="total_price">Total Price: %1$s</string>
     <string name="empty_order_history">Your order history is empty.</string>
 
 

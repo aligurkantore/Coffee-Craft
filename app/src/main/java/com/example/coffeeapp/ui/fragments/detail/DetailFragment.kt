@@ -32,7 +32,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding, DetailViewModel>() {
     override fun setUpListeners() {
         val getDetail = arguments?.getSerializable(DETAIL) as? CoffeeResponseModel
         getDetail?.let { detail ->
-            binding?.apply {
+            viewBindingScope {
                 detail.image_link_portrait?.let { imageCoffee.setImageResource(it) }
                 textNameCoffe.text = detail.name
                 textSpecialIngredientCoffee.text = detail.special_ingredient

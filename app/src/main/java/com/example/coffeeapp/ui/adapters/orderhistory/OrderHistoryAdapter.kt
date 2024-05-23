@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coffeeapp.R
+import com.example.coffeeapp.base.BaseShared
 import com.example.coffeeapp.databinding.ItemOrderHistoryBinding
 import com.example.coffeeapp.models.order.OrderModel
 import com.example.coffeeapp.util.formatDate
@@ -42,7 +43,8 @@ class OrderHistoryAdapter(
             textOrderId.text = context.getString(R.string.order_id, generateRandomKey(8))
             textOrderDate.text = context.getString(R.string.order_date, formattedDate)
 
-            textOrderTotal.text = context.getString(R.string.total_price, orderHistory.totalPrice)
+            val totalPrice = BaseShared.getString(context, "totalPrice", "")
+            textOrderTotal.text = context.getString(R.string.total_price, totalPrice)
             val orderDetailsAdapter = OrderHistoryDetailAdapter(context, orderHistory.coffeeList)
             recyclerViewOrderHistoryItem.apply {
                 adapter = orderDetailsAdapter

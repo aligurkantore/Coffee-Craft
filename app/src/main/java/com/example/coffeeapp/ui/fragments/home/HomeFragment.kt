@@ -22,6 +22,7 @@ import com.example.coffeeapp.util.Constants.Companion.RECYCLER_VIEW_TYPE
 import com.example.coffeeapp.util.goneIf
 import com.example.coffeeapp.util.navigateSafe
 import com.example.coffeeapp.util.navigateSafeWithArgs
+import com.example.coffeeapp.util.setupKeyboardHidingOnTouch
 import com.example.coffeeapp.util.visibleIf
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -44,7 +45,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //  progressBarUtil.showProgressBar()
+        setupKeyboardHidingOnTouch(view)
         setUpAdapters()
         searchCoffee()
         configureSearchView()
@@ -56,7 +57,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
         viewModel.packetLiveData.observe(viewLifecycleOwner) {
             it?.let {
                 setUpCoffeePacketAdapter(it)
-                // progressBarUtil.hideProgressBar()
             }
         }
     }
@@ -219,7 +219,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     }
 
     private fun checkItem(isVisible: Boolean) {
-        binding?.apply {
+        viewBindingScope {
             recyclerViewCoffee visibleIf isVisible
             recyclerViewCategory visibleIf isVisible
             notFoundCoffee goneIf isVisible

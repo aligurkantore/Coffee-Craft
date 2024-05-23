@@ -81,6 +81,14 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
         }
     }
 
+    protected inline fun viewModelScope(action: VM.() -> Unit) {
+        action(viewModel)
+    }
+
+    protected inline fun viewBindingScope(action: VB.() -> Unit) {
+        binding?.let { action(it) }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

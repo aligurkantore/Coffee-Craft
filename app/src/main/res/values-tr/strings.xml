@@ -104,7 +104,7 @@
     <string name="product_name">Ürün Adı: %1$s</string>
     <string name="price_order_history">Fiyat: %1$s</string>
     <string name="quantity">Miktar: %1$s</string>
-    <string name="total_price">Toplam Fiyat:  %.2f</string>
+    <string name="total_price">Toplam Fiyat:  %1$s</string>
     <string name="empty_order_history">Sipariş Geçmişiniz bulunmamaktadır.</string>
 
 

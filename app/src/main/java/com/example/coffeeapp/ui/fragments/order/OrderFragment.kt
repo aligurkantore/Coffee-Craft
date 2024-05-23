@@ -21,7 +21,7 @@ class OrderFragment :
     }
 
     override fun setUpListeners() {
-        binding?.apply {
+        viewBindingScope {
             buttonGoToHomePage.setOnClickListener {
                 //FireBaseDataManager.moveCartToOrderHistory(mContext)
                 navigateSafe(R.id.action_orderFragment_to_homeFragment)

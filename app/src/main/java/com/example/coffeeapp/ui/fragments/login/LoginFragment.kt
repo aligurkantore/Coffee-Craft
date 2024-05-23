@@ -13,6 +13,7 @@ import com.example.coffeeapp.util.Constants.Companion.EMAIL
 import com.example.coffeeapp.util.navigateSafe
 import com.example.coffeeapp.util.observeNonNull
 import com.example.coffeeapp.util.setUpBottomSheetDialog
+import com.example.coffeeapp.util.setupKeyboardHidingOnTouch
 import com.example.coffeeapp.util.showMessage
 import com.example.coffeeapp.util.togglePasswordVisibility
 import com.google.android.material.snackbar.Snackbar
@@ -30,17 +31,18 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupKeyboardHidingOnTouch(view)
         setupPasswordVisibilityToggle()
     }
 
     override fun setUpListeners() {
-        binding?.apply {
+        viewBindingScope {
             buttonLogin.setOnClickListener {
                 val email = editTextEmail.text.toString().trim()
                 val password = editTextPassword.text.toString()
                 val login = Login(email, password)
                 viewModel.loginUser(login)
-                BaseShared.saveString(mContext,EMAIL,email)
+                BaseShared.saveString(mContext, EMAIL, email)
             }
 
             textViewContinueWithRegister.setOnClickListener {
@@ -56,7 +58,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>() {
     }
 
     override fun setUpObservers() {
-        viewModel.apply {
+        viewModelScope {
             login.observeNonNull(viewLifecycleOwner) { success ->
                 if (success) navigateSafe(R.id.action_loginFragment_to_homeFragment)
                 else showMessage(mContext, getString(R.string.login_failed))
@@ -86,6 +88,18 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>() {
                 togglePasswordVisibility()
             }
         }
+    }
+
+    private fun clearEditTextFields() {
+        viewBindingScope {
+            editTextEmail.text?.clear()
+            editTextPassword.text?.clear()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        clearEditTextFields()
     }
 
 }

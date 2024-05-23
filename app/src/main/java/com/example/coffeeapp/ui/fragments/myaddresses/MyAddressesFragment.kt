@@ -42,7 +42,7 @@ class MyAddressesFragment : BaseFragment<FragmentMyAddressesBinding, MyAddresses
 
     @SuppressLint("ClickableViewAccessibility")
     private fun setUpTouchListener() {
-        binding?.apply {
+        viewBindingScope {
             recyclerAddress.setOnTouchListener { _, event ->
                 if (event.action == MotionEvent.ACTION_DOWN) {
                     val selectedItemPosition = addressAdapter.getSelectedItemPosition()
@@ -59,7 +59,7 @@ class MyAddressesFragment : BaseFragment<FragmentMyAddressesBinding, MyAddresses
 
 
     override fun setUpListeners() {
-        binding?.apply {
+        viewBindingScope {
             buttonAddNewAddress.setOnClickListener {
                 navigateSafe(R.id.action_myAddressesFragment_to_addAddressFragment)
             }
@@ -93,7 +93,7 @@ class MyAddressesFragment : BaseFragment<FragmentMyAddressesBinding, MyAddresses
             }
 
         }) {
-            binding?.apply {
+            viewBindingScope {
                 buttonAddNewAddress.gone()
                 buttonContinueWithAddress.visible()
             }
@@ -107,7 +107,7 @@ class MyAddressesFragment : BaseFragment<FragmentMyAddressesBinding, MyAddresses
     }
 
     private fun setUIView(isVisible: Boolean) {
-        binding?.apply {
+        viewBindingScope {
             recyclerAddress visibleIf isVisible
             buttonAddNewAddress visibleIf isVisible
             imageEmptyAddress goneIf isVisible

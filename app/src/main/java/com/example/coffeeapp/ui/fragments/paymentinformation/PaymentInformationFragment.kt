@@ -42,11 +42,10 @@ class PaymentInformationFragment :
         // backPressed()
         isUserLoggedIn(viewModel.isLoggedIn())
         updateCreditCardVisibility(viewModel.getCreditCard().equals(true))
-
     }
 
     override fun setUpListeners() {
-        binding?.apply {
+        viewBindingScope {
             val clickListeners = mapOf<View, Int>(
                 linearLayoutWallet to R.string.pay_from_wallet,
                 constraintCreditCard to R.string.pay_from_credit_card,
@@ -90,10 +89,6 @@ class PaymentInformationFragment :
                 showDeleteCreditCardDialog()
             }
 
-            buttonLogin.setOnClickListener {
-                navigateSafe(R.id.action_paymentInformationFragment_to_loginFragment)
-            }
-
             buttonPay.setOnClickListener {
                 FireBaseDataManager.moveCartToOrderHistory(mContext)
                 navigateSafe(R.id.action_paymentInformationFragment_to_orderFragment)
@@ -105,7 +100,7 @@ class PaymentInformationFragment :
     override fun setUpObservers() {
         viewModel.creditCardLiveData.observeNonNull(viewLifecycleOwner) { creditCard ->
             if (creditCard?.userName?.isNotEmpty() == true) {
-                binding?.apply {
+                viewBindingScope {
                     textCardHolderName.text = creditCard.userName
                     textNumberCreditCard.text = creditCard.cardNumber
                     textExpiryDate.text = creditCard.cardExpiration
@@ -120,7 +115,7 @@ class PaymentInformationFragment :
     }
 
     private fun updateCreditCardVisibility(visible: Boolean) {
-        binding?.apply {
+        viewBindingScope {
             constraintCreditCard visibleIf visible
             deleteCreditCart visibleIf visible
         }
@@ -138,16 +133,25 @@ class PaymentInformationFragment :
     }
 
     private fun isUserLoggedIn(isLogin: Boolean) {
-        binding?.apply {
+        viewBindingScope {
             constraintCreditCard visibleIf isLogin
             deleteCreditCart visibleIf isLogin
             linearLayoutWallet visibleIf isLogin
             linearLayoutGooglePay visibleIf isLogin
             linearLayoutAmazonPay visibleIf isLogin
             linearLayoutAddCard visibleIf isLogin
-            imageCard goneIf isLogin
-            textNotLoggedIn goneIf isLogin
-            buttonLogin goneIf isLogin
+            baseEmptyView.apply {
+                imageEmpty.setImageResource(R.drawable.add_card)
+                textEmpty.text = getString(R.string.must_login)
+                buttonAction.text = getString(R.string.login)
+            }.also {
+                it.apply {
+                    constraintBaseEmpty goneIf isLogin
+                    buttonAction.setOnClickListener {
+                        navigateSafe(R.id.action_paymentInformationFragment_to_loginFragment)
+                    }
+                }
+            }
         }
     }
 

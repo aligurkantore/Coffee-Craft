@@ -25,7 +25,7 @@ class AddCardFragment :
     }
 
     override fun setUpListeners() {
-        binding?.apply {
+        viewBindingScope {
             buttonAddCard.setOnClickListener {
                 val cardName = editTextName.text.toString()
                 val cardNumber = editTextCardNumber.text.toString()

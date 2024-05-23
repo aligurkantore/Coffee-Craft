@@ -12,6 +12,7 @@ import com.example.coffeeapp.models.login.Register
 import com.example.coffeeapp.util.Constants.Companion.EMAIL
 import com.example.coffeeapp.util.navigateSafe
 import com.example.coffeeapp.util.observeNonNull
+import com.example.coffeeapp.util.setupKeyboardHidingOnTouch
 import com.example.coffeeapp.util.showMessage
 import com.example.coffeeapp.util.togglePasswordVisibility
 
@@ -30,11 +31,12 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupKeyboardHidingOnTouch(view)
         setupPasswordVisibilityToggle()
     }
 
     override fun setUpListeners() {
-        binding?.apply {
+        viewBindingScope {
             buttonRegister.setOnClickListener {
                 val name = editTextName.text.toString().trim()
                 val email = editTextEmail.text.toString().trim()
@@ -52,7 +54,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterViewModel
     }
 
     override fun setUpObservers() {
-        viewModel.apply {
+        viewModelScope {
             register.observeNonNull(viewLifecycleOwner) { success ->
                 if (success) navigateSafe(R.id.action_registerFragment_to_homeFragment)
                 else showMessage(mContext, getString(R.string.register_failed))
@@ -61,7 +63,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterViewModel
     }
 
     private fun setupPasswordVisibilityToggle() {
-        binding?.apply {
+        viewBindingScope {
             editTextPassword.apply {
                 setOnClickListener { togglePasswordVisibility() }
             }
@@ -69,6 +71,20 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterViewModel
                 setOnClickListener { togglePasswordVisibility() }
             }
         }
+    }
+
+    private fun clearEditTextFields() {
+        viewBindingScope {
+            editTextName.text.clear()
+            editTextEmail.text.clear()
+            editTextPassword.text.clear()
+            editTextConfirmPassword.text.clear()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        clearEditTextFields()
     }
 
 }

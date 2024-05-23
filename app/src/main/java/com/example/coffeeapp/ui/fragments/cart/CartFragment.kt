@@ -1,7 +1,6 @@
 package com.example.coffeeapp.ui.fragments.cart
 
 import android.os.Bundle
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +14,6 @@ import com.example.coffeeapp.models.coffee.CoffeeResponseModel
 import com.example.coffeeapp.ui.adapters.cart.CartAdapter
 import com.example.coffeeapp.ui.dialogs.CustomDialog
 import com.example.coffeeapp.util.Constants.Companion.DETAIL
-import com.example.coffeeapp.util.ProgressBarUtil
 import com.example.coffeeapp.util.goneIf
 import com.example.coffeeapp.util.navigateSafe
 import com.example.coffeeapp.util.navigateSafeWithArgs
@@ -27,7 +25,6 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel>() {
 
     private var cartAdapter: CartAdapter? = null
     private var cartItems: MutableList<CoffeeResponseModel> = mutableListOf()
-    private lateinit var progressBarUtil: ProgressBarUtil
 
     override val viewModelClass: Class<out CartViewModel>
         get() = CartViewModel::class.java
@@ -38,35 +35,23 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        progressBarUtil = ProgressBarUtil(mContext, binding?.root as ViewGroup)
         viewModel.startAuthStateListener()
         isUserLoggedIn(viewModel.isLoggedIn())
-        setUIView(false)
-
-        //  progressBarUtil.showProgressBar()
     }
 
     override fun setUpListeners() {
-        binding?.apply {
+        viewBindingScope {
             buttonPayCart.setOnClickListener {
                 navigateSafe(R.id.action_cartFragment_to_myAddressesFragment)
-            }
-            buttonStartShopping.setOnClickListener {
-                navigateSafe(R.id.action_cartFragment_to_homeFragment)
-            }
-
-            buttonLogin.setOnClickListener {
-                navigateSafe(R.id.action_cartFragment_to_loginFragment)
             }
         }
     }
 
     override fun setUpObservers() {
-        viewModel.apply {
+        viewModelScope {
             cartItemsLiveData.observeNonNull(viewLifecycleOwner) { list ->
                 if (viewModel.isLoggedIn()) {
                     if (list.isEmpty()) {
-                        progressBarUtil.hideProgressBar()
                         setUIView(false)
                     } else {
                         setUIView(true)
@@ -82,18 +67,15 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel>() {
                         val formattedPrice =
                             mContext.getString(R.string.price_format, totalPrice)
                         binding?.textPrice?.text = formattedPrice
-                        BaseShared.saveString(mContext, "totalPrice", totalPrice.toString())
-
-                        //   progressBarUtil.hideProgressBar()
                     }
                 } else clearCart()
 
                 cartAdapter?.notifyDataSetChanged()
             }
             authStateLiveData.observeNonNull(viewLifecycleOwner) { isLoggedIn ->
-                isUserLoggedIn(isLoggedIn)
                 if (!isLoggedIn) {
                     clearCart()
+                    isUserLoggedIn(false)
                 }
             }
 
@@ -111,6 +93,7 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel>() {
                     val formattedPrice =
                         mContext.getString(R.string.price_format, totalPrice.toDouble())
                     binding?.textPrice?.text = formattedPrice
+                    BaseShared.saveString(mContext, "totalPrice", formattedPrice)
                 }
             },
             ::showDeleteItemCart
@@ -135,28 +118,48 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel>() {
 
 
     private fun setUIView(isVisible: Boolean) {
-        binding?.apply {
+        viewBindingScope {
             recyclerCart visibleIf isVisible
             textTitlePrice visibleIf isVisible
             textPrice visibleIf isVisible
             buttonPayCart visibleIf isVisible
-            imageEmptyCart goneIf isVisible
-            textEmptyCart goneIf isVisible
-            buttonStartShopping goneIf isVisible
+            baseEmptyView.apply {
+                imageEmpty.setImageResource(R.drawable.coffee)
+                textEmpty.text = getString(R.string.empty_cart)
+                buttonAction.text = getString(R.string.start_shopping)
+            }.also {
+                it.apply {
+                    constraintBaseEmpty goneIf isVisible
+                    buttonAction.setOnClickListener {
+                        navigateSafe(R.id.action_cartFragment_to_homeFragment)
+                    }
+                }
+            }
         }
     }
 
+
     private fun isUserLoggedIn(isLogin: Boolean) {
-        binding?.apply {
-            imageEmptyCart goneIf isLogin
-            textNotLoggedIn goneIf isLogin
-            buttonLogin goneIf isLogin
+        viewBindingScope {
             recyclerCart visibleIf isLogin
             textTitlePrice visibleIf isLogin
             textPrice visibleIf isLogin
             buttonPayCart visibleIf isLogin
+            baseEmptyView.apply {
+                imageEmpty.setImageResource(R.drawable.coffee)
+                textEmpty.text = getString(R.string.must_login)
+                buttonAction.text = getString(R.string.login)
+            }.also {
+                it.apply {
+                    constraintBaseEmpty goneIf isLogin
+                    buttonAction.setOnClickListener {
+                        navigateSafe(R.id.action_cartFragment_to_loginFragment)
+                    }
+                }
+            }
         }
     }
+
 
     private fun showDeleteItemCart(data: CoffeeResponseModel) {
         CustomDialog(
@@ -175,7 +178,6 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel>() {
         cartAdapter?.notifyDataSetChanged()
         setUIView(false)
     }
-
 
 
     override fun onDestroyView() {
