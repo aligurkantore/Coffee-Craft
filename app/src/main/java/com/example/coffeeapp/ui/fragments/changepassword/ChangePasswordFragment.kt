@@ -8,6 +8,7 @@ import com.example.coffeeapp.R
 import com.example.coffeeapp.base.BaseFragment
 import com.example.coffeeapp.databinding.FragmentChangePasswordBinding
 import com.example.coffeeapp.util.navigateSafe
+import com.example.coffeeapp.util.observeNonNull
 import com.example.coffeeapp.util.showMessage
 import com.example.coffeeapp.util.togglePasswordVisibility
 
@@ -49,7 +50,7 @@ class ChangePasswordFragment :
     }
 
     override fun setUpObservers() {
-        viewModel.passwordChangeLiveData.observe(viewLifecycleOwner) { isSuccess ->
+        viewModel.passwordChangeLiveData.observeNonNull(viewLifecycleOwner) { isSuccess ->
             if (isSuccess) {
                 showMessage(mContext, getString(R.string.password_changed_successfully))
                 navigateSafe(R.id.action_changePasswordFragment_to_profileFragment)

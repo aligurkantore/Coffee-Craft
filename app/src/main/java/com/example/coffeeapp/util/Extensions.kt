@@ -12,11 +12,13 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.annotation.IdRes
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.coffeeapp.R
@@ -130,6 +132,12 @@ fun Fragment.navigateSafe(id: Int) {
 
 fun Fragment.navigateSafeWithArgs(id: Int, args: Bundle) {
     findNavController().navigate(id, args)
+}
+
+fun NavController.navigateSafe(@IdRes resId: Int, args: Bundle? = null) {
+    currentDestination?.getAction(resId)?.let {
+        navigate(resId, args)
+    }
 }
 
 fun View.visible() {

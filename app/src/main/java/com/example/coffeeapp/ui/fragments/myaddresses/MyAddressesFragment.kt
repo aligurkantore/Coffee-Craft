@@ -13,14 +13,14 @@ import com.example.coffeeapp.databinding.FragmentMyAddressesBinding
 import com.example.coffeeapp.helper.FireBaseDataManager
 import com.example.coffeeapp.models.address.AddAddress
 import com.example.coffeeapp.ui.adapters.address.MyAddressesAdapter
-import com.example.coffeeapp.util.gone
 import com.example.coffeeapp.util.goneIf
 import com.example.coffeeapp.util.navigateSafe
 import com.example.coffeeapp.util.observeNonNull
 import com.example.coffeeapp.util.visible
 import com.example.coffeeapp.util.visibleIf
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MyAddressesFragment : BaseFragment<FragmentMyAddressesBinding, MyAddressesViewModel>() {
 
     private lateinit var addressAdapter: MyAddressesAdapter
@@ -38,6 +38,7 @@ class MyAddressesFragment : BaseFragment<FragmentMyAddressesBinding, MyAddresses
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpTouchListener()
+        isUserLoggedIn(viewModel.isLoggedIn())
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -49,7 +50,12 @@ class MyAddressesFragment : BaseFragment<FragmentMyAddressesBinding, MyAddresses
                     addressAdapter.setSelectedItemPosition(-1)
                     addressAdapter.notifyItemChanged(selectedItemPosition)
                     buttonAddNewAddress.visible()
-                    buttonContinueWithAddress.gone()
+                    buttonAddNewAddress.apply {
+                        text = getString(R.string.add_new_address)
+                        setOnClickListener {
+                            navigateSafe(R.id.action_myAddressesFragment_to_addAddressFragment)
+                        }
+                    }
                 }
                 false
             }
@@ -63,23 +69,20 @@ class MyAddressesFragment : BaseFragment<FragmentMyAddressesBinding, MyAddresses
             buttonAddNewAddress.setOnClickListener {
                 navigateSafe(R.id.action_myAddressesFragment_to_addAddressFragment)
             }
-            buttonAddNewAddressEmpty.setOnClickListener {
-                navigateSafe(R.id.action_myAddressesFragment_to_addAddressFragment)
-            }
-            buttonContinueWithAddress.setOnClickListener {
-                navigateSafe(R.id.action_myAddressesFragment_to_paymentInformationFragment)
-            }
         }
     }
 
     override fun setUpObservers() {
         viewModel.addressLiveData.observeNonNull(viewLifecycleOwner) { addressList ->
-            if (addressList.isNullOrEmpty()) {
-                setUIView(false)
-            } else {
-                setUIView(true)
-                setUpAddressAdapter(addressList)
-            }
+            if (viewModel.isLoggedIn()) {
+                if (addressList.isNullOrEmpty()) {
+                    setUIView(false)
+                } else {
+                    setUIView(true)
+                    setUpAddressAdapter(addressList)
+                }
+            } else isUserLoggedIn(false)
+
         }
     }
 
@@ -89,13 +92,17 @@ class MyAddressesFragment : BaseFragment<FragmentMyAddressesBinding, MyAddresses
         addressAdapter = MyAddressesAdapter(data, object : MyAddressesAdapter.ClickDeleteListener {
             override fun deleteListener(data: AddAddress) {
                 FireBaseDataManager.deleteAddressData(data)
-                binding?.buttonContinueWithAddress?.gone()
             }
 
         }) {
             viewBindingScope {
-                buttonAddNewAddress.gone()
-                buttonContinueWithAddress.visible()
+                buttonAddNewAddress.apply {
+                    text = getString(R.string.continue_with_address)
+                    setOnClickListener {
+                        navigateSafe(R.id.action_myAddressesFragment_to_paymentInformationFragment)
+                    }
+                }
+                buttonAddNewAddress.text = getString(R.string.continue_with_address)
             }
         }
         binding?.recyclerAddress?.apply {
@@ -110,9 +117,37 @@ class MyAddressesFragment : BaseFragment<FragmentMyAddressesBinding, MyAddresses
         viewBindingScope {
             recyclerAddress visibleIf isVisible
             buttonAddNewAddress visibleIf isVisible
-            imageEmptyAddress goneIf isVisible
-            textEmptyAddress goneIf isVisible
-            buttonAddNewAddressEmpty goneIf isVisible
+            baseEmptyView.apply {
+                imageEmpty.setImageResource(R.drawable.location_profile)
+                textEmpty.text = getString(R.string.no_address_record)
+                buttonAction.text = getString(R.string.add_new_address)
+            }.also {
+                it.apply {
+                    constraintBaseEmpty goneIf isVisible
+                    buttonAction.setOnClickListener {
+                        navigateSafe(R.id.action_myAddressesFragment_to_addAddressFragment)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun isUserLoggedIn(isLogin: Boolean) {
+        viewBindingScope {
+            recyclerAddress visibleIf isLogin
+            buttonAddNewAddress visibleIf isLogin
+            baseEmptyView.apply {
+                imageEmpty.setImageResource(R.drawable.location_profile)
+                textEmpty.text = getString(R.string.must_login)
+                buttonAction.text = getString(R.string.login)
+            }.also {
+                it.apply {
+                    constraintBaseEmpty goneIf isLogin
+                    buttonAction.setOnClickListener {
+                        navigateSafe(R.id.action_myAddressesFragment_to_loginFragment)
+                    }
+                }
+            }
         }
     }
 

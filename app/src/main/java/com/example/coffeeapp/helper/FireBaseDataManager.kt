@@ -62,6 +62,7 @@ object FireBaseDataManager {
 
             override fun onCancelled(error: DatabaseError) {
                 showMessage(context, context.getString(R.string.unexpected_error))
+                Log.d("agt", "onCancelled: addToCart")
             }
         })
     }
@@ -75,6 +76,7 @@ object FireBaseDataManager {
             }
             .addOnFailureListener {
                 showMessage(context, context.getString(R.string.unexpected_error))
+                Log.d("agt", "error removeFromCart")
             }
     }
 
@@ -114,6 +116,7 @@ object FireBaseDataManager {
 
             override fun onCancelled(error: DatabaseError) {
                 showMessage(context, context.getString(R.string.unexpected_error))
+                Log.d("agt", "onCancelled: toggle favorite error")
             }
         })
     }
@@ -129,6 +132,7 @@ object FireBaseDataManager {
             }
             .addOnFailureListener {
                 showMessage(context, context.getString(R.string.unexpected_error))
+                Log.d("agt", "error addToFavorite: ")
             }
     }
 
@@ -141,6 +145,7 @@ object FireBaseDataManager {
             }
             .addOnFailureListener {
                 showMessage(context, context.getString(R.string.unexpected_error))
+                Log.d("agt", "error removeFromFavorite")
             }
     }
 
@@ -155,7 +160,7 @@ object FireBaseDataManager {
                 Log.d("agt", "Success deleting data")
             }
             .addOnFailureListener { exception ->
-                Log.d("agt", "Error deleting data: $exception")
+                Log.d("agt", "Error deleting creditCard: $exception")
             }
     }
 
@@ -172,7 +177,7 @@ object FireBaseDataManager {
                     Log.d("agt", "Success deleting data")
                 }
                 .addOnFailureListener { exception ->
-                    Log.d("agt", "Error deleting data: $exception")
+                    Log.d("agt", "Error deleting address: $exception")
                 }
         } ?: Log.d("agt", "Error: Data ID is null")
     }
@@ -208,6 +213,7 @@ object FireBaseDataManager {
                         }
                         .addOnFailureListener { error ->
                             showMessage(context, "$error")
+                            Log.d("agt", "onDataChange: error: moveCartToOrderHistory")
                         }
                 } else {
                     showMessage(context, context.getString(R.string.unexpected_error))
@@ -216,6 +222,7 @@ object FireBaseDataManager {
 
             override fun onCancelled(databaseError: DatabaseError) {
                 showMessage(context, context.getString(R.string.unexpected_error))
+                Log.d("agt", "onCancelled: moveCartToOrderHistory")
             }
         })
     }
@@ -228,6 +235,7 @@ object FireBaseDataManager {
             }
             .addOnFailureListener {
                 showMessage(context, context.getString(R.string.unexpected_error))
+                Log.d("agt", "removeFromOrderHistory: error")
             }
     }
 

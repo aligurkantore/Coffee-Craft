@@ -22,6 +22,7 @@ import com.example.coffeeapp.util.Constants.Companion.RECYCLER_VIEW_TYPE
 import com.example.coffeeapp.util.goneIf
 import com.example.coffeeapp.util.navigateSafe
 import com.example.coffeeapp.util.navigateSafeWithArgs
+import com.example.coffeeapp.util.observeNonNull
 import com.example.coffeeapp.util.setupKeyboardHidingOnTouch
 import com.example.coffeeapp.util.visibleIf
 import dagger.hilt.android.AndroidEntryPoint
@@ -54,10 +55,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     override fun setUpListeners() {}
 
     override fun setUpObservers() {
-        viewModel.packetLiveData.observe(viewLifecycleOwner) {
-            it?.let {
-                setUpCoffeePacketAdapter(it)
-            }
+        viewModel.packetLiveData.observeNonNull(viewLifecycleOwner) {
+            setUpCoffeePacketAdapter(it)
         }
     }
 
@@ -215,10 +214,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     }
 
     private fun updateRecyclerViewVisibility(filteredList: MutableList<CoffeeResponseModel>) {
-        checkItem(filteredList.isNotEmpty())
+        showOrHideRecyclerView(filteredList.isNotEmpty())
     }
 
-    private fun checkItem(isVisible: Boolean) {
+    private fun showOrHideRecyclerView(isVisible: Boolean) {
         viewBindingScope {
             recyclerViewCoffee visibleIf isVisible
             recyclerViewCategory visibleIf isVisible

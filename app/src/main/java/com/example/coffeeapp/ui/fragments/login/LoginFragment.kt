@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.coffeeapp.R
 import com.example.coffeeapp.base.BaseFragment
 import com.example.coffeeapp.base.BaseShared
@@ -60,8 +61,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>() {
     override fun setUpObservers() {
         viewModelScope {
             login.observeNonNull(viewLifecycleOwner) { success ->
-                if (success) navigateSafe(R.id.action_loginFragment_to_homeFragment)
-                else showMessage(mContext, getString(R.string.login_failed))
+                if (success) {
+                    if (findNavController().currentDestination?.id == R.id.loginFragment)
+                        navigateSafe(R.id.action_loginFragment_to_homeFragment)
+                } else showMessage(mContext, getString(R.string.login_failed))
             }
 
             resetPassword.observeNonNull(viewLifecycleOwner) { result ->

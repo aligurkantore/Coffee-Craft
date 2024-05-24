@@ -20,8 +20,9 @@ import com.example.coffeeapp.util.navigateSafe
 import com.example.coffeeapp.util.navigateSafeWithArgs
 import com.example.coffeeapp.util.observeNonNull
 import com.example.coffeeapp.util.visibleIf
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class FavoriteFragment : BaseFragment<FragmentFavoriteBinding, FavoriteViewModel>() {
 
     private var favoriteAdapter: FavoriteAdapter? = null
@@ -38,7 +39,6 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding, FavoriteViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.startAuthStateListener()
         isUserLoggedIn(viewModel.isLoggedIn())
     }
 
@@ -132,11 +132,6 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding, FavoriteViewModel
     private fun clearFavorite() {
         favoriteAdapter?.notifyDataSetChanged()
         setUIView(false)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        viewModel.stopAuthStateListener()
     }
 
 }

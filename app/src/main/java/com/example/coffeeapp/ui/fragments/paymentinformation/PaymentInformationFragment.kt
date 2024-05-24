@@ -18,8 +18,9 @@ import com.example.coffeeapp.util.navigateSafe
 import com.example.coffeeapp.util.observeNonNull
 import com.example.coffeeapp.util.visible
 import com.example.coffeeapp.util.visibleIf
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class PaymentInformationFragment :
     BaseFragment<FragmentPaymentInformationBinding, PaymentInformationViewModel>() {
 
@@ -41,7 +42,8 @@ class PaymentInformationFragment :
         progressBarUtil = ProgressBarUtil(mContext, binding?.root as ViewGroup)
         // backPressed()
         isUserLoggedIn(viewModel.isLoggedIn())
-        updateCreditCardVisibility(viewModel.getCreditCard().equals(true))
+        viewModel.userId?.let { viewModel.creditCardListener(it).equals(true) }
+            ?.let { updateCreditCardVisibility(it) }
     }
 
     override fun setUpListeners() {
