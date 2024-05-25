@@ -1,6 +1,7 @@
 package com.example.coffeeapp.ui.fragments.cart
 
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,12 +20,14 @@ import com.example.coffeeapp.util.navigateSafe
 import com.example.coffeeapp.util.navigateSafeWithArgs
 import com.example.coffeeapp.util.observeNonNull
 import com.example.coffeeapp.util.visibleIf
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel>() {
 
     private var cartAdapter: CartAdapter? = null
     private var cartItems: MutableList<CoffeeResponseModel> = mutableListOf()
+    private var recyclerViewState: Parcelable? = null
 
     override val viewModelClass: Class<out CartViewModel>
         get() = CartViewModel::class.java
@@ -35,7 +38,6 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.startAuthStateListener()
         isUserLoggedIn(viewModel.isLoggedIn())
     }
 
@@ -67,10 +69,11 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel>() {
                         val formattedPrice =
                             mContext.getString(R.string.price_format, totalPrice)
                         binding?.textPrice?.text = formattedPrice
+
+                        cartAdapter?.notifyDataSetChanged()
                     }
                 } else clearCart()
 
-                cartAdapter?.notifyDataSetChanged()
             }
             authStateLiveData.observeNonNull(viewLifecycleOwner) { isLoggedIn ->
                 if (!isLoggedIn) {
@@ -101,6 +104,11 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel>() {
         binding?.recyclerCart?.apply {
             adapter = cartAdapter
             layoutManager = LinearLayoutManager(mContext)
+        }
+        if (recyclerViewState != null) {
+            view?.post {
+                binding?.recyclerCart?.layoutManager?.onRestoreInstanceState(recyclerViewState)
+            }
         }
     }
 
@@ -179,10 +187,16 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel>() {
         setUIView(false)
     }
 
+    override fun onPause() {
+        super.onPause()
+        recyclerViewState = binding?.recyclerCart?.layoutManager?.onSaveInstanceState()
+    }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        viewModel.stopAuthStateListener()
+    override fun onResume() {
+        super.onResume()
+        if (recyclerViewState != null) {
+            binding?.recyclerCart?.layoutManager?.onRestoreInstanceState(recyclerViewState)
+        }
     }
 
 }

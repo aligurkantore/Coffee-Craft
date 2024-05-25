@@ -31,10 +31,10 @@
             android:required="false" />
 
         <activity
-            android:name=".ui.activities.second.SplashActivity"
+            android:name=".ui.activities.main.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.main.MainActivity"
+            android:name=".ui.activities.second.SplashActivity"
             android:exported="true"
             android:theme="@style/AppTheme">
             <intent-filter>

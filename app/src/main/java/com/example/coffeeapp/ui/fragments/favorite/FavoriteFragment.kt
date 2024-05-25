@@ -1,6 +1,7 @@
 package com.example.coffeeapp.ui.fragments.favorite
 
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +27,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class FavoriteFragment : BaseFragment<FragmentFavoriteBinding, FavoriteViewModel>() {
 
     private var favoriteAdapter: FavoriteAdapter? = null
+    private var recyclerViewState: Parcelable? = null
 
     override val viewModelClass: Class<out FavoriteViewModel>
         get() = FavoriteViewModel::class.java
@@ -78,6 +80,11 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding, FavoriteViewModel
         binding?.recyclerFavorite?.apply {
             adapter = favoriteAdapter
             layoutManager = LinearLayoutManager(mContext)
+        }
+        if (recyclerViewState != null) {
+            view?.post {
+                binding?.recyclerFavorite?.layoutManager?.onRestoreInstanceState(recyclerViewState)
+            }
         }
     }
 
@@ -132,6 +139,18 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding, FavoriteViewModel
     private fun clearFavorite() {
         favoriteAdapter?.notifyDataSetChanged()
         setUIView(false)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        recyclerViewState = binding?.recyclerFavorite?.layoutManager?.onSaveInstanceState()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (recyclerViewState != null) {
+            binding?.recyclerFavorite?.layoutManager?.onRestoreInstanceState(recyclerViewState)
+        }
     }
 
 }
