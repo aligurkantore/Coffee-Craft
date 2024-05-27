@@ -1,5 +1,6 @@
 package com.example.coffeeapp.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.coffeeapp.models.order.OrderModel
@@ -28,7 +29,7 @@ class OrderHistoryRepository @Inject constructor(
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                Log.d("agt", "onCancelled: orderHistoryRepository")
             }
 
         })
