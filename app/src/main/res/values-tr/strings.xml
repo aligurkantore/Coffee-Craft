@@ -180,9 +180,7 @@
     <!-- Profile -->
     <string name="profile">Profil</string>
     <string name="personel_information">Kişisel Bilgiler</string>
-    <string name="notification">Bildirim</string>
     <string name="my_score">Puanım</string>
-    <string name="help">Yardım</string>
     <string name="log_out">Çıkış Yap</string>
     <string name="log_out_dialog">Oturumu kapatmak istediğinize emin misiniz?</string>
     <string name="yes">Evet</string>
@@ -213,6 +211,11 @@
     <string name="receiver_phone_number">Alıcı Telefon Numarası</string>
     <string name="add_to_address_book">Adres Defterime Ekle</string>
     <string name="your_location">Konumunuz</string>
+
+
+    <!--- About The App -->
+    <string name="about_app">Uygulama Hakkında</string>
+    <string name="app_description">Coffee Craft, kahve tutkunları için tasarlanmış bir mobil uygulamadır. Geniş bir kahve menüsü sunar ve kullanıcıların kolayca sipariş vermelerini sağlar. Farklı kahve çeşitlerini keşfetmek ve lezzetli kahvelerin tadını çıkarmak için ideal bir uygulamadır. Ayrıca özel indirimler ve kampanyalar da sunar.</string>
 
 
 

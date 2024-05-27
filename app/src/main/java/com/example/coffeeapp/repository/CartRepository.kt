@@ -16,6 +16,7 @@ class CartRepository @Inject constructor(
     fun getCartItems(userId: String): LiveData<List<CoffeeResponseModel>> {
         val cartItemsLiveData = MutableLiveData<List<CoffeeResponseModel>>()
         val userRef = databaseReference.child("users").child(userId).child("cart")
+
         userRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val cartList: MutableList<CoffeeResponseModel> = mutableListOf()

@@ -40,7 +40,7 @@ class SplashActivity : AppCompatActivity() {
                 delay(1000)
                 textSplash1.visible()
                 textSplash2.visible()
-                delay(3000)
+                delay(2000)
                 buttonStarted.visible()
             }
         }

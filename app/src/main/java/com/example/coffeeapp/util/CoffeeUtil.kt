@@ -523,14 +523,8 @@ class CoffeeUtil @Inject constructor() {
         )
         profileCategoryList.add(
             Category(
-                R.drawable.notification,
-                context.getString(R.string.notification)
-            )
-        )
-        profileCategoryList.add(
-            Category(
-                R.drawable.help,
-                context.getString(R.string.help)
+                R.drawable.about_the_app,
+                context.getString(R.string.about_app)
             )
         )
         profileCategoryList.add(

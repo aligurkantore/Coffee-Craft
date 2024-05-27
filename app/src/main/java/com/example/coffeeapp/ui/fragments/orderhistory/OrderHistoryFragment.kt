@@ -16,7 +16,9 @@ import com.example.coffeeapp.util.goneIf
 import com.example.coffeeapp.util.navigateSafe
 import com.example.coffeeapp.util.observeNonNull
 import com.example.coffeeapp.util.visibleIf
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class OrderHistoryFragment : BaseFragment<FragmentOrderHistoryBinding, OrderHistoryViewModel>() {
 
     private lateinit var orderHistoryAdapter: OrderHistoryAdapter

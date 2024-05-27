@@ -17,9 +17,7 @@ class PaymentInformationViewModel @Inject constructor(
     val creditCardLiveData: LiveData<AddCreditCard?> = _creditCardLiveData
 
     init {
-        if (userId != null) {
-            creditCardListener(userId)
-        }
+        userId?.let { creditCardListener(it) }
     }
 
     fun creditCardListener(userId: String) {

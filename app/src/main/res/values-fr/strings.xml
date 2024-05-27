@@ -174,9 +174,7 @@
     <!-- Profile -->
     <string name="profile">Profil</string>
     <string name="personel_information">Informations Personnelles</string>
-    <string name="notification">Notification</string>
-    <string name="my_score">Mon Score</string>
-    <string name="help">Aide</string>
+    <string name="my_score">Mon Score</string>>
     <string name="log_out">Déconnexion</string>
     <string name="log_out_dialog">Êtes-vous sûr de vouloir vous déconnecter?</string>
     <string name="yes">Oui</string>
@@ -207,6 +205,12 @@
     <string name="receiver_phone_number">Numéro de téléphone du destinataire</string>
     <string name="add_to_address_book">Ajouter au carnet d\'adresses</string>
     <string name="your_location">Votre position</string>
+
+
+    <!--- About The App -->
+    <string name="about_app">À propos de l\'application</string>
+    <string name="app_description">Coffee Craft est une application mobile conçue pour les amateurs de café. Elle propose un large menu de café et permet aux utilisateurs de passer facilement des commandes. C\'est une application idéale pour découvrir différentes variétés de café et déguster des cafés délicieux. De plus, elle propose des réductions spéciales et des promotions.</string>
+
 
 
     <!--- Forgot Password -->

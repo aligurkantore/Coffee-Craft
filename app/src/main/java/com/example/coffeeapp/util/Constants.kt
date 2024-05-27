@@ -8,7 +8,6 @@ class Constants {
         const val DETAIL = "detail"
         const val LANG = "lang"
         const val EMAIL = "email"
-        const val CATEGORY_NAME = "categoryName"
         const val SELECTED_LANGUAGE_POSITION = "selectedLanguagePosition"
         const val RECYCLER_VIEW_TYPE = "recyclerViewType"
         const val EN = "en"

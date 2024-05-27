@@ -17,9 +17,7 @@ class MyAddressesViewModel @Inject constructor(
     val addressLiveData: LiveData<List<AddAddress>?> = _addressLiveData
 
     init {
-        if (userId != null) {
-            addressListListener(userId)
-        }
+        userId?.let { addressListListener(it) }
     }
 
     private fun addressListListener(userId: String) {

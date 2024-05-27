@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.coffeeapp.ui.fragments.home.HomeFragment"
-        android:label="Home"
+        android:label="@string/home"
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_detailFragment"
@@ -20,7 +20,7 @@
     <fragment
         android:id="@+id/cartFragment"
         android:name="com.example.coffeeapp.ui.fragments.cart.CartFragment"
-        android:label="My Cart"
+        android:label="@string/my_cart"
         tools:layout="@layout/fragment_cart">
         <action
             android:id="@+id/action_cartFragment_to_loginFragment"
@@ -39,7 +39,7 @@
     <fragment
         android:id="@+id/favoriteFragment"
         android:name="com.example.coffeeapp.ui.fragments.favorite.FavoriteFragment"
-        android:label="My Favorites"
+        android:label="@string/my_favorites"
         tools:layout="@layout/fragment_favorite">
         <action
             android:id="@+id/action_favoriteFragment_to_loginFragment"
@@ -54,7 +54,7 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.coffeeapp.ui.fragments.profile.ProfileFragment"
-        android:label="Profile"
+        android:label="@string/profile"
         tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_profileFragment_to_favoriteFragment"
@@ -66,8 +66,8 @@
             android:id="@+id/action_profileFragment_to_paymentInformationFragment"
             app:destination="@id/paymentInformationFragment" />
         <action
-            android:id="@+id/action_profileFragment_to_categoryDetailFragment"
-            app:destination="@id/categoryDetailFragment" />
+            android:id="@+id/action_profileFragment_to_aboutTheApplicationFragment"
+            app:destination="@id/aboutTheApplicationFragment" />
         <action
             android:id="@+id/action_profileFragment_to_changePasswordFragment"
             app:destination="@id/changePasswordFragment" />
@@ -84,7 +84,7 @@
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.example.coffeeapp.ui.fragments.detail.DetailFragment"
-        android:label="Detail"
+        android:label="@string/detail"
         tools:layout="@layout/fragment_detail">
         <action
             android:id="@+id/action_detailFragment_to_loginFragment"
@@ -93,7 +93,7 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.coffeeapp.ui.fragments.login.LoginFragment"
-        android:label="Login"
+        android:label="@string/login"
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_homeFragment"
@@ -105,7 +105,7 @@
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.example.coffeeapp.ui.fragments.register.RegisterFragment"
-        android:label="Register"
+        android:label="@string/register"
         tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_registerFragment_to_homeFragment"
@@ -117,7 +117,7 @@
     <fragment
         android:id="@+id/paymentInformationFragment"
         android:name="com.example.coffeeapp.ui.fragments.paymentinformation.PaymentInformationFragment"
-        android:label="Payment Information"
+        android:label="@string/payment_information"
         tools:layout="@layout/fragment_payment_information">
         <action
             android:id="@+id/action_paymentInformationFragment_to_addCardFragment"
@@ -138,7 +138,7 @@
     <fragment
         android:id="@+id/addCardFragment"
         android:name="com.example.coffeeapp.ui.fragments.addcard.AddCardFragment"
-        android:label="Add Card"
+        android:label="@string/add_card"
         tools:layout="@layout/fragment_add_card">
         <action
             android:id="@+id/action_addCardFragment_to_paymentInformationFragment"
@@ -147,7 +147,7 @@
     <fragment
         android:id="@+id/orderFragment"
         android:name="com.example.coffeeapp.ui.fragments.order.OrderFragment"
-        android:label="Order"
+        android:label="@string/my_order"
         tools:layout="@layout/fragment_order">
         <action
             android:id="@+id/action_orderFragment_to_homeFragment"
@@ -157,14 +157,14 @@
             app:destination="@id/orderHistoryFragment" />
     </fragment>
     <fragment
-        android:id="@+id/categoryDetailFragment"
-        android:name="com.example.coffeeapp.ui.fragments.categorydetail.CategoryDetailFragment"
-        android:label="Category Detail"
-        tools:layout="@layout/fragment_category_detail" />
+        android:id="@+id/aboutTheApplicationFragment"
+        android:name="com.example.coffeeapp.ui.fragments.aboutapplication.AboutTheApplicationFragment"
+        android:label="@string/about_app"
+        tools:layout="@layout/fragment_about_the_application" />
     <fragment
         android:id="@+id/orderHistoryFragment"
         android:name="com.example.coffeeapp.ui.fragments.orderhistory.OrderHistoryFragment"
-        android:label="Order History"
+        android:label="@string/order_history"
         tools:layout="@layout/fragment_order_history">
         <action
             android:id="@+id/action_orderHistoryFragment_to_homeFragment"
@@ -176,7 +176,7 @@
     <fragment
         android:id="@+id/changePasswordFragment"
         android:name="com.example.coffeeapp.ui.fragments.changepassword.ChangePasswordFragment"
-        android:label="Change Password"
+        android:label="@string/change_password"
         tools:layout="@layout/fragment_change_password">
         <action
             android:id="@+id/action_changePasswordFragment_to_profileFragment"
@@ -185,7 +185,7 @@
     <fragment
         android:id="@+id/addAddressFragment"
         android:name="com.example.coffeeapp.ui.fragments.addaddress.AddAddressFragment"
-        android:label="Add Address"
+        android:label="@string/add_new_address"
         tools:layout="@layout/fragment_add_address">
         <action
             android:id="@+id/action_addAddressFragment_to_myAddressesFragment"
@@ -194,7 +194,7 @@
     <fragment
         android:id="@+id/myAddressesFragment"
         android:name="com.example.coffeeapp.ui.fragments.myaddresses.MyAddressesFragment"
-        android:label="My Addresses"
+        android:label="@string/my_addresses"
         tools:layout="@layout/fragment_my_addresses">
         <action
             android:id="@+id/action_myAddressesFragment_to_addAddressFragment"
