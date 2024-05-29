@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.coffeeapp.base.BaseViewModel
 import com.example.coffeeapp.models.coffee.CoffeeResponseModel
-import com.example.coffeeapp.repository.FavoriteRepository
+import com.example.coffeeapp.usecase.FavoriteUseCase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FavoriteViewModel @Inject constructor(
-    private var favoriteRepository: FavoriteRepository
+    private var favoriteUseCase: FavoriteUseCase
 ) : BaseViewModel() {
 
     private var authStateListener: FirebaseAuth.AuthStateListener
@@ -38,7 +38,7 @@ class FavoriteViewModel @Inject constructor(
     }
 
     private fun favoriteItemsListener(userId: String) {
-        favoriteRepository.getFavoriteItems(userId).observeForever {
+        favoriteUseCase.getFavoriteItems(userId).observeForever {
             _favoriteItemsLiveData.postValue(it)
         }
     }

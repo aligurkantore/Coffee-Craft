@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coffeeapp.R
 import com.example.coffeeapp.base.BaseFragment
@@ -22,10 +23,10 @@ import com.example.coffeeapp.util.Constants.Companion.RECYCLER_VIEW_TYPE
 import com.example.coffeeapp.util.goneIf
 import com.example.coffeeapp.util.navigateSafe
 import com.example.coffeeapp.util.navigateSafeWithArgs
-import com.example.coffeeapp.util.observeNonNull
 import com.example.coffeeapp.util.setupKeyboardHidingOnTouch
 import com.example.coffeeapp.util.visibleIf
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
@@ -55,8 +56,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     override fun setUpListeners() {}
 
     override fun setUpObservers() {
-        viewModel.packetLiveData.observeNonNull(viewLifecycleOwner) {
-            setUpCoffeePacketAdapter(it)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.packetFlow.collect {
+                it?.let {
+                    setUpCoffeePacketAdapter(it)
+                }
+            }
         }
     }
 

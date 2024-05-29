@@ -4,13 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.coffeeapp.base.BaseViewModel
 import com.example.coffeeapp.models.addCreditCard.AddCreditCard
-import com.example.coffeeapp.repository.PaymentInformationRepository
+import com.example.coffeeapp.usecase.PaymentUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class PaymentInformationViewModel @Inject constructor(
-    private val paymentRepository: PaymentInformationRepository
+    private val paymentUseCase: PaymentUseCase
 ) : BaseViewModel() {
 
     private val _creditCardLiveData = MutableLiveData<AddCreditCard?>()
@@ -21,7 +21,7 @@ class PaymentInformationViewModel @Inject constructor(
     }
 
     fun creditCardListener(userId: String) {
-        paymentRepository.getCreditCard(userId).observeForever {
+        paymentUseCase.getCreditCard(userId).observeForever {
             _creditCardLiveData.postValue(it)
         }
     }

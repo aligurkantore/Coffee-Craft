@@ -1,18 +1,24 @@
 package com.example.coffeeapp.ui.fragments.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import android.util.Log
+import androidx.lifecycle.viewModelScope
 import com.example.coffeeapp.base.BaseViewModel
 import com.example.coffeeapp.models.coffeepacket.CoffeePacketResponse
-import com.example.coffeeapp.repository.Repository
+import com.example.coffeeapp.usecase.CoffeePacketUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private var repository: Repository) : BaseViewModel() {
+class HomeViewModel @Inject constructor(
+    private var coffeePacketUseCase: CoffeePacketUseCase
+) : BaseViewModel() {
 
-    private val _packetLiveData = MutableLiveData<CoffeePacketResponse>()
-    val packetLiveData: LiveData<CoffeePacketResponse> = _packetLiveData
+    private val _packetFlow = MutableStateFlow<CoffeePacketResponse?>(null)
+    val packetFlow: StateFlow<CoffeePacketResponse?> = _packetFlow.asStateFlow()
 
 
     init {
@@ -20,8 +26,14 @@ class HomeViewModel @Inject constructor(private var repository: Repository) : Ba
     }
 
     private fun getCoffeePacket(){
-        performRequest(_packetLiveData){
-            repository.getCoffee()
+        viewModelScope.launch {
+            try {
+                coffeePacketUseCase.getCoffeePacket().collect { response ->
+                    _packetFlow.value = response
+                }
+            } catch (e: Exception) {
+                Log.d("agt", "getCoffeePacket: ${e.message}")
+            }
         }
     }
 

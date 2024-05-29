@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.coffeeapp.base.BaseViewModel
 import com.example.coffeeapp.models.coffee.CoffeeResponseModel
-import com.example.coffeeapp.repository.CartRepository
+import com.example.coffeeapp.usecase.CartUseCase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CartViewModel @Inject constructor(
-    private val cartRepository: CartRepository
+    private val cartUseCase: CartUseCase
 ) : BaseViewModel() {
 
     private var authStateListener: FirebaseAuth.AuthStateListener
@@ -38,7 +38,7 @@ class CartViewModel @Inject constructor(
     }
 
     private fun cartItemsListener(userId: String) {
-        cartRepository.getCartItems(userId).observeForever {
+        cartUseCase.getCartItems(userId).observeForever {
             _cartItemsLiveData.postValue(it)
         }
     }
