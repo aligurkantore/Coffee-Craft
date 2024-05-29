@@ -16,4 +16,17 @@
     </style>
 
     <style name="Theme.CoffeeApp" parent="Base.Theme.CoffeeApp" />
+
+    <style name="fullScreenDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">@color/is_selected</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">.6</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
 </resources>

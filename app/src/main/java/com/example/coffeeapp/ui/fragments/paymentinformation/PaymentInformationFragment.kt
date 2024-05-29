@@ -11,7 +11,6 @@ import com.example.coffeeapp.base.BaseShared
 import com.example.coffeeapp.databinding.FragmentPaymentInformationBinding
 import com.example.coffeeapp.helper.FireBaseDataManager
 import com.example.coffeeapp.ui.dialogs.CustomDialog
-import com.example.coffeeapp.util.ProgressBarUtil
 import com.example.coffeeapp.util.gone
 import com.example.coffeeapp.util.goneIf
 import com.example.coffeeapp.util.navigateSafe
@@ -24,7 +23,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class PaymentInformationFragment :
     BaseFragment<FragmentPaymentInformationBinding, PaymentInformationViewModel>() {
 
-    private lateinit var progressBarUtil: ProgressBarUtil
     private val clickStateMap = mutableMapOf<View, Boolean>()
 
     override val viewModelClass: Class<out PaymentInformationViewModel>
@@ -39,7 +37,6 @@ class PaymentInformationFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        progressBarUtil = ProgressBarUtil(mContext, binding?.root as ViewGroup)
         // backPressed()
         isUserLoggedIn(viewModel.isLoggedIn())
         viewModel.userId?.let { viewModel.creditCardListener(it).equals(true) }

@@ -1,5 +1,6 @@
 package com.example.coffeeapp.di
 
+import com.example.coffeeapp.util.CoffeeUtil
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -28,5 +29,11 @@ object AppModule {
     @Provides
     fun provideDatabaseReference(database: FirebaseDatabase): DatabaseReference {
         return database.reference
+    }
+
+    @Singleton
+    @Provides
+    fun provideCoffeeUtil(): CoffeeUtil {
+        return CoffeeUtil()
     }
 }

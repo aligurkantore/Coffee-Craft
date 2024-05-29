@@ -101,15 +101,13 @@ object FireBaseDataManager {
 
     fun toggleFavorite(context: Context, data: CoffeeResponseModel) {
         val productId = data.id
-
         val productRef = userRefFavorite.child(productId.toString())
+
         productRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
-                    data.isFavorite = true
                     removeFromFavorite(context, productId.toString())
                 } else {
-                    data.isFavorite = false
                     addToFavorite(context, data)
                 }
             }
@@ -124,7 +122,6 @@ object FireBaseDataManager {
     fun addToFavorite(context: Context, data: CoffeeResponseModel) {
         val productId = data.id
 
-        data.isFavorite = true
         val productRef = userRefFavorite.child(productId.toString())
         productRef.setValue(data)
             .addOnSuccessListener {
@@ -137,7 +134,7 @@ object FireBaseDataManager {
     }
 
     fun removeFromFavorite(context: Context, productId: String) {
-        val productRef = userRefFavorite.child(productId.toString())
+        val productRef = userRefFavorite.child(productId)
 
         productRef.removeValue()
             .addOnSuccessListener {

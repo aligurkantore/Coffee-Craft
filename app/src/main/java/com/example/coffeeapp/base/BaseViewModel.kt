@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -15,9 +14,9 @@ abstract class BaseViewModel : ViewModel() {
 
     val auth = FirebaseAuth.getInstance()
     private var job: Job? = null
-    private var _error = MutableLiveData<String>()
+    var error = MutableLiveData<String>()
     val userId = auth.currentUser?.uid
-    val database: FirebaseDatabase = FirebaseDatabase.getInstance()
+    val isLoading: MutableLiveData<Boolean> = MutableLiveData()
 
     fun isLoggedIn(): Boolean {
         val currentUser = auth.currentUser
@@ -30,6 +29,7 @@ abstract class BaseViewModel : ViewModel() {
         request: suspend () -> Response<T>
     ){
         job = viewModelScope.launch(Dispatchers.IO){
+            isLoading.postValue(true)
             try {
                 val response = request.invoke()
                 withContext(Dispatchers.Main){
@@ -37,10 +37,12 @@ abstract class BaseViewModel : ViewModel() {
                         response.body()?.let {
                             liveData.postValue(it)
                         }
-                    }else _error.postValue(response.message())
+                    }else error.postValue(response.message())
                 }
             }catch (e: Exception){
-                _error.postValue(e.message ?: "Unknown error occurred.")
+                error.postValue(e.message ?: "Unknown error occurred.")
+            }finally {
+                isLoading.postValue(false)
             }
         }
     }

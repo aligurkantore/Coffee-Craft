@@ -49,6 +49,8 @@ class CoffeeAdapter(
             }
             imageAddToCart.setOnClickListener { addToCart.invoke(coffeeList) }
 
+            updateFavoriteState(coffeeList.id, holder)
+
             val isFavorite =
                 if (isLoggedIn) {
                     BaseShared.getBoolean(context, "${userId}/favorite_${coffeeList.id}", false)
@@ -69,6 +71,17 @@ class CoffeeAdapter(
 
 
         }
+    }
+
+    private fun updateFavoriteState(id: String?, holder: CoffeeVH) {
+        val isFavorite = BaseShared.getBoolean(
+            context,
+            "${userId}/favorite_$id",
+            false
+        )
+        holder.binding.imageFavorite.setImageResource(
+            if (isFavorite) R.drawable.select_favorite_heart else R.drawable.heart
+        )
     }
 
     fun updateCoffeeList(newCoffeeList: List<CoffeeResponseModel>) {

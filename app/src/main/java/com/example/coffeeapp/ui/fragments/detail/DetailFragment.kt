@@ -7,6 +7,7 @@ import com.example.coffeeapp.base.BaseFragment
 import com.example.coffeeapp.base.BaseShared
 import com.example.coffeeapp.databinding.FragmentDetailBinding
 import com.example.coffeeapp.helper.FireBaseDataManager
+import com.example.coffeeapp.helper.FireBaseDataManager.userId
 import com.example.coffeeapp.models.coffee.CoffeeResponseModel
 import com.example.coffeeapp.util.Constants.Companion.DETAIL
 import com.example.coffeeapp.util.Constants.Companion.RECYCLER_VIEW_TYPE
@@ -69,7 +70,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding, DetailViewModel>() {
     private fun addToFavorite(data: CoffeeResponseModel) {
         val newFavoriteState = !BaseShared.getBoolean(
             requireContext(),
-            "${FireBaseDataManager.userId}/favorite_${data.id}",
+            "${userId}/favorite_${data.id}",
             false
         )
         if (viewModel.isLoggedIn()) {
@@ -77,7 +78,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding, DetailViewModel>() {
             FireBaseDataManager.toggleFavorite(mContext, data)
             BaseShared.saveBoolean(
                 requireContext(),
-                "${FireBaseDataManager.userId}/favorite_${data.id}",
+                "${userId}/favorite_${data.id}",
                 newFavoriteState
             )
         } else {
@@ -89,7 +90,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding, DetailViewModel>() {
     private fun updateFavoriteState(id: String?) {
         val isFavorite = BaseShared.getBoolean(
             requireContext(),
-            "${FireBaseDataManager.userId}/favorite_$id",
+            "${userId}/favorite_$id",
             false
         )
         binding?.imageFavorite?.setImageResource(if (isFavorite) R.drawable.select_favorite_heart else R.drawable.heart)

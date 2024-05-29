@@ -16,6 +16,7 @@ class FavoriteRepository @Inject constructor(
     fun getFavoriteItems(userId: String): LiveData<List<CoffeeResponseModel>> {
         val favoriteItemsLiveData = MutableLiveData<List<CoffeeResponseModel>>()
         val userRef = databaseReference.child("users").child(userId).child("favorite")
+
         userRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val favoriteList: MutableList<CoffeeResponseModel> = mutableListOf()

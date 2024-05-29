@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
 import com.example.coffeeapp.R
-import com.example.coffeeapp.helper.NetWorkUtils
+import com.example.coffeeapp.helper.NetWorkManager
 import com.example.coffeeapp.ui.dialogs.CustomDialog
 
 abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
@@ -27,8 +27,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
         get() = _binding
 
     protected abstract val viewModelClass: Class<out VM>
-    lateinit var netWorkUtils: NetWorkUtils
-    //  lateinit var progressBarUtil: ProgressBarUtil
+    private lateinit var netWorkManager: NetWorkManager
 
     protected val viewModel: VM by lazy {
         ViewModelProvider(this)[viewModelClass]
@@ -52,12 +51,12 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        netWorkUtils = NetWorkUtils()
+        netWorkManager = NetWorkManager()
         //  progressBarUtil = ProgressBarUtil(mContext, view as ViewGroup)
         setUpListeners()
         setUpObservers()
 
-        if (netWorkUtils.isInternetAvailable(mContext)) {
+        if (netWorkManager.isInternetAvailable(mContext)) {
             Log.d("agt", "There is an Internet connection ")
         } else {
             Log.d("agt", "No Internet connection ")
