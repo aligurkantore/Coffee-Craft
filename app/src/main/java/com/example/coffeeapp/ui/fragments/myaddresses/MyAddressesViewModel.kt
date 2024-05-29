@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.coffeeapp.base.BaseViewModel
 import com.example.coffeeapp.models.address.AddAddress
-import com.example.coffeeapp.usecase.MyAddressesUseCase
+import com.example.coffeeapp.usecase.address.MyAddressesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

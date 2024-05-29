@@ -1,8 +1,8 @@
-package com.example.coffeeapp.usecase
+package com.example.coffeeapp.usecase.payment
 
 import androidx.lifecycle.LiveData
 import com.example.coffeeapp.models.addCreditCard.AddCreditCard
-import com.example.coffeeapp.repository.PaymentInformationRepository
+import com.example.coffeeapp.repository.payment.PaymentInformationRepository
 import javax.inject.Inject
 
 class PaymentUseCase @Inject constructor(

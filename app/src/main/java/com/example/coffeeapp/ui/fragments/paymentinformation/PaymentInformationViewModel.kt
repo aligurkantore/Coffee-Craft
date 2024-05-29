@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.coffeeapp.base.BaseViewModel
 import com.example.coffeeapp.models.addCreditCard.AddCreditCard
-import com.example.coffeeapp.usecase.PaymentUseCase
+import com.example.coffeeapp.usecase.payment.PaymentUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

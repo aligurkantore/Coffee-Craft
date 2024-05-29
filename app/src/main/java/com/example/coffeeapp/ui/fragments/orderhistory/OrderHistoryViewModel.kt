@@ -4,13 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.coffeeapp.base.BaseViewModel
 import com.example.coffeeapp.models.order.OrderModel
-import com.example.coffeeapp.repository.OrderHistoryRepository
+import com.example.coffeeapp.usecase.orderHistory.OrderHistoryUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class OrderHistoryViewModel @Inject constructor(
-    private val orderHistoryRepository: OrderHistoryRepository
+    private val orderHistoryUseCase: OrderHistoryUseCase
 ) : BaseViewModel() {
 
     private val _orderHistoryLiveData = MutableLiveData<List<OrderModel>?>()
@@ -21,7 +21,7 @@ class OrderHistoryViewModel @Inject constructor(
     }
 
     private fun orderHistoryListener(userId: String){
-        orderHistoryRepository.getOrderHistoryList(userId).observeForever {
+        orderHistoryUseCase.getOrderHistory(userId).observeForever {
             _orderHistoryLiveData.postValue(it)
         }
     }

@@ -1,8 +1,8 @@
-package com.example.coffeeapp.usecase
+package com.example.coffeeapp.usecase.address
 
 import androidx.lifecycle.LiveData
 import com.example.coffeeapp.models.address.AddAddress
-import com.example.coffeeapp.repository.MyAddressesRepository
+import com.example.coffeeapp.repository.address.MyAddressesRepository
 import javax.inject.Inject
 
 class MyAddressesUseCase @Inject constructor(

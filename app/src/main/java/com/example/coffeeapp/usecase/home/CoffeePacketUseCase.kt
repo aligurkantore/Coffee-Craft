@@ -1,7 +1,7 @@
-package com.example.coffeeapp.usecase
+package com.example.coffeeapp.usecase.home
 
 import com.example.coffeeapp.models.coffeepacket.CoffeePacketResponse
-import com.example.coffeeapp.repository.CoffeePacketRepository
+import com.example.coffeeapp.repository.home.CoffeePacketRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

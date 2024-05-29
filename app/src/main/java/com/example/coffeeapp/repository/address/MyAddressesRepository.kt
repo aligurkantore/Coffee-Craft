@@ -1,4 +1,4 @@
-package com.example.coffeeapp.repository
+package com.example.coffeeapp.repository.address
 
 import android.util.Log
 import androidx.lifecycle.LiveData

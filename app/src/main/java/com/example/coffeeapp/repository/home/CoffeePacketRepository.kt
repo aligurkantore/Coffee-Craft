@@ -1,4 +1,4 @@
-package com.example.coffeeapp.repository
+package com.example.coffeeapp.repository.home
 
 import com.example.coffeeapp.models.coffeepacket.CoffeePacketResponse
 import com.example.coffeeapp.network.Service
