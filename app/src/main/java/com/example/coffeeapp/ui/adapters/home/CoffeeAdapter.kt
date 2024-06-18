@@ -1,6 +1,7 @@
 package com.example.coffeeapp.ui.adapters.home
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -49,8 +50,6 @@ class CoffeeAdapter(
             }
             imageAddToCart.setOnClickListener { addToCart.invoke(coffeeList) }
 
-            updateFavoriteState(coffeeList.id, holder)
-
             val isFavorite =
                 if (isLoggedIn) {
                     BaseShared.getBoolean(context, "${userId}/favorite_${coffeeList.id}", false)
@@ -69,7 +68,7 @@ class CoffeeAdapter(
                 else toggleFavorite.invoke(coffeeList, false)
             }
 
-
+            updateFavoriteState(coffeeList.id, holder)
         }
     }
 
@@ -82,6 +81,8 @@ class CoffeeAdapter(
         holder.binding.imageFavorite.setImageResource(
             if (isFavorite) R.drawable.select_favorite_heart else R.drawable.heart
         )
+
+        Log.d("agt", "updateFavoriteState: $isFavorite")
     }
 
     fun updateCoffeeList(newCoffeeList: List<CoffeeResponseModel>) {

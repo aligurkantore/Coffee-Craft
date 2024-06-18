@@ -17,7 +17,6 @@ import com.example.coffeeapp.ui.adapters.profile.LanguageAdapter
 import com.example.coffeeapp.ui.adapters.profile.ProfileCategoryAdapter
 import com.example.coffeeapp.ui.dialogs.CustomDialog
 import com.example.coffeeapp.util.CoffeeUtil
-import com.example.coffeeapp.util.Constants.Companion.CATEGORY_NAME
 import com.example.coffeeapp.util.Constants.Companion.DE
 import com.example.coffeeapp.util.Constants.Companion.EMAIL
 import com.example.coffeeapp.util.Constants.Companion.EN
@@ -28,10 +27,15 @@ import com.example.coffeeapp.util.changeLanguage
 import com.example.coffeeapp.util.goneIf
 import com.example.coffeeapp.util.navigateSafe
 import com.example.coffeeapp.util.visibleIf
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>() {
 
-    private lateinit var coffeeUtil: CoffeeUtil
+    @Inject
+    lateinit var coffeeUtil: CoffeeUtil
+
     private lateinit var profileCategoryAdapter: ProfileCategoryAdapter
     private lateinit var languageAdapter: LanguageAdapter
     private var dialog: Dialog? = null
@@ -80,14 +84,13 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>()
             categories,
             object : ProfileCategoryAdapter.ItemClickCategoryListener {
                 override fun onClickListener(categoryName: String, position: Int) {
-                    BaseShared.saveString(mContext, CATEGORY_NAME, categoryName)
                     val actionId = when {
                         position == 0 -> R.id.action_profileFragment_to_myAddressesFragment
                         position == 1 -> R.id.action_profileFragment_to_orderHistoryFragment
                         position == 2 -> R.id.action_profileFragment_to_cartFragment
                         position == 3 -> R.id.action_profileFragment_to_favoriteFragment
                         position == 4 -> R.id.action_profileFragment_to_paymentInformationFragment
-                        isLoggedIn && position == 8 -> {
+                        isLoggedIn && position == 7 -> {
                             showLogoutDialog()
                             return
                         }
@@ -98,7 +101,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>()
                         }
 
                         else -> {
-                            R.id.action_profileFragment_to_categoryDetailFragment
+                            R.id.action_profileFragment_to_aboutTheApplicationFragment
                         }
                     }
                     navigateSafe(actionId)

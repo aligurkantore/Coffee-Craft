@@ -23,6 +23,7 @@ import com.example.coffeeapp.util.Constants.Companion.RECYCLER_VIEW_TYPE
 import com.example.coffeeapp.util.goneIf
 import com.example.coffeeapp.util.navigateSafe
 import com.example.coffeeapp.util.navigateSafeWithArgs
+import com.example.coffeeapp.util.observeStateFlow
 import com.example.coffeeapp.util.setupKeyboardHidingOnTouch
 import com.example.coffeeapp.util.visibleIf
 import dagger.hilt.android.AndroidEntryPoint
@@ -57,8 +58,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
     override fun setUpObservers() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.packetFlow.collect {
-                it?.let {
+            viewModel.packetFlow.observeStateFlow(viewLifecycleOwner) { response ->
+                response?.let {
                     setUpCoffeePacketAdapter(it)
                 }
             }

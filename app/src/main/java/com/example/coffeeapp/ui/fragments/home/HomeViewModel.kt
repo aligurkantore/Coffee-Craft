@@ -27,12 +27,15 @@ class HomeViewModel @Inject constructor(
 
     private fun getCoffeePacket(){
         viewModelScope.launch {
+          //  setLoading(true)
             try {
                 coffeePacketUseCase.getCoffeePacket().collect { response ->
                     _packetFlow.value = response
                 }
             } catch (e: Exception) {
                 Log.d("agt", "getCoffeePacket: ${e.message}")
+            }finally {
+            //    setLoading(false)
             }
         }
     }
