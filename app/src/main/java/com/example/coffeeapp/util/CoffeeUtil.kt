@@ -487,6 +487,12 @@ class CoffeeUtil @Inject constructor() {
         val profileCategoryList = mutableListOf<Category>()
         profileCategoryList.add(
             Category(
+                R.drawable.personel_information,
+                context.getString(R.string.personel_information)
+            )
+        )
+        profileCategoryList.add(
+            Category(
                 R.drawable.location,
                 context.getString(R.string.my_addresses)
             )
@@ -535,6 +541,23 @@ class CoffeeUtil @Inject constructor() {
             )
         )
         return profileCategoryList
+    }
+
+    fun getPersonelInformationCategoryList(context: Context): List<Category> {
+        val personelInformationCategoryList = mutableListOf<Category>()
+        personelInformationCategoryList.add(
+            Category(
+                null,
+                context.getString(R.string.account_information)
+            )
+        )
+        personelInformationCategoryList.add(
+            Category(
+                null,
+                context.getString(R.string.change_password)
+            )
+        )
+        return personelInformationCategoryList
     }
 
     fun getLanguageList(context: Context): List<Language> {

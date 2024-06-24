@@ -7,6 +7,7 @@ class Constants {
         const val PREFS_NAME = "BasePrefs"
         const val DETAIL = "detail"
         const val LANG = "lang"
+        const val NAME = "name"
         const val EMAIL = "email"
         const val SELECTED_LANGUAGE_POSITION = "selectedLanguagePosition"
         const val RECYCLER_VIEW_TYPE = "recyclerViewType"

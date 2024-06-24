@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
 import com.example.coffeeapp.R
 import com.example.coffeeapp.helper.NetWorkManager
@@ -27,7 +26,6 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
     protected val binding: VB?
         get() = _binding
 
-    private val progressBar by lazy { ProgressBar() }
     protected abstract val viewModelClass: Class<out VM>
     private lateinit var netWorkManager: NetWorkManager
 
@@ -57,7 +55,6 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
         setUpListeners()
         setUpObservers()
         checkNetWork()
-      //  observeLoadingState()
     }
 
     private fun checkNetWork(){
@@ -69,17 +66,6 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
         }
     }
 
-    private fun observeLoadingState() {
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.isLoading.collect { isLoading ->
-                if (isLoading) {
-                    progressBar.show(childFragmentManager)
-                } else {
-                    progressBar.hide()
-                }
-            }
-        }
-    }
 
 
     private fun showNoInternetDialog() {

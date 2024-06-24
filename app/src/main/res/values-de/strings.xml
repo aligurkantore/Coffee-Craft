@@ -104,6 +104,7 @@
     <string name="quantity">Menge: %1$s</string>
     <string name="total_price">Gesamtpreis: %1$s</string>
     <string name="empty_order_history">Ihre Bestellhistorie ist leer.</string>
+    <string name="order_detail_deleted">Bestelldetail gelöscht!</string>
 
 
     <!--- Cart -->
@@ -168,6 +169,9 @@
     <string name="card_number">Kartennummer</string>
     <string name="card_expiration_date">Kartenablaufdatum</string>
     <string name="fill_in_all_fields">Füllen Sie alle Felder aus</string>
+    <string name="credit_card_added">Kreditkarte hinzugefügt!</string>
+    <string name="credit_card_deleted">Kreditkarte gelöscht!</string>
+
 
 
     <!-- Profile -->
@@ -195,6 +199,7 @@
     <string name="add_new_address">Neue Adresse hinzufügen</string>
     <string name="no_address_record">Sie haben noch keine Adressaufzeichnung erstellt</string>
     <string name="continue_with_address">Weiter mit Adresse</string>
+    <string name="address_deleted">Adresse gelöscht!</string>
 
 
 
@@ -205,6 +210,13 @@
     <string name="receiver_phone_number">Empfänger Telefonnummer</string>
     <string name="add_to_address_book">Zum Adressbuch hinzufügen</string>
     <string name="your_location">Ihr Standort</string>
+    <string name="address_added">Adresse hinzugefügt!</string>
+
+
+
+    <!--- Account Information -->
+    <string name="account_information">Kontoinformationen</string>
+
 
 
     <!--- About The App -->

@@ -2,20 +2,10 @@ package com.example.coffeeapp.base
 
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-
 abstract class BaseViewModel : ViewModel() {
 
     val auth = FirebaseAuth.getInstance()
     val userId = auth.currentUser?.uid
-
-    private val _isLoading = MutableStateFlow(false)
-    val isLoading: StateFlow<Boolean> get() = _isLoading
-
-    protected fun setLoading(isLoading: Boolean) {
-        _isLoading.value = isLoading
-    }
 
     fun isLoggedIn(): Boolean {
         val currentUser = auth.currentUser

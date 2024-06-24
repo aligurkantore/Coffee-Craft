@@ -56,6 +56,7 @@ class AddAddressFragment : BaseFragment<FragmentAddAddressBinding, AddAddressVie
                 if (name.isNotEmpty() && phoneNumber.isNotEmpty() && addressInformation.isNotEmpty()) {
                     FireBaseDataManager.addAddress(address)
                     navigateSafe(R.id.action_addAddressFragment_to_myAddressesFragment)
+                    showMessage(mContext,getString(R.string.address_added))
                 } else showMessage(mContext, getString(R.string.please_fill_all_fields))
 
             }

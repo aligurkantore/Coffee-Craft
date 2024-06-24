@@ -16,6 +16,7 @@ import com.example.coffeeapp.ui.adapters.address.MyAddressesAdapter
 import com.example.coffeeapp.util.goneIf
 import com.example.coffeeapp.util.navigateSafe
 import com.example.coffeeapp.util.observeNonNull
+import com.example.coffeeapp.util.showMessage
 import com.example.coffeeapp.util.visible
 import com.example.coffeeapp.util.visibleIf
 import dagger.hilt.android.AndroidEntryPoint
@@ -92,6 +93,7 @@ class MyAddressesFragment : BaseFragment<FragmentMyAddressesBinding, MyAddresses
         addressAdapter = MyAddressesAdapter(data, object : MyAddressesAdapter.ClickDeleteListener {
             override fun deleteListener(data: AddAddress) {
                 FireBaseDataManager.deleteAddressData(data)
+                showMessage(mContext,getString(R.string.address_deleted))
             }
 
         }) {

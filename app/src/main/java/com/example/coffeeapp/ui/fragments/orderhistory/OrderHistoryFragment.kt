@@ -15,6 +15,7 @@ import com.example.coffeeapp.util.gone
 import com.example.coffeeapp.util.goneIf
 import com.example.coffeeapp.util.navigateSafe
 import com.example.coffeeapp.util.observeNonNull
+import com.example.coffeeapp.util.showMessage
 import com.example.coffeeapp.util.visibleIf
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -75,6 +76,7 @@ class OrderHistoryFragment : BaseFragment<FragmentOrderHistoryBinding, OrderHist
 
     private fun deleteItemInAdapter(data: OrderModel) {
         FireBaseDataManager.removeFromOrderHistory(mContext, data.orderId)
+        showMessage(mContext,getString(R.string.order_detail_deleted))
     }
 
     private fun setUIView(isVisible: Boolean) {

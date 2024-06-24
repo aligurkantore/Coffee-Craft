@@ -15,6 +15,7 @@ import com.example.coffeeapp.util.gone
 import com.example.coffeeapp.util.goneIf
 import com.example.coffeeapp.util.navigateSafe
 import com.example.coffeeapp.util.observeNonNull
+import com.example.coffeeapp.util.showMessage
 import com.example.coffeeapp.util.visible
 import com.example.coffeeapp.util.visibleIf
 import dagger.hilt.android.AndroidEntryPoint
@@ -162,6 +163,7 @@ class PaymentInformationFragment :
             negativeButtonText = getString(R.string.no),
             positiveButtonClickListener = {
                 deleteCreditCard()
+                showMessage(mContext,getString(R.string.credit_card_deleted))
             }
         ).show()
     }

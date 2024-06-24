@@ -60,17 +60,7 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel>() {
                         setUpCartAdapter(list)
                         cartItems.clear()
                         cartItems.addAll(list)
-
-                        val totalPrice = cartItems.sumByDouble {
-                            val count =
-                                BaseShared.getInt(mContext, "${viewModel.userId}/count_${it.id}", 1)
-                            (it.price)?.times(count) ?: 0.0
-                        }
-                        val formattedPrice =
-                            mContext.getString(R.string.price_format, totalPrice)
-                        binding?.textPrice?.text = formattedPrice
-
-                        cartAdapter?.notifyDataSetChanged()
+                        updateTotalPrice()
                     }
                 } else clearCart()
 
@@ -93,10 +83,7 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel>() {
             ::navigateToDetail,
             object : CartAdapter.TotalPriceListener {
                 override fun onTotalPriceUpdated(totalPrice: String, count: Int) {
-                    val formattedPrice =
-                        mContext.getString(R.string.price_format, totalPrice.toDouble())
-                    binding?.textPrice?.text = formattedPrice
-                    BaseShared.saveString(mContext, "totalPrice", formattedPrice)
+                    updateTotalPrice()
                 }
             },
             ::showDeleteItemCart
@@ -185,6 +172,17 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel>() {
         cartItems.clear()
         cartAdapter?.notifyDataSetChanged()
         setUIView(false)
+    }
+
+    private fun updateTotalPrice() {
+        val totalPrice = cartItems.sumByDouble {
+            val count =
+                BaseShared.getInt(mContext, "${viewModel.userId}/count_${it.id}", 1)
+            (it.price)?.times(count) ?: 0.0
+        }
+        val formattedPrice = mContext.getString(R.string.price_format, totalPrice)
+        binding?.textPrice?.text = formattedPrice
+        BaseShared.saveString(mContext, "totalPrice", formattedPrice)
     }
 
     override fun onPause() {

@@ -66,6 +66,7 @@ class CoffeeAdapter(
                 notifyItemChanged(position)
                 if (isLoggedIn) toggleFavorite.invoke(coffeeList, true)
                 else toggleFavorite.invoke(coffeeList, false)
+                updateFavoriteState(coffeeList.id, holder)
             }
 
             updateFavoriteState(coffeeList.id, holder)

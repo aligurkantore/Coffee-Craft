@@ -10,6 +10,7 @@ import com.example.coffeeapp.base.BaseShared
 import com.example.coffeeapp.databinding.FragmentRegisterBinding
 import com.example.coffeeapp.models.login.Register
 import com.example.coffeeapp.util.Constants.Companion.EMAIL
+import com.example.coffeeapp.util.Constants.Companion.NAME
 import com.example.coffeeapp.util.navigateSafe
 import com.example.coffeeapp.util.observeNonNull
 import com.example.coffeeapp.util.setupKeyboardHidingOnTouch
@@ -44,6 +45,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterViewModel
                 val confirmPassword = editTextConfirmPassword.text.toString()
                 val register = Register(name, email, password, confirmPassword)
                 viewModel.registerUser(register)
+                BaseShared.saveString(mContext, NAME, name)
                 BaseShared.saveString(mContext, EMAIL, email)
             }
 

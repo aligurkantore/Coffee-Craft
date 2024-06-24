@@ -11,7 +11,7 @@ import com.example.coffeeapp.R
 import com.example.coffeeapp.base.BaseFragment
 import com.example.coffeeapp.base.BaseShared
 import com.example.coffeeapp.databinding.FragmentProfileBinding
-import com.example.coffeeapp.models.coffee.CoffeeResponseModel
+import com.example.coffeeapp.helper.FireBaseDataManager.userId
 import com.example.coffeeapp.models.profile.LanguageModel
 import com.example.coffeeapp.ui.adapters.profile.LanguageAdapter
 import com.example.coffeeapp.ui.adapters.profile.ProfileCategoryAdapter
@@ -39,7 +39,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>()
     private lateinit var profileCategoryAdapter: ProfileCategoryAdapter
     private lateinit var languageAdapter: LanguageAdapter
     private var dialog: Dialog? = null
-    private lateinit var data: CoffeeResponseModel
 
     override val viewModelClass: Class<out ProfileViewModel>
         get() = ProfileViewModel::class.java
@@ -53,7 +52,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        data = CoffeeResponseModel()
         coffeeUtil = CoffeeUtil()
         setProfileCategoryAdapter()
         isUserLoggedIn(viewModel.isLoggedIn())
@@ -61,9 +59,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>()
 
     override fun setUpListeners() {
         viewBindingScope {
-            textChangePassword.setOnClickListener {
-                navigateSafe(R.id.action_profileFragment_to_changePasswordFragment)
-            }
             buttonLogin.setOnClickListener {
                 navigateSafe(R.id.action_profileFragment_to_loginFragment)
             }
@@ -77,7 +72,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>()
 
         val allCategories = coffeeUtil.getProfileCategoryList(mContext)
         val notLoggedInCustomer =
-            allCategories.filterIndexed { it, _ -> listOf(0, 1, 2, 3, 4, 5).contains(it) }
+            allCategories.filterIndexed { it, _ -> listOf(1, 2, 3, 4, 5, 6).contains(it) }
         val isLoggedIn = viewModel.isLoggedIn()
         val categories = if (isLoggedIn) allCategories else notLoggedInCustomer
         profileCategoryAdapter = ProfileCategoryAdapter(
@@ -85,17 +80,19 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>()
             object : ProfileCategoryAdapter.ItemClickCategoryListener {
                 override fun onClickListener(categoryName: String, position: Int) {
                     val actionId = when {
-                        position == 0 -> R.id.action_profileFragment_to_myAddressesFragment
-                        position == 1 -> R.id.action_profileFragment_to_orderHistoryFragment
-                        position == 2 -> R.id.action_profileFragment_to_cartFragment
-                        position == 3 -> R.id.action_profileFragment_to_favoriteFragment
-                        position == 4 -> R.id.action_profileFragment_to_paymentInformationFragment
-                        isLoggedIn && position == 7 -> {
+                        (isLoggedIn && position == 0) -> R.id.action_profileFragment_to_personelInformationFragment
+                        (isLoggedIn && position == 1) || (!isLoggedIn && position == 0) -> R.id.action_profileFragment_to_myAddressesFragment
+                        (isLoggedIn && position == 2) || (!isLoggedIn && position == 1) -> R.id.action_profileFragment_to_orderHistoryFragment
+                        (isLoggedIn && position == 3) || (!isLoggedIn && position == 2) -> R.id.action_profileFragment_to_cartFragment
+                        (isLoggedIn && position == 4) || (!isLoggedIn && position == 3) -> R.id.action_profileFragment_to_favoriteFragment
+                        (isLoggedIn && position == 5) || (!isLoggedIn && position == 4) -> R.id.action_profileFragment_to_paymentInformationFragment
+
+                        isLoggedIn && position == 8 -> {
                             showLogoutDialog()
                             return
                         }
 
-                        position == 5 -> {
+                        (isLoggedIn && position == 6) || (!isLoggedIn && position == 5) -> {
                             showLanguagePopUp()
                             return
                         }
@@ -191,10 +188,19 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>()
             getString(R.string.no),
             positiveButtonClickListener = {
                 viewModel.auth.signOut()
+                clearFavorites()
                 BaseShared.removeKey(mContext, EMAIL)
                 requireActivity().recreate()
             }
         ).show()
+    }
+
+    private fun clearFavorites() {
+        val allFavorites =
+            coffeeUtil.getCoffeeList(mContext) // Bu yöntem favori öğelerinizi döndürecek şekilde tasarlanmalı
+        allFavorites.forEach { coffeeItem ->
+            BaseShared.removeKey(mContext, "${userId}/favorite_${coffeeItem.id}")
+        }
     }
 
 

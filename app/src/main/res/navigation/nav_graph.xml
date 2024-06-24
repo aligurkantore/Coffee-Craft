@@ -80,6 +80,9 @@
         <action
             android:id="@+id/action_profileFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_personelInformationFragment"
+            app:destination="@id/personelInformationFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
@@ -206,4 +209,21 @@
             android:id="@+id/action_myAddressesFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/personelInformationFragment"
+        android:name="com.example.coffeeapp.ui.fragments.personelinformation.PersonelInformationFragment"
+        android:label="@string/personel_information"
+        tools:layout="@layout/fragment_personel_information">
+        <action
+            android:id="@+id/action_personelInformationFragment_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment" />
+        <action
+            android:id="@+id/action_personelInformationFragment_to_accountInformationFragment"
+            app:destination="@id/accountInformationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/accountInformationFragment"
+        android:name="com.example.coffeeapp.ui.fragments.accountinformation.AccountInformationFragment"
+        android:label="@string/account_information"
+        tools:layout="@layout/fragment_account_information" />
 </navigation>

@@ -102,6 +102,7 @@
     <string name="quantity">Quantity: %1$s</string>
     <string name="total_price">Total Price: %1$s</string>
     <string name="empty_order_history">Your order history is empty.</string>
+    <string name="order_detail_deleted">Order detail deleted!</string>
 
 
     <!-- Cart -->
@@ -164,6 +165,9 @@
     <string name="card_number">Card Number</string>
     <string name="card_expiration_date">Card Expiration Date</string>
     <string name="fill_in_all_fields">Fill in All Fields</string>
+    <string name="credit_card_added">Credit card added!</string>
+    <string name="credit_card_deleted">Credit card deleted!</string>
+
 
 
     <!-- Profile -->
@@ -191,6 +195,8 @@
     <string name="add_new_address">Add New Address</string>
     <string name="no_address_record">You haven\'t created an address record yet</string>
     <string name="continue_with_address">Continue with Address</string>
+    <string name="address_added">Address added!</string>
+    <string name="address_deleted">Address deleted!</string>
 
 
     <!--- Add Address -->
@@ -200,12 +206,13 @@
     <string name="add_to_address_book">Add to Address Book</string>
     <string name="your_location">Your Location</string>
 
+    <!--- Account Information -->
+    <string name="account_information">Account Information</string>
+
 
     <!--- About The App -->
     <string name="about_app">About The App</string>
     <string name="app_description">Coffee Craft is a mobile application designed for coffee enthusiasts. It offers a wide coffee menu and allows users to easily place orders. It\'s an ideal app to explore different coffee varieties and enjoy delicious coffees. Also, it provides special discounts and promotions.</string>
-
-
 
 
     <!--- Forgot Password -->

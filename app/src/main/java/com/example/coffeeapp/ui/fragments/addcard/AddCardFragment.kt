@@ -36,6 +36,7 @@ class AddCardFragment :
                 if (cardName.isNotEmpty()  && cardNumber.isNotEmpty() && cardExpirationDate.isNotEmpty()) {
                     FireBaseDataManager.addCreditCard(creditCard)
                     navigateSafe(R.id.action_addCardFragment_to_paymentInformationFragment)
+                    showMessage(mContext,getString(R.string.credit_card_added))
                 } else {
                     showMessage(mContext,getString(R.string.fill_in_all_fields))
                 }

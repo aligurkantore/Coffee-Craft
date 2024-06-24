@@ -6,8 +6,6 @@ data class OrderModel(
     val orderId: String = "",
     val orderDate: Long = 0L,
     val orderTotal: Double = 0.0,
+    val count: Int= 1,
     val coffeeList: List<CoffeeResponseModel> = listOf()
-){
-    val totalPrice: Double
-        get() = coffeeList.sumByDouble { (it.price?.times(it.count)) ?: 0.0 }
-}
+)

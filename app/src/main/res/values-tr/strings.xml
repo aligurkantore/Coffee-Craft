@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">KahveZanaatı</string>
+    <string name="app_name">Kahve Zanaatı</string>
     <string name="hello_blank_fragment">Merhaba boş fragman</string>
 
     <!--- Main Activity -->
@@ -106,6 +106,7 @@
     <string name="quantity">Miktar: %1$s</string>
     <string name="total_price">Toplam Fiyat:  %1$s</string>
     <string name="empty_order_history">Sipariş Geçmişiniz bulunmamaktadır.</string>
+    <string name="order_detail_deleted">Sipariş Detayı Silindi!</string>
 
 
     <!-- Cart -->
@@ -170,10 +171,12 @@
 
     <!--- Add Card -->
     <string name="add_card">Kart Ekle</string>
-    <string name="name_the_card">Kartı İsimsiz Olarak Kaydet</string>
+    <string name="name_the_card">Kart Sahibi Adı</string>
     <string name="card_number">Kart Numarası</string>
     <string name="card_expiration_date">Kart Son Kullanma Tarihi</string>
     <string name="fill_in_all_fields">Tüm Alanları Doldurun</string>
+    <string name="credit_card_added">Kredi Kartı eklendi!</string>
+    <string name="credit_card_deleted">Kredi Kartı Silindi!</string>
 
 
 
@@ -202,6 +205,7 @@
     <string name="add_new_address">Yeni Adres Ekle</string>
     <string name="no_address_record">Henüz bir adres kaydı oluşturmadınız</string>
     <string name="continue_with_address">Adresle Devam Et</string>
+    <string name="address_deleted">Adres Silindi!</string>
 
 
 
@@ -211,7 +215,12 @@
     <string name="receiver_phone_number">Alıcı Telefon Numarası</string>
     <string name="add_to_address_book">Adres Defterime Ekle</string>
     <string name="your_location">Konumunuz</string>
+    <string name="address_added">Adres eklendi!</string>
 
+
+
+    <!--- Account Information -->
+    <string name="account_information">Hesap Bilgileri</string>
 
     <!--- About The App -->
     <string name="about_app">Uygulama Hakkında</string>

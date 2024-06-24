@@ -1,6 +1,7 @@
 package com.example.coffeeapp.ui.adapters.orderhistory
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.coffeeapp.R
 import com.example.coffeeapp.base.BaseShared
 import com.example.coffeeapp.databinding.ItemOrderHistoryBinding
+import com.example.coffeeapp.helper.FireBaseDataManager
 import com.example.coffeeapp.models.order.OrderModel
 import com.example.coffeeapp.util.formatDate
 import com.example.coffeeapp.util.generateRandomKey
@@ -43,8 +45,17 @@ class OrderHistoryAdapter(
             textOrderId.text = context.getString(R.string.order_id, generateRandomKey(8))
             textOrderDate.text = context.getString(R.string.order_date, formattedDate)
 
-            val totalPrice = BaseShared.getString(context, "totalPrice", "")
-            textOrderTotal.text = context.getString(R.string.total_price, totalPrice)
+            val count = BaseShared.getInt(
+                context,
+                "${FireBaseDataManager.userId}/count_${orderHistory.coffeeList.first().id}",
+                0
+            )
+            Log.d("test", "onBindViewHolder: $count")
+
+            val formattedPrice =
+                context.getString(R.string.price_format, orderHistory.orderTotal * count)
+            textOrderTotal.text = context.getString(R.string.total_price, formattedPrice)
+
             val orderDetailsAdapter = OrderHistoryDetailAdapter(context, orderHistory.coffeeList)
             recyclerViewOrderHistoryItem.apply {
                 adapter = orderDetailsAdapter
